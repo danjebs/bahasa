@@ -1,0 +1,24 @@
+<main id="<%= dom_id @lesson %>" class="container mx-auto">
+  <div class="mx-auto">
+    <% if notice.present? %>
+      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice">
+        <%= notice %>
+      </p>
+    <% end %>
+
+    <%= link_to lessons_path, class: "py-3 font-medium" do %>
+      < Back to Lessons
+    <% end %>
+
+    <div class="flex justify-between items-center w-full p-4 border-b border-solid border-gray-200">
+      <h1>
+        <div class="text-lg font-medium text-gray-400">
+          Lesson
+        </div>
+        <%= @lesson.title %>
+      </h1>
+    </div>
+
+    <%= render @lesson %>
+  </div>
+</div>

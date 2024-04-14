@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class DeviseCreateUsers < ActiveRecord::Migration[7.1]
-  def change
+  def up
     execute <<-SQL
-      CREATE TYPE user_role AS ENUM ('user', 'admin');
+      CREATE TYPE user_role AS ENUM ('student', 'teacher', 'admin');
     SQL
 
     create_table :users do |t|
@@ -26,5 +26,13 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.1]
 
     add_index :users, :email,                unique: true
     add_index :users, :reset_password_token, unique: true
+  end
+
+  def down
+    drop_table :users
+
+    execute <<-SQL
+      DROP TYPE user_role;
+    SQL
   end
 end

@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   #
+  scope "/:lang/" do
+    resources :lessons, except: :destroy
+  end
 
   devise_for :users,
     skip: [:sessions],
