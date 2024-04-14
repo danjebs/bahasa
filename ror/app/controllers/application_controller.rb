@@ -4,10 +4,10 @@ class ApplicationController < ActionController::Base
   before_action :set_lang
   protect_from_forgery with: :exception
 
-  unless Rails.application.config.consider_all_requests_local
-    after_action :verify_authorized, except: :index, unless: :devise_controller?
-    # after_action :verify_policy_scoped, only: :index
+  after_action :verify_authorized, unless: :devise_controller?
+  # after_action :verify_policy_scoped, only: :index
 
+  unless Rails.application.config.consider_all_requests_local
     rescue_from ActionController::RoutingError, with: :render_404
     rescue_from ActionController::UnknownController, with: :render_404
     rescue_from ActiveRecord::RecordNotFound, with: :render_404

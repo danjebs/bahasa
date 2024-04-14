@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   #
   scope "/:lang/" do
     resources :lessons, except: :destroy
+    resources :exercises, except: :destroy
+    resources :wordlist_exercises, except: :destroy
+    resources :wordlists, except: :destroy
   end
 
   devise_for :users,

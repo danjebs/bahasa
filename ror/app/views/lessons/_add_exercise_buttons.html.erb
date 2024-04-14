@@ -1,0 +1,9 @@
+<%= turbo_frame_tag "new_exercise_frame" do %>
+  <div>
+    <%= link_to "Add Wordlist",
+      new_exercise_path(lesson_id: lesson.id),
+      class: "ml-2 rounded-lg py-3 px-5 bg-red-600 text-white inline-block font-medium",
+      data: { turbo_frame: "new_exercise_frame" }
+    %>
+  </div>
+<% end %>

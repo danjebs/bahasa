@@ -1,14 +1,21 @@
-<section>
-  <div class="flex justify-between items-center w-full p-4 last:border-none border-b border-solid border-gray-200">
-    <%= turbo_frame_tag "lesson_frame", class: "flex w-full justify-between" do %>
-      <h2>
-        Intro
-      </h2>
-      <%= link_to edit_lesson_path(@lesson), data: { turbo_frame: "lesson_frame" } do %>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-        </svg>
-      <% end %>
+<div class="flex justify-between items-center w-full p-4 last:border-none border-b border-solid border-gray-200">
+  <%= turbo_frame_tag "lesson_details", class: "flex w-full justify-between" do %>
+    <h2>
+      Intro
+    </h2>
+    <%= link_to edit_lesson_path(@lesson), data: { turbo_frame: "lesson_details" } do %>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+      </svg>
     <% end %>
-  </div>
-</section>
+  <% end %>
+</div>
+
+<div class="p-4">
+  <%= turbo_frame_tag "exercises_list_frame" do %>
+    <% @lesson.exercises.each do |exercise| %>
+      <%= render "exercises/exercise", exercise: exercise %>
+    <% end %>
+  <% end %>
+  <%= render "add_exercise_buttons", lesson: @lesson %>
+</div>

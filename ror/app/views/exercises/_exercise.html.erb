@@ -1,0 +1,9 @@
+<% if exercise.type == "WordlistExercise" %>
+  <%= render "wordlist_exercises/wordlist_exercise", wordlist_exercise: exercise %>
+<% else %>
+  <div id="<%= dom_id exercise %>">
+    <p class="my-5">
+      GENERIC EXERCISE DETECTED!!
+    </p>
+  </div>
+<% end %>
