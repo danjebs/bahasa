@@ -5,7 +5,6 @@ class CreateExercises < ActiveRecord::Migration[7.1]
       t.string :title
       t.string :type
       t.integer :position
-      t.references :wordlist, null: true, foreign_key: true
 
       t.timestamps
     end

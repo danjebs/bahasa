@@ -14,7 +14,7 @@ class ExercisesController < ApplicationController
   def new
     authorize Exercise
 
-    @exercise = Exercise.new
+    @exercise = Exercise.new(lesson_id: params[:lesson_id])
   end
 
   # def edit

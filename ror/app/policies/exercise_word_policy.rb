@@ -1,4 +1,4 @@
-class LessonPolicy < ApplicationPolicy
+class ExerciseWordPolicy < ApplicationPolicy
   def index?
     user&.role_is_admin?
   end

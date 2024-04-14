@@ -1,5 +1,28 @@
-<div id="<%= dom_id wordlist_exercise %>">
-  <p class="my-5">
-    <%= wordlist_exercise.title %>
-  </p>
+<div id="<% dom_id(wordlist_exercise) %>" class="p-4 border-b border-solid border-gray-200">
+  <div class="flex justify-between items-center w-full">
+    <h2>
+      <div class="text-base font-medium text-gray-400">
+        Word List
+      </div>
+      <%= wordlist_exercise.title %>
+    </h2>
+  </div>
+
+  <div class="flex w-full font-semibold bg-gray-50">
+    <div class="w-36 py-2 px-3">
+      English
+    </div>
+    <div class="w-36 py-2 px-3">
+      Indonesian
+    </div>
+    <div class="">
+    </div>
+  </div>
+
+  <%= turbo_frame_tag "#{dom_id(wordlist_exercise)}_list_frame" do %>
+    <%= render wordlist_exercise.words %>
+  <% end %>
+
+  <%= render "wordlist_exercises/add_word_buttons", wordlist_exercise: wordlist_exercise %>
+
 </div>

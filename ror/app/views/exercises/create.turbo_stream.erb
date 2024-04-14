@@ -1,10 +1,10 @@
 <% if @exercise.errors.any? %>
   <%= turbo_stream.replace "new_exercise_frame" do %>
-    <% render "form", exercise: @exercise, lesson_id: 1 %>
+    <% render "new", exercise: @exercise, lesson_id: @exercise.lesson_id %>
   <% end %>
 <% else %>
   <%= turbo_stream.append "exercises_list_frame" do %>
-    <%= render "exercise", exercise: Exercise.last %>
+    <%= render @exercise %>
   <% end %>
   <%= turbo_stream.replace "new_exercise_frame" do %>
     <%= render "lessons/add_exercise_buttons", lesson: @exercise.lesson %>

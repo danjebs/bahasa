@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     resources :lessons, except: :destroy
     resources :exercises, except: :destroy
     resources :wordlist_exercises, except: :destroy
-    resources :wordlists, except: :destroy
+    resources :exercise_words
   end
 
   devise_for :users,

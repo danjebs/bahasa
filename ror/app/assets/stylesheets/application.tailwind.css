@@ -3,8 +3,16 @@
 @tailwind utilities;
 
 @layer components {
+  h1, h2, h3, h4 {
+    @apply text-red-600 mb-2;
+  }
+
   h1 {
-    @apply text-3xl font-bold text-red-600;
+    @apply text-3xl font-bold;
+  }
+
+  h2 {
+    @apply text-2xl font-bold;
   }
 }
 

@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  exercise: one
+  word: MyString
+  translation: MyString
+  position: 1
+
+two:
+  exercise: two
+  word: MyString
+  translation: MyString
+  position: 1
