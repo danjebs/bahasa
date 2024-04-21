@@ -1,9 +1,25 @@
-<section id="<%= dom_id exercise %>">
-  <% if exercise.type == "WordlistExercise" %>
-    <%= render "wordlist_exercises/wordlist_exercise", wordlist_exercise: exercise %>
-  <% else %>
-    <p class="my-5">
-      GENERIC EXERCISE DETECTED!!
-    </p>
-  <% end %>
-</div>
+<section id="<%= dom_id exercise %>" data-controller="exercise" class="md:p-4 border-b border-solid border-gray-200 md:border md:shadow-md md:rounded-md md:mb-6">
+  <div class="flex justify-between items-center w-full">
+    <h2>
+      <div class="text-base font-medium text-gray-400">
+        <%= exercise.type %>
+      </div>
+        <%= exercise.title %>
+    </h2>
+    <div class="flex">
+      <button data-action="click->exercise#toggleOpen">
+        Open
+      </button>
+    </div>
+  </div>
+
+  <div data-exercise-target="collapsible">
+    <% if exercise.type == "WordlistExercise" %>
+      <%= render "wordlist_exercises/wordlist_exercise", wordlist_exercise: exercise %>
+    <% else %>
+      <p class="my-5">
+        GENERIC EXERCISE DETECTED!!
+      </p>
+    <% end %>
+  </div>
+</section>
