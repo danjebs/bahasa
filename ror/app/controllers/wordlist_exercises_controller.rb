@@ -21,23 +21,22 @@ class WordlistExercisesController < ApplicationController
     authorize @wordlist_exercise
   end
 
-  # def create
-  #   authorize WordlistExercise
+  def create
+    authorize WordlistExercise
 
-  #   @wordlist_exercise = WordlistExercise.new(wordlist_exercise_params)
+    @wordlist_exercise = WordlistExercise.new(wordlist_exercise_params)
 
-  #   respond_to do |format|
-  #     if @wordlist_exercise.save
-  #       format.turbo_stream { render turbo_stream: turbo_stream }
-  #       format.html { redirect_to exercise_url(@wordlist_exercise), notice: "Wordlist Exercise was successfully created." }
-  #       format.json { render :show, status: :created, location: @wordlist_exercise }
-  #     else
-  #       # TODO what about format.turbo_stream?
-  #       format.html { render :new, status: :unprocessable_entity }
-  #       format.json { render json: @wordlist_exercise.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
+    respond_to do |format|
+      if @wordlist_exercise.save
+        format.turbo_stream { render turbo_stream: turbo_stream }
+        format.html { redirect_to exercise_url(@wordlist_exercise), notice: "Wordlist Exercise was successfully created." }
+        format.json { render :show, status: :created, location: @wordlist_exercise }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @wordlist_exercise.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
   def update
     authorize @wordlist_exercise
