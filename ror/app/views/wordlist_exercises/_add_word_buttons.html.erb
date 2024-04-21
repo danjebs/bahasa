@@ -1,9 +1,10 @@
 <%= turbo_frame_tag "#{dom_id(wordlist_exercise)}_new_exercise_word_frame" do %>
   <div class="py-2 px-3">
-    <%= link_to "Add Word",
-      new_exercise_word_path(exercise_id: wordlist_exercise.id),
-      class: "inline-block rounded-md py-1 px-5 bg-red-600 text-white font-medium",
-      data: { turbo_frame: "#{dom_id(wordlist_exercise)}_new_exercise_word_frame" }
-    %>
+    <%= render(LinkButton.new(
+      label: "Add Word",
+      href: new_exercise_word_path(exercise_id: wordlist_exercise.id),
+      data: { turbo_frame: "#{dom_id(wordlist_exercise)}_new_exercise_word_frame" },
+      size: :sm
+    )) %>
   </div>
 <% end %>

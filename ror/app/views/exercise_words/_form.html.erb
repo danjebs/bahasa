@@ -26,7 +26,7 @@
 
     <div class="flex-grow-0">
       <%= form.submit "Save", class: "" %>
-      <%= link_to "Cancel", :back, class: "" %>
+      <%= render LinkButton.new(href: :back, label: "Cancel", size: :sm, color: :white) %>
     </div>
   </div>
 <% end %>
