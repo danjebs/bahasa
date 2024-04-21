@@ -1,4 +1,4 @@
-<div id="<% dom_id(wordlist_exercise) %>" class="p-4 border-b border-solid border-gray-200">
+<div id="<% dom_id(wordlist_exercise) %>" class="md:p-4 border-b border-solid border-gray-200 md:border md:shadow-md md:rounded-md md:mb-6">
   <div class="flex justify-between items-center w-full">
     <h2>
       <div class="text-base font-medium text-gray-400">
@@ -24,5 +24,4 @@
   <% end %>
 
   <%= render "wordlist_exercises/add_word_buttons", wordlist_exercise: wordlist_exercise %>
-
 </div>

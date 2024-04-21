@@ -1,5 +1,5 @@
 <%= turbo_frame_tag "#{dom_id(wordlist_exercise)}_new_exercise_word_frame" do %>
-  <div class="py-2 px-3">
+  <div class="flex justify-end py-2 px-3">
     <%= render(LinkButton.new(
       label: "Add Word",
       href: new_exercise_word_path(exercise_id: wordlist_exercise.id),
