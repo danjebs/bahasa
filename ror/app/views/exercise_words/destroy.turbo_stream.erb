@@ -1,0 +1,7 @@
+<% if @exercise_word.errors.any? %>
+  <%= turbo_stream.replace "#{dom_id(@exercise_word)}" do %>
+    <% render "edit", exercise_word: @exercise_word %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.remove "#{dom_id(@exercise_word)}" %>
+<% end %>

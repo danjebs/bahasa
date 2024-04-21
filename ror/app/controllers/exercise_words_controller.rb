@@ -63,6 +63,7 @@ class ExerciseWordsController < ApplicationController
     @exercise_word.destroy!
 
     respond_to do |format|
+      format.turbo_stream { turbo_stream.remove(:exercise_words) }
       format.html { redirect_to exercise_words_url, notice: "Exercise word was successfully destroyed." }
       format.json { head :no_content }
     end
