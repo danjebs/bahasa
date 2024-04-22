@@ -1,5 +1,5 @@
 class ExercisesController < ApplicationController
-  before_action :set_exercise, only: [:destroy]
+  before_action :set_exercise, only: [:update, :destroy]
 
   def index
     authorize Exercise
@@ -7,19 +7,11 @@ class ExercisesController < ApplicationController
     @exercises = Exercise.all
   end
 
-  # def show
-  #   authorize @exercise
-  # end
-
   def new
     authorize Exercise
 
     @exercise = Exercise.new(lesson_id: params[:lesson_id])
   end
-
-  # def edit
-  #   authorize @exercise
-  # end
 
   def create
     authorize Exercise
@@ -40,21 +32,24 @@ class ExercisesController < ApplicationController
     end
   end
 
-  # def update
-  #   authorize @exercise
+  def update
+    authorize @exercise
 
-  #   respond_to do |format|
-  #     if @exercise.update(exercise_params)
-  #       format.html { redirect_to exercise_url(@exercise), notice: "Exercise was successfully updated." }
-  #       format.json { render :show, status: :ok, location: @exercise }
-  #     else
-  #       format.html { render :edit, status: :unprocessable_entity }
-  #       format.json { render json: @exercise.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
+    if @exercise.position != exercise_params[:position]
+      @exercise.insert_at(exercise_params[:position])
+    end
 
-  # DELETE /exercises/1 or /exercises/1.json
+    respond_to do |format|
+      if @exercise.update(exercise_params)
+        format.html { redirect_to exercise_url(@exercise), notice: "Exercise was successfully updated." }
+        format.json { render :show, status: :ok, location: @exercise }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @exercise.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def destroy
     @exercise.destroy!
 
@@ -72,6 +67,6 @@ class ExercisesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def exercise_params
-      params.require(:exercise).permit(:lesson_id, :title, :type, :position)
+      params.require(:exercise).permit(:id, :lesson_id, :title, :type, :position)
     end
 end
