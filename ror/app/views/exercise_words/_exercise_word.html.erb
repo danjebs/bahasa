@@ -1,7 +1,7 @@
 <%= turbo_frame_tag(
   "#{dom_id(exercise_word)}",
-  data: { id: exercise_word.id, controller: "exercise_word" })
-do %>
+  data: { id: exercise_word.id, controller: "exercise_word" }
+) do %>
   <div id="<%= dom_id(exercise_word) %>" class="flex justify-between items-center border-b border-solid border-gray-200">
     <div class="flex gap-2">
       <div class="w-36 py-2 px-3"><%= exercise_word.translation %></div>
