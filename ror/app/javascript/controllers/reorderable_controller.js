@@ -3,8 +3,6 @@ import { patch } from '@rails/request.js'
 import Sortable from 'sortablejs'
 
 export default class extends Controller {
-  static targets = ['collapsible']
-
   connect() {
     this.sortable = Sortable.create(this.element, {
       onStart: this.startDrag.bind(this),
@@ -18,12 +16,12 @@ export default class extends Controller {
   }
 
   async endDrag(e) {
-    let { id } = e.item.dataset
+    let { id, controller } = e.item.dataset
     const url = this.data.get('url').replace(':id', id)
 
     const response = await patch(url, {
       body: JSON.stringify({
-        exercise: {
+        [controller]: {
           position: e.newIndex + 1
         }
       }),

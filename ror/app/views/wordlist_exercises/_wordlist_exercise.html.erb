@@ -9,8 +9,11 @@
   </div>
 </div>
 
-<%= turbo_frame_tag "#{dom_id(wordlist_exercise)}_list_frame" do %>
-  <%= render wordlist_exercise.words %>
+<%= turbo_frame_tag(
+  "#{dom_id(wordlist_exercise)}_list_frame",
+  data: { controller: "reorderable", reorderable_url: exercise_word_path(":id") }
+) do %>
+  <%= render wordlist_exercise.words.ordered %>
 <% end %>
 
 <%= render "wordlist_exercises/add_word_buttons", wordlist_exercise: wordlist_exercise %>

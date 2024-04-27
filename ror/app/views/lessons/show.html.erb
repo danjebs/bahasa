@@ -38,8 +38,11 @@
       <% end %>
     </div>
 
-    <%= turbo_frame_tag "exercises_list_frame", data: { controller: "reorderable", reorderable_url: exercise_path(":id") } do %>
-      <% @lesson.exercises.each do |exercise| %>
+    <%= turbo_frame_tag(
+      "exercises_list_frame",
+      data: { controller: "reorderable", reorderable_url: exercise_path(":id") }
+    ) do %>
+      <% @lesson.exercises.ordered.each do |exercise| %>
         <%= render "exercises/exercise", exercise: exercise %>
       <% end %>
     <% end %>

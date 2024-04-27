@@ -46,6 +46,11 @@ class ExerciseWordsController < ApplicationController
   def update
     authorize @exercise_word
 
+
+    if @exercise_word.position != exercise_word_params[:position]
+      @exercise_word.insert_at(exercise_word_params[:position])
+    end
+
     respond_to do |format|
       if @exercise_word.update(exercise_word_params)
         format.html { redirect_to exercise_word_url(@exercise_word), notice: "Exercise word was successfully updated." }
