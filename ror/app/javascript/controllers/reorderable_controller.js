@@ -5,6 +5,7 @@ import Sortable from 'sortablejs'
 export default class extends Controller {
   connect() {
     this.sortable = Sortable.create(this.element, {
+      handle: '.reorder-handle',
       onStart: this.startDrag.bind(this),
       onEnd: this.endDrag.bind(this)
     })

@@ -9,15 +9,8 @@
     </div>
     <div class="flex justify-center items-center">
       <%= render LinkButton.new(
-        href: edit_exercise_word_path(exercise_word),
-        icon: :edit,
-        color: :white,
-        size: :sm,
-        data: { turbo_frame: "#{dom_id(exercise_word)}" }
-      ) %>
-      <%= render LinkButton.new(
-        label: "Delete",
         href: exercise_word,
+        icon: :trash,
         color: :white,
         size: :sm,
         data: {
@@ -26,6 +19,16 @@
           turbo_frame: "#{dom_id(exercise_word)}"
         }
       ) %>
-      </div>
+      <button class="reorder-handle cursor-grab">
+        <%= render partial: "shared/icon", locals: { name: 'chevron-up-down' } %>
+      </button>
+      <%= render LinkButton.new(
+        href: edit_exercise_word_path(exercise_word),
+        icon: :edit,
+        color: :white,
+        size: :sm,
+        data: { turbo_frame: "#{dom_id(exercise_word)}" }
+      ) %>
     </div>
+  </div>
 <% end %>

@@ -12,12 +12,14 @@
         <%= exercise.title %>
     </h2>
     <div class="flex">
-      <button data-action="click->exercise#toggleOpen">
-        Open
+      <button class="reorder-handle cursor-grab">
+        <%= render partial: "shared/icon", locals: { name: 'chevron-up-down' } %>
+      </button>
+      <button data-action="click->exercise#toggleOpen" class="reorder-handle cursor-pointer">
+        <%= render partial: "shared/icon", locals: { name: 'chevron-down' } %>
       </button>
     </div>
   </div>
-
   <div data-exercise-target="collapsible">
     <% if exercise.type == "WordlistExercise" %>
       <%= render "wordlist_exercises/wordlist_exercise", wordlist_exercise: exercise %>
