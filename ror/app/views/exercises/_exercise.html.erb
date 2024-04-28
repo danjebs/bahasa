@@ -2,7 +2,7 @@
   id="<%= dom_id exercise %>"
   class="md:p-4 border-b border-solid border-gray-200 md:border md:shadow-md md:rounded-md md:mb-6"
   data-id="<%= exercise.id %>"
-  data-controller="exercise"
+  data-controller="collapsible"
 >
   <div class="flex justify-between items-center w-full">
     <h2>
@@ -15,12 +15,12 @@
       <button class="reorder-handle cursor-grab">
         <%= render partial: "shared/icon", locals: { name: 'chevron-up-down' } %>
       </button>
-      <button data-action="click->exercise#toggleOpen" class="reorder-handle cursor-pointer">
+      <button data-action="click->collapsible#toggleOpen" data-collapsible-target="button" class="reorder-handle cursor-pointer rotate-180">
         <%= render partial: "shared/icon", locals: { name: 'chevron-down' } %>
       </button>
     </div>
   </div>
-  <div data-exercise-target="collapsible">
+  <div data-collapsible-target="content">
     <% if exercise.type == "WordlistExercise" %>
       <%= render "wordlist_exercises/wordlist_exercise", wordlist_exercise: exercise %>
     <% else %>
