@@ -15,7 +15,7 @@
   <turbo-frame
     id="<%= dom_id(@word_list) %>_list_frame"
     data-controller="reorderable"
-    data-reorderable-url="<%= exercise_word_path(':id') %>"
+    data-reorderable-url="<%= word_path(':id') %>"
   >
     <%= render(Words::WordListing.with_collection(@word_list.words.ordered)) %>
   </turbo-frame>

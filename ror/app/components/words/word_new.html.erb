@@ -1,3 +1,3 @@
-<turbo-frame id="<%= dom_id(@word.exercise) %>_new_exercise_word_frame">
-  <%= render Words::WordForm.new(exercise_word: @word) %>
+<turbo-frame id="<%= dom_id(@word.exercise) %>_new_word_frame">
+  <%= render Words::WordForm.new(word: @word) %>
 </turbo-frame>

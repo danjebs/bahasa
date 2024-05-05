@@ -1,4 +1,4 @@
-class ExerciseWord < ApplicationRecord
+class Word < ApplicationRecord
   acts_as_list scope: :exercise
 
   belongs_to :exercise

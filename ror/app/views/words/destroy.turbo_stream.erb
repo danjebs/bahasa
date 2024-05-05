@@ -1,0 +1,7 @@
+<% if @word.errors.any? %>
+  <%= turbo_stream.replace "#{dom_id(@word)}" do %>
+    <% render Words::WordShow(word: @word) %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.remove "#{dom_id(@word)}" %>
+<% end %>

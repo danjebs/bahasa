@@ -1,6 +1,6 @@
-class CreateExerciseWords < ActiveRecord::Migration[7.1]
+class CreateWords < ActiveRecord::Migration[7.1]
   def change
-    create_table :exercise_words do |t|
+    create_table :words do |t|
       t.references :exercise, null: false, foreign_key: true
       t.string :word
       t.string :translation

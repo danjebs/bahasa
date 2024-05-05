@@ -1,0 +1,12 @@
+<% if @word.errors.any? %>
+  <%= turbo_stream.replace "#{dom_id(@word.exercise)}_new_word_frame" do %>
+    <% render "new", word: @word %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.append "#{dom_id(@word.exercise)}_list_frame" do %>
+    <%= render Words::WordListing.new(word: @word) %>
+  <% end %>
+  <%= turbo_stream.replace "#{dom_id(@word.exercise)}_new_word_frame" do %>
+    <%= render Exercises::WordLists::AddWordButtons.new(word_list: @word.exercise) %>
+  <% end %>
+<% end %>

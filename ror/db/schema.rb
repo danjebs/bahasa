@@ -29,16 +29,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_28_031356) do
     t.index ["lesson_id"], name: "index_cards_on_lesson_id"
   end
 
-  create_table "exercise_words", force: :cascade do |t|
-    t.bigint "exercise_id", null: false
-    t.string "word"
-    t.string "translation"
-    t.integer "position"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["exercise_id"], name: "index_exercise_words_on_exercise_id"
-  end
-
   create_table "exercises", force: :cascade do |t|
     t.bigint "lesson_id", null: false
     t.string "title"
@@ -80,8 +70,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_28_031356) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "words", force: :cascade do |t|
+    t.bigint "exercise_id", null: false
+    t.string "word"
+    t.string "translation"
+    t.integer "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exercise_id"], name: "index_words_on_exercise_id"
+  end
+
   add_foreign_key "cards", "lessons"
-  add_foreign_key "exercise_words", "exercises"
   add_foreign_key "exercises", "lessons"
   add_foreign_key "lessons", "languages"
+  add_foreign_key "words", "exercises"
 end

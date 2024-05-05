@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     resources :word_lists, except: [:new, :destroy]
     resources :cards
     resources :translation_cards, except: [:destroy]
-    resources :exercise_words
+    resources :words
   end
 
   devise_for :users,

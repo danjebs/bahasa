@@ -1,6 +1,6 @@
 <turbo-frame
   id="<%= dom_id(@word) %>"
-  data-controller="exercise_word"
+  data-controller="word"
   data-id="<%= @word.id %>"
   class="flex justify-between items-center border-b last-of-type:border-none border-solid border-gray-100"
 >
@@ -28,7 +28,7 @@
       <%= render partial: "shared/icon", locals: { name: 'chevron-up-down' } %>
     </button>
     <%= render LinkButton.new(
-      href: edit_exercise_word_path(@word),
+      href: edit_word_path(@word),
       icon: :edit,
       color: :white,
       size: :sm,
