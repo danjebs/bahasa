@@ -1,0 +1,38 @@
+<turbo-frame
+  id="<%= dom_id(@phrase) %>"
+  data-controller="phrase"
+  data-id="<%= @phrase.id %>"
+  class="flex justify-between items-center border-b last-of-type:border-none border-solid border-gray-100"
+>
+  <div class="flex-grow py-2">
+    <div class="px-3 text-sm text-gray-500">
+      <%= @phrase.phrase %>
+    </div>
+    <div class="px-3">
+      <%= @phrase.translation %>
+    </div>
+  </div>
+  <div class="flex justify-center items-center">
+    <%= render LinkButton.new(
+      href: @phrase,
+      icon: :trash,
+      color: :white,
+      size: :sm,
+      data: {
+        turbo_method: :delete,
+        turbo_confirm: "Are you sure?",
+        turbo_frame: "#{dom_id(@phrase)}"
+      }
+    ) %>
+    <button class="reorder-handle cursor-grab">
+      <%= render partial: "shared/icon", locals: { name: 'chevron-up-down' } %>
+    </button>
+    <%= render LinkButton.new(
+      href: edit_phrase_path(@phrase),
+      icon: :edit,
+      color: :white,
+      size: :sm,
+      data: { turbo_frame: "#{dom_id(@phrase)}" }
+    ) %>
+  </div>
+</turbo-frame>

@@ -1,8 +1,14 @@
 <turbo-frame id="new_exercise_frame">
   <div class="block p-4 bg-gray-100 rounded-lg">
     <%= render LinkButton.new(
-        href: new_exercise_path(lesson_id: @lesson.id),
-        label: "Add WordList"
+    <%= render LinkButton.new(
+        href: new_exercise_path(lesson_id: @lesson.id, type: "WordList"),
+        label: "Add Word List"
+      )
+    %>
+    <%= render LinkButton.new(
+        href: new_exercise_path(lesson_id: @lesson.id, type: "PhraseList"),
+        label: "Add Phrase List"
       )
     %>
   </div>

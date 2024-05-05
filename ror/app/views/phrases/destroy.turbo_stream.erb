@@ -1,0 +1,7 @@
+<% if @phrase.errors.any? %>
+  <%= turbo_stream.replace "#{dom_id(@phrase)}" do %>
+    <% render Phrases::PhraseShow(phrase: @phrase) %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.remove "#{dom_id(@phrase)}" %>
+<% end %>

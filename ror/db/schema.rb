@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_28_031356) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_05_104631) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -56,6 +56,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_28_031356) do
     t.index ["language_id"], name: "index_lessons_on_language_id"
   end
 
+  create_table "phrases", force: :cascade do |t|
+    t.bigint "exercise_id", null: false
+    t.string "phrase"
+    t.string "translation"
+    t.integer "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exercise_id"], name: "index_phrases_on_exercise_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "name", default: "", null: false
@@ -83,5 +93,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_28_031356) do
   add_foreign_key "cards", "lessons"
   add_foreign_key "exercises", "lessons"
   add_foreign_key "lessons", "languages"
+  add_foreign_key "phrases", "exercises"
   add_foreign_key "words", "exercises"
 end

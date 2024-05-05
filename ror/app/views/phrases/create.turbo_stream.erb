@@ -1,0 +1,12 @@
+<% if @phrase.errors.any? %>
+  <%= turbo_stream.replace "#{dom_id(@phrase.exercise)}_new_phrase_frame" do %>
+    <% render "new", phrase: @phrase %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.append "#{dom_id(@phrase.exercise)}_list_frame" do %>
+    <%= render Phrases::PhraseListing.new(phrase: @phrase) %>
+  <% end %>
+  <%= turbo_stream.replace "#{dom_id(@phrase.exercise)}_new_phrase_frame" do %>
+    <%= render Exercises::PhraseLists::AddPhraseButtons.new(phrase_list: @phrase.exercise) %>
+  <% end %>
+<% end %>

@@ -1,10 +1,11 @@
 <%= form_with(model: @word, class: "contents") do |form| %>
   <%= render Forms::ErrorNotice.new(model: @word) %>
 
-  <div class="flex justify-between items-center border-b border-solid border-gray-200">
-    <%= form.hidden_field :exercise_id, value: @word&.exercise_id || params[:exercise_id] %>
 
+  <div class="flex w-full justify-between items-center border-b border-solid border-gray-200">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+      <%= form.hidden_field :exercise_id, value: @word&.exercise_id || params[:exercise_id] %>
+
       <div class="w-36 py-1">
         <%= form.text_field :word, autofocus: true, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-1 w-full" %>
       </div>

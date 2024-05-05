@@ -5,8 +5,10 @@ Rails.application.routes.draw do
     resources :lessons
     resources :exercises, except: [:show]
     resources :word_lists, except: [:new, :destroy]
+    resources :phrase_lists, except: [:new, :destroy]
     resources :cards
     resources :translation_cards, except: [:destroy]
+    resources :phrases
     resources :words
   end
 

@@ -1,0 +1,24 @@
+<div class="border border-solid border-gray-100 rounded-lg">
+  <% if @phrase_list.phrases.length > 0 %>
+    <div class="flex w-full font-semibold bg-gray-50">
+      <div class="w-36 py-2 px-3">
+        English
+      </div>
+      <div class="w-36 py-2 px-3">
+        Indonesian
+      </div>
+      <div class="">
+      </div>
+    </div>
+  <% end %>
+
+  <turbo-frame
+    id="<%= dom_id(@phrase_list) %>_list_frame"
+    data-controller="reorderable"
+    data-reorderable-url="<%= phrase_path(':id') %>"
+  >
+    <%= render(Phrases::PhraseListing.with_collection(@phrase_list.phrases.ordered)) %>
+  </turbo-frame>
+</div>
+
+<%= render Exercises::PhraseLists::AddPhraseButtons.new(phrase_list: @phrase_list) %>

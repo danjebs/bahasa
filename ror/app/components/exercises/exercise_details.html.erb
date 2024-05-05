@@ -25,6 +25,8 @@
   <div data-collapsible-target="content">
     <% if @exercise.type == "WordList" %>
       <%= render Exercises::WordLists::WordListDetails.new(word_list: @exercise) %>
+    <% elsif @exercise.type == "PhraseList" %>
+      <%= render Exercises::PhraseLists::PhraseListDetails.new(phrase_list: @exercise) %>
     <% else %>
       <p class="my-5">
         GENERIC EXERCISE DETECTED!!
