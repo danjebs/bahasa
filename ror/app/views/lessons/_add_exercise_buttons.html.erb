@@ -1,9 +1,0 @@
-<%= turbo_frame_tag "new_exercise_frame" do %>
-  <div class="block p-4">
-    <%= render LinkButton.new(
-        href: new_exercise_path(lesson_id: lesson.id),
-        label: "Add Wordlist"
-      )
-    %>
-  </div>
-<% end %>

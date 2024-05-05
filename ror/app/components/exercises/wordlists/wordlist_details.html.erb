@@ -1,0 +1,22 @@
+<div class=" border border-solid border-gray-100 rounded-lg">
+  <div class="flex w-full font-semibold bg-gray-50">
+    <div class="w-36 py-2 px-3">
+      English
+    </div>
+    <div class="w-36 py-2 px-3">
+      Indonesian
+    </div>
+    <div class="">
+    </div>
+  </div>
+
+  <turbo-frame
+    id="<%= dom_id(@wordlist_exercise) %>_list_frame"
+    data-controller="reorderable"
+    data-reorderable-url="<%= exercise_word_path(':id') %>"
+  >
+    <%= render(Words::WordListing.with_collection(@wordlist_exercise.words.ordered)) %>
+  </turbo-frame>
+</div>
+
+<%= render Exercises::Wordlists::AddWordButtons.new(wordlist_exercise: @wordlist_exercise) %>

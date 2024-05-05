@@ -1,0 +1,22 @@
+<div class="w-full">
+  <% if helpers.notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="font-bold text-4xl">
+      Lessons
+    </h1>
+    <%= render LinkButton.new(
+        href: new_lesson_path,
+        label: "New Lesson",
+      )
+    %>
+  </div>
+
+  <div id="lessons" class="min-w-full rounded-lg shadow-md border border-solid border-gray-100">
+    <% @lessons.each do |lesson| %>
+      <%= render Lessons::LessonListing.new(lesson: lesson) %>
+    <% end %>
+  </div>
+</div>

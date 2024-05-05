@@ -2,9 +2,11 @@ Rails.application.routes.draw do
   root to: "static_pages#home"
 
   scope "/:lang/" do
-    resources :lessons, except: :destroy
-    resources :exercises, only: [:index, :new, :create, :update]
-    resources :wordlist_exercises, except: :destroy
+    resources :lessons
+    resources :exercises, only: [:index, :new, :create, :update, :destroy]
+    resources :wordlist_exercises, only: [:index, :create, :edit, :update]
+    resources :cards, only: [:new, :create, :update, :destroy]
+    resources :translation_cards, only: [:edit, :update]
     resources :exercise_words
   end
 

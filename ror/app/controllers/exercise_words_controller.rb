@@ -1,24 +1,18 @@
 class ExerciseWordsController < ApplicationController
-  before_action :set_exercise_word, only: %i[ show edit update destroy ]
-
-  def index
-    authorize ExerciseWord
-
-    @exercise_words = ExerciseWord.all
-  end
-
-  def show
-    authorize @exercise_word
-  end
+  before_action :set_exercise_word, only: [:edit, :update, :destroy]
 
   def new
     authorize ExerciseWord
 
     @exercise_word = ExerciseWord.new(exercise_id: params[:exercise_id])
+
+    render Words::WordNew.new(exercise_word: @exercise_word)
   end
 
   def edit
     authorize @exercise_word
+
+    render Words::WordEdit.new(exercise_word: @exercise_word)
   end
 
   def create
@@ -28,17 +22,23 @@ class ExerciseWordsController < ApplicationController
 
     respond_to do |format|
       if @exercise_word.save
-        format.turbo_stream do
-          turbo_stream.append(:exercise_words,
-            partial: "exercise_words/exercise_word",
-            locals: { exercise_word: @exercise_word }
+        format.turbo_stream {
+          turbo_stream.append(
+            :exercise_words,
+            Lessons::LessonShow.new(lesson: @exercise_word.exercise.lesson)
           )
-        end
-        format.html { redirect_to exercise_word_url(@exercise_word), notice: "Exercise word was successfully created." }
-        format.json { render :show, status: :created, location: @exercise_word }
+        }
+        format.html {
+          render Lessons::LessonShow.new(lesson: @exercise_word.exercise.lesson),
+          notice: "Exercise word was successfully created."
+        }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @exercise_word.errors, status: :unprocessable_entity }
+        format.html {
+          render(
+            Words::WordNew.new(exercise_word: @exercise_word),
+            status: :unprocessable_entity
+          )
+        }
       end
     end
   end
@@ -47,17 +47,21 @@ class ExerciseWordsController < ApplicationController
     authorize @exercise_word
 
 
-    if @exercise_word.position != exercise_word_params[:position]
+    if exercise_word_params[:position].present? && exercise_word_params[:position] != @exercise_word.position
       @exercise_word.insert_at(exercise_word_params[:position])
     end
 
     respond_to do |format|
       if @exercise_word.update(exercise_word_params)
-        format.html { redirect_to exercise_word_url(@exercise_word), notice: "Exercise word was successfully updated." }
-        format.json { render :show, status: :ok, location: @exercise_word }
+        format.html {
+          render Words::WordListing.new(exercise_word: @exercise_word),
+          notice: "Exercise word was successfully updated."
+        }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @exercise_word.errors, status: :unprocessable_entity }
+        format.html {
+          render Words::WordEdit.new(exercise_word: @exercise_word),
+          status: :unprocessable_entity
+        }
       end
     end
   end
@@ -69,8 +73,10 @@ class ExerciseWordsController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream { turbo_stream.remove(:exercise_words) }
-      format.html { redirect_to exercise_words_url, notice: "Exercise word was successfully destroyed." }
-      format.json { head :no_content }
+      format.html {
+        render Lessons::LessonShow(lesson: @exercise_word.exercise.lesson),
+        notice: "Exercise word was successfully destroyed."
+      }
     end
   end
 

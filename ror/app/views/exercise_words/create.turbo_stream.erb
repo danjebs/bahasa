@@ -4,9 +4,9 @@
   <% end %>
 <% else %>
   <%= turbo_stream.append "#{dom_id(@exercise_word.exercise)}_list_frame" do %>
-    <%= render @exercise_word %>
+    <%= render Words::WordListing.new(exercise_word: @exercise_word) %>
   <% end %>
   <%= turbo_stream.replace "#{dom_id(@exercise_word.exercise)}_new_exercise_word_frame" do %>
-    <%= render "wordlist_exercises/add_word_buttons", wordlist_exercise: @exercise_word.exercise %>
+    <%= render Exercises::Wordlists::AddWordButtons.new(wordlist_exercise: @exercise_word.exercise) %>
   <% end %>
 <% end %>

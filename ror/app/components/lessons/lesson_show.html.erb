@@ -1,0 +1,74 @@
+<main id="<%= dom_id @lesson %>" class="container mx-auto">
+  <div class="mx-auto">
+    <% if helpers.notice.present? %>
+      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice">
+        <%= helpers.notice %>
+      </p>
+    <% end %>
+
+    <%= render LinkButton.new(
+        href: lessons_path,
+        color: :white,
+        size: :sm
+      )
+    %>
+
+    <div class="flex justify-between items-center w-full p-4 border-b border-solid border-gray-200">
+      <div>
+        <div class="text-lg font-medium text-gray-400">
+          Lesson
+        </div>
+        <h1>
+          <%= @lesson.title %>
+        </h1>
+      </div>
+    </div>
+
+    <%= render TabBar.new(tabs: ["lesson", "practice"]) do |component| %>
+      <% component.with_section do %>
+        <div class="flex justify-between items-center w-full p-4 last:border-none border-b md:border-none border-solid border-gray-200 md:gap-y-6">
+          <turbo-frame id="lesson_details" class="flex w-full justify-between">
+            <h2>
+              Intro
+            </h2>
+            <%= render LinkButton.new(
+                href: edit_lesson_path(@lesson),
+                icon: "edit",
+                color: :white,
+                size: :sm,
+                data: { turbo_frame: "lesson_details" }
+              )
+            %>
+          </turbo-frame>
+        </div>
+        <turbo-frame
+          id="exercises_list_frame"
+          data-controller="reorderable"
+          data-reorderable-url="<%= exercise_path(':id') %>"
+        >
+          <%= render Exercises::ExerciseDetails.with_collection(@lesson.exercises) %>
+        </turbo-frame>
+        <%= render Lessons::AddExerciseButtons.new lesson: @lesson %>
+      <% end %>
+      <% component.with_section do %>
+        <turbo-frame
+          id="practices_list_frame"
+          data-controller="reorderable"
+          data-reorderable-url="<%= card_path(':id') %>"
+        >
+          <%= render Cards::CardListing.with_collection(@lesson.cards) %>
+        </turbo-frame>
+
+        <turbo-frame id="new_card_frame">
+          <div class="block p-4 bg-gray-100 rounded-lg">
+            <%= render LinkButton.new(
+                href: helpers.new_card_path(lesson_id: @lesson.id),
+                label: "Add Card"
+              )
+            %>
+          </div>
+        </turbo-frame>
+      <% end %>
+    <% end %>
+  </div>
+</main>

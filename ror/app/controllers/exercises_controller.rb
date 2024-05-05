@@ -1,16 +1,12 @@
 class ExercisesController < ApplicationController
   before_action :set_exercise, only: [:update, :destroy]
 
-  def index
-    authorize Exercise
-
-    @exercises = Exercise.all
-  end
-
   def new
     authorize Exercise
 
     @exercise = Exercise.new(lesson_id: params[:lesson_id])
+
+    render Exercises::ExerciseNew.new(exercise: @exercise)
   end
 
   def create
@@ -21,13 +17,20 @@ class ExercisesController < ApplicationController
     respond_to do |format|
       if @exercise.save
         format.turbo_stream do
-          turbo_stream.append(:exercises, partial: "exercises/exercise", locals: { exercise: @exercise })
+          turbo_stream.append(
+            :exercises,
+            Lessons::LessonShow.new(lesson: @exercise.lesson)
+          )
         end
-        format.html { redirect_to exercise_url(@exercise), notice: "Exercise was successfully created." }
-        format.json { render :show, status: :created, location: @exercise }
+        format.html {
+          render Lessons::LessonShow(lesson: @exercise.lesson),
+          notice: "Exercise was successfully created."
+        }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @exercise.errors, status: :unprocessable_entity }
+        format.html {
+          render Exercises::ExerciseNew.new(exercise: @exercise),
+          status: :unprocessable_entity
+        }
       end
     end
   end
@@ -35,17 +38,21 @@ class ExercisesController < ApplicationController
   def update
     authorize @exercise
 
-    if @exercise.position != exercise_params[:position]
+    if exercise_params[:position].present? && exercise_params[:position] != @exercise.position
       @exercise.insert_at(exercise_params[:position])
     end
 
     respond_to do |format|
       if @exercise.update(exercise_params)
-        format.html { redirect_to exercise_url(@exercise), notice: "Exercise was successfully updated." }
-        format.json { render :show, status: :ok, location: @exercise }
+        format.html {
+          render Lessons::LessonShow(lesson: @exercise.lesson),
+          notice: "Exercise was successfully updated."
+        }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @exercise.errors, status: :unprocessable_entity }
+        format.html {
+          render Exercises::ExerciseEdit.new(exercise: @exercise),
+          status: :unprocessable_entity
+        }
       end
     end
   end
@@ -54,8 +61,7 @@ class ExercisesController < ApplicationController
     @exercise.destroy!
 
     respond_to do |format|
-      format.html { redirect_to exercises_url, notice: "Exercise was successfully destroyed." }
-      format.json { head :no_content }
+      format.html { render Lessons::LessonShow(lesson: @exercise.lesson), notice: "Exercise was successfully destroyed." }
     end
   end
 

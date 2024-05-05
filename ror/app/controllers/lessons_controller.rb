@@ -2,31 +2,34 @@ class LessonsController < ApplicationController
   before_action :set_lesson, only: [:show, :edit, :update]
   before_action :authenticate_user!
 
-  # GET /lessons or /lessons.json
   def index
     authorize Lesson
 
     @lessons = Lesson.all
+
+    render Lessons::LessonList.new(lessons: @lessons)
   end
 
-  # GET /lessons/1 or /lessons/1.json
   def show
     authorize @lesson
+
+    render Lessons::LessonShow.new(lesson: @lesson)
   end
 
-  # GET /lessons/new
   def new
     authorize Lesson
 
     @lesson = Lesson.new
+
+    render Lessons::LessonNew.new(lesson: @lesson)
   end
 
-  # GET /lessons/1/edit
   def edit
     authorize @lesson
+
+    render Lessons::LessonEdit.new(lesson: @lesson)
   end
 
-  # POST /lessons or /lessons.json
   def create
     authorize Lesson
 
@@ -34,39 +37,49 @@ class LessonsController < ApplicationController
 
     respond_to do |format|
       if @lesson.save
-        format.html { redirect_to lesson_url(@lesson), notice: "Lesson was successfully created." }
-        format.json { render :show, status: :created, location: @lesson }
+        format.html {
+          render Lessons::LessonShow.new(lesson: @lesson),
+          notice: "Lesson was successfully created."
+        }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @lesson.errors, status: :unprocessable_entity }
+        format.html {
+          render Lessons::LessonNew.new(lesson: @lesson),
+          status: :unprocessable_entity
+        }
       end
     end
   end
 
-  # PATCH/PUT /lessons/1 or /lessons/1.json
   def update
     authorize @lesson
 
     respond_to do |format|
       if @lesson.update(lesson_params)
-        format.html { redirect_to lesson_url(@lesson), notice: "Lesson was successfully updated." }
-        format.json { render :show, status: :ok, location: @lesson }
+        format.html {
+          render Lessons::LessonShow.new(lesson: @lesson),
+          notice: "Lesson was successfully updated."
+        }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @lesson.errors, status: :unprocessable_entity }
+        format.html {
+          render Lessons::LessonEdit.new(lesson: @lesson),
+          status: :unprocessable_entity
+        }
       end
     end
   end
 
-  # # DELETE /lessons/1 or /lessons/1.json
-  # def destroy
-  #   @lesson.destroy!
+  def destroy
+    authorize @lesson
 
-  #   respond_to do |format|
-  #     format.html { redirect_to lessons_url, notice: "Lesson was successfully destroyed." }
-  #     format.json { head :no_content }
-  #   end
-  # end
+    @lesson.destroy!
+
+    respond_to do |format|
+      format.html {
+        redirect_to lessons_url,
+        notice: "Lesson was successfully destroyed."
+      }
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

@@ -1,0 +1,38 @@
+<turbo-frame
+  id="<%= dom_id(@word) %>"
+  data-controller="exercise_word"
+  data-id="<%= @word.id %>"
+  class="flex justify-between items-center border-b last-of-type:border-none border-solid border-gray-100"
+>
+  <div class="flex gap-2">
+    <div class="w-36 py-2 px-3">
+      <%= @word.translation %>
+    </div>
+    <div class="w-36 py-2 px-3">
+      <%= @word.word %>
+    </div>
+  </div>
+  <div class="flex justify-center items-center">
+    <%= render LinkButton.new(
+      href: @word,
+      icon: :trash,
+      color: :white,
+      size: :sm,
+      data: {
+        turbo_method: :delete,
+        turbo_confirm: "Are you sure?",
+        turbo_frame: "#{dom_id(@word)}"
+      }
+    ) %>
+    <button class="reorder-handle cursor-grab">
+      <%= render partial: "shared/icon", locals: { name: 'chevron-up-down' } %>
+    </button>
+    <%= render LinkButton.new(
+      href: edit_exercise_word_path(@word),
+      icon: :edit,
+      color: :white,
+      size: :sm,
+      data: { turbo_frame: "#{dom_id(@word)}" }
+    ) %>
+  </div>
+</turbo-frame>

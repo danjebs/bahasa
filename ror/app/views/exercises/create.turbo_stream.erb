@@ -4,9 +4,9 @@
   <% end %>
 <% else %>
   <%= turbo_stream.append "exercises_list_frame" do %>
-    <%= render @exercise %>
+    <%= render Exercises::ExerciseDetails.new(exercise: @exercise) %>
   <% end %>
   <%= turbo_stream.replace "new_exercise_frame" do %>
-    <%= render "lessons/add_exercise_buttons", lesson: @exercise.lesson %>
+    <%= render Lessons::AddExerciseButtons.new(lesson: @exercise.lesson) %>
   <% end %>
 <% end %>
