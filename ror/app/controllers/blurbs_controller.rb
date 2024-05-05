@@ -14,9 +14,12 @@ class BlurbsController < ApplicationController
       if @blurb.update(blurb_params)
         format.html {
           render Exercises::Blurbs::BlurbDetails.new(blurb: @blurb),
-          notice: "Blurb was successfully updated." }
+          notice: "Blurb was successfully updated."
+        }
+        format.json { render json: @blurb, status: :created, location: @blurb }
       else
         format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @blurb.errors, status: :unprocessable_entity }
       end
     end
   end

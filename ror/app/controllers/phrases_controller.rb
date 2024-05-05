@@ -27,6 +27,7 @@ class PhrasesController < ApplicationController
           render Lessons::LessonShow.new(lesson: @phrase.exercise.lesson),
           notice: "Phrase was successfully created."
         }
+        format.json { render json: @phrase, status: :created, location: @phrase }
       else
         format.html {
           render(
@@ -51,11 +52,13 @@ class PhrasesController < ApplicationController
           render Phrases::PhraseListing.new(phrase: @phrase),
           notice: "Phrase was successfully updated."
         }
+        format.json { render json: @phrase, status: :created, location: @phrase }
       else
         format.html {
           render Phrases::PhraseEdit.new(phrase: @phrase),
           status: :unprocessable_entity
         }
+        format.json { render json: @phrase.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -71,6 +74,7 @@ class PhrasesController < ApplicationController
         render Lessons::LessonShow(lesson: @phrase.exercise.lesson),
         notice: "Exercise phrase was successfully destroyed."
       }
+      format.json { head :no_content }
     end
   end
 

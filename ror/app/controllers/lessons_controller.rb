@@ -41,11 +41,13 @@ class LessonsController < ApplicationController
           render Lessons::LessonShow.new(lesson: @lesson),
           notice: "Lesson was successfully created."
         }
+        format.json { render json: @lesson, status: :created, location: @lesson }
       else
         format.html {
           render Lessons::LessonNew.new(lesson: @lesson),
           status: :unprocessable_entity
         }
+        format.json { render json: @lesson.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -59,11 +61,13 @@ class LessonsController < ApplicationController
           render Lessons::LessonShow.new(lesson: @lesson),
           notice: "Lesson was successfully updated."
         }
+        format.json { render json: @lesson, status: :created, location: @lesson }
       else
         format.html {
           render Lessons::LessonEdit.new(lesson: @lesson),
           status: :unprocessable_entity
         }
+        format.json { render json: @lesson.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -78,6 +82,7 @@ class LessonsController < ApplicationController
         redirect_to lessons_url,
         notice: "Lesson was successfully destroyed."
       }
+      format.json { head :no_content }
     end
   end
 

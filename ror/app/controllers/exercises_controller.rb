@@ -21,11 +21,13 @@ class ExercisesController < ApplicationController
           render Lessons::LessonShow.new(lesson: @exercise.lesson),
           notice: "Exercise was successfully created."
         }
+        format.json { render json: @exercise, status: :created, location: @exercise }
       else
         format.html {
           render Exercises::ExerciseNew.new(exercise: @exercise),
           status: :unprocessable_entity
         }
+        format.json { render json: @exercise.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -43,11 +45,13 @@ class ExercisesController < ApplicationController
           render Lessons::LessonShow.new(lesson: @exercise.lesson),
           notice: "Exercise was successfully updated."
         }
+        format.json { render json: @exercise, status: :created, location: @exercise }
       else
         format.html {
           render Exercises::ExerciseEdit.new(exercise: @exercise),
           status: :unprocessable_entity
         }
+        format.json { render json: @exercise.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -56,7 +60,11 @@ class ExercisesController < ApplicationController
     @exercise.destroy!
 
     respond_to do |format|
-      format.html { render Lessons::LessonShow(lesson: @exercise.lesson), notice: "Exercise was successfully destroyed." }
+      format.html {
+        render Lessons::LessonShow(lesson: @exercise.lesson),
+        notice: "Exercise was successfully destroyed."
+      }
+      format.json { head :no_content }
     end
   end
 

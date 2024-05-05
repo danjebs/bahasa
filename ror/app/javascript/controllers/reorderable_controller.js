@@ -17,12 +17,12 @@ export default class extends Controller {
   }
 
   async endDrag(e) {
-    let { id, controller } = e.item.dataset
+    let { id, controller, model } = e.item.dataset
     const url = this.data.get('url').replace(':id', id)
 
     const response = await patch(url, {
       body: JSON.stringify({
-        [controller]: {
+        [model]: {
           position: e.newIndex + 1
         }
       }),

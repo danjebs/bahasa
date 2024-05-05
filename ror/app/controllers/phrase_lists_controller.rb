@@ -11,10 +11,13 @@ class PhraseListsController < ApplicationController
     respond_to do |format|
       if @phrase_list.update(phrase_list_params)
         format.html {
-          redirect_to lesson_url(@phrase_list.lesson),
-          notice: "Phrase List was successfully updated." }
+          render Exercises::PhraseLists::PhraseListDetails.new(phrase_list: @phrase_list),
+          notice: "Phrase List was successfully updated."
+        }
+        format.json { render json: @phrase_list, status: :created, location: @phrase_list }
       else
         format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @phrase_list.errors, status: :unprocessable_entity }
       end
     end
   end

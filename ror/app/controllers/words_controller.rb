@@ -27,6 +27,7 @@ class WordsController < ApplicationController
           render Lessons::LessonShow.new(lesson: @word.exercise.lesson),
           notice: "Word was successfully created."
         }
+        format.json { render json: @word, status: :created, location: @word }
       else
         format.html {
           render(
@@ -34,6 +35,7 @@ class WordsController < ApplicationController
             status: :unprocessable_entity
           )
         }
+        format.json { render json: @word.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -51,11 +53,13 @@ class WordsController < ApplicationController
           render Words::WordListing.new(word: @word),
           notice: "Word was successfully updated."
         }
+        format.json { render json: @word, status: :created, location: @word }
       else
         format.html {
           render Words::WordEdit.new(word: @word),
           status: :unprocessable_entity
         }
+        format.json { render json: @word.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -71,6 +75,7 @@ class WordsController < ApplicationController
         render Lessons::LessonShow(lesson: @word.exercise.lesson),
         notice: "Exercise word was successfully destroyed."
       }
+      format.json { head :no_content }
     end
   end
 

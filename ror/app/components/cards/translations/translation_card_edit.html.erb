@@ -1,6 +1,6 @@
 <turbo-frame
   id="<%= dom_id(@translation_card) %>"
-  data-controller="card"
+  data-model="card"
   data-id="<%= @translation_card.id %>"
 >
   <%= render Cards::Translations::TranslationCardForm.new(translation_card: @translation_card) %>

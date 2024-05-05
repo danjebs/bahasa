@@ -20,11 +20,13 @@ class TranslationCardsController < ApplicationController
         format.html {
           redirect_to(lesson_url(@translation_card.lesson), notice: "Translation Card was successfully created.")
         }
+        format.json { render json: @translation_card, status: :created, location: @translation_card }
       else
         format.html {
           render Cards::Translations::TranslationCardNew.new(translation_card: @translation_card),
           status: :unprocessable_entity
         }
+        format.json { render json: @translation_card.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -44,11 +46,13 @@ class TranslationCardsController < ApplicationController
           render Cards::CardListing.new(card: @translation_card),
           notice: "Translation Card was successfully updated."
         }
+        format.json { render json: @translation_card, status: :created, location: @translation_card }
       else
         format.html {
           render Cards::Translations::TranslationCardEdit.new(translation_card: @translation_card),
           status: :unprocessable_entity
         }
+        format.json { render json: @translation_card.errors, status: :unprocessable_entity }
       end
     end
   end

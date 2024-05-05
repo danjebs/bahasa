@@ -1,2 +1,2 @@
-class WordListPolicy < ExercisePolicy
+class PhraseListPolicy < ExercisePolicy
 end
