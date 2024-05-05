@@ -16,12 +16,12 @@ class TabBar < ViewComponent::Base
       </div>
 
       <div class="hidden sm:block">
-        <div class="border-b border-gray-200">
+        <div class="border-b border-gray-200 dark:border-gray-500">
           <nav class="-mb-px flex gap-6" aria-label="Tabs">
             <% @tabs.map do |tab| %>
               <a
                 href="#<%= tab %>"
-                class="shrink-0 border-b-2 border-transparent px-1 pb-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                class="shrink-0 border-b-2 border-transparent px-1 pb-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-400 dark:hover:border-gray-600 dark:hover:text-gray-300"
               >
                 <%= tab %>
               </a>

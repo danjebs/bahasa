@@ -2,7 +2,7 @@
   <%= render Forms::ErrorNotice.new(model: @word) %>
 
 
-  <div class="flex w-full justify-between items-center border-b border-solid border-gray-200">
+  <div class="flex w-full justify-between items-center border-b border-solid border-gray-200 dark:border-gray-600">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
       <%= form.hidden_field :exercise_id, value: @word&.exercise_id || params[:exercise_id] %>
 

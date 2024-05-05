@@ -3,8 +3,13 @@
 @tailwind utilities;
 
 @layer components {
+  body {
+    @apply dark:bg-gray-800 dark:text-gray-300;
+  }
+
   h1, h2, h3, h4 {
-    @apply text-red-600 mb-2;
+    @apply text-gray-600 mb-2 underline decoration-red-500 decoration-solid decoration-2 underline-offset-4;
+    @apply dark:text-gray-300;
   }
 
   h1 {
@@ -12,7 +17,7 @@
   }
 
   h2 {
-    @apply text-2xl font-bold;
+    @apply text-xl font-bold;
   }
 }
 

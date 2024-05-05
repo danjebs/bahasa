@@ -13,9 +13,9 @@
       )
     %>
 
-    <div class="flex justify-between items-center w-full p-4 border-b border-solid border-gray-200">
+    <div class="flex justify-between items-center w-full p-4 border-b border-solid border-gray-200 dark:border-gray-600">
       <div>
-        <div class="text-lg font-medium text-gray-400">
+        <div class="text-lg font-medium text-gray-400 dark:text-gray-500">
           Lesson
         </div>
         <h1>
@@ -26,7 +26,7 @@
 
     <%= render TabBar.new(tabs: ["lesson", "practice"]) do |component| %>
       <% component.with_section do %>
-        <div class="flex justify-between items-center w-full p-4 last:border-none border-b md:border-none border-solid border-gray-200 md:gap-y-6">
+        <div class="flex justify-between items-center w-full p-4 last:border-none border-b md:border-none border-solid border-gray-200 dark:border-gray-600 md:gap-y-6">
           <turbo-frame id="lesson_details" class="flex w-full justify-between">
             <h2>
               Intro
@@ -51,9 +51,9 @@
         <%= render Lessons::AddExerciseButtons.new lesson: @lesson %>
       <% end %>
       <% component.with_section do %>
-        <div class="border border-solid border-gray-100 rounded-lg">
+        <div class="border border-solid border-gray-100 dark:border-gray-700 rounded-lg">
           <% if @lesson.cards.length > 0 %>
-            <div class="flex w-full font-semibold bg-gray-50">
+            <div class="flex w-full font-semibold bg-gray-50 dark:bg-gray-700">
               <div class="w-36 py-2 px-3">
                 Front
               </div>

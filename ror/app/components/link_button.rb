@@ -29,9 +29,9 @@ class LinkButton < ViewComponent::Base
     }[size]
 
     @css_color_classes = {
-      red: "bg-red-600 hover:bg-red-700 text-white",
-      gray: "bg-gray-100 hover:bg-gray-200 text-gray-700",
-      white: "bg-white-100 hover:bg-gray-100 text-gray-700",
+      red: "border-2 border-solid border-red-600 hover:bg-red-600 text-red-600 hover:text-white dark:border-red-700 dark:hover:bg-red-700 textdark:-red-700 dark:hover:text-gray-700",
+      gray: "bg-gray-100 hover:bg-gray-200 text-gray-700 dark:text-gray-200",
+      white: "bg-white-100 hover:bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700",
     }[color]
   end
 end

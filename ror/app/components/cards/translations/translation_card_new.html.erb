@@ -1,6 +1,6 @@
 <turbo-frame
   id="<%= dom_id(@translation_card.lesson) %>_new_card_frame"
-  class="md:p-4 border-b border-solid border-gray-200 md:border md:shadow-md md:rounded-md md:mb-6"
+  class="md:p-4 border-b border-solid border-gray-200 dark:border-gray-600 md:border md:shadow-md md:rounded-md md:mb-6"
 >
   <%= render Cards::Translations::TranslationCardForm.new(translation_card: @translation_card) %>
 </turbo-frame>
