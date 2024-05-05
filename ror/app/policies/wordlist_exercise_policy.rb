@@ -1,2 +1,0 @@
-class WordlistExercisePolicy < ExercisePolicy
-end

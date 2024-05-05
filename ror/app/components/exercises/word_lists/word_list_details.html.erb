@@ -1,5 +1,5 @@
 <div class="border border-solid border-gray-100 rounded-lg">
-  <% if @wordlist_exercise.words.length > 0 %>
+  <% if @word_list.words.length > 0 %>
     <div class="flex w-full font-semibold bg-gray-50">
       <div class="w-36 py-2 px-3">
         English
@@ -13,12 +13,12 @@
   <% end %>
 
   <turbo-frame
-    id="<%= dom_id(@wordlist_exercise) %>_list_frame"
+    id="<%= dom_id(@word_list) %>_list_frame"
     data-controller="reorderable"
     data-reorderable-url="<%= exercise_word_path(':id') %>"
   >
-    <%= render(Words::WordListing.with_collection(@wordlist_exercise.words.ordered)) %>
+    <%= render(Words::WordListing.with_collection(@word_list.words.ordered)) %>
   </turbo-frame>
 </div>
 
-<%= render Exercises::Wordlists::AddWordButtons.new(wordlist_exercise: @wordlist_exercise) %>
+<%= render Exercises::WordLists::AddWordButtons.new(word_list: @word_list) %>

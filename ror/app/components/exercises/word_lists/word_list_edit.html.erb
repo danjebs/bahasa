@@ -1,5 +1,5 @@
-<%= form_with(model: @wordlist, class: "contents") do |form| %>
-  <%= render Forms::ErrorNotice.new(model: @wordlist) %>
+<%= form_with(model: @word_list, class: "contents") do |form| %>
+  <%= render Forms::ErrorNotice.new(model: @word_list) %>
 
   <div class="my-5">
     <%= form.label :title %>
@@ -11,7 +11,7 @@
     <%= form.text_field :type, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
-  <%= form.hidden_field :lesson_id, value: @wordlist.present? ? @wordlist.lesson_id : [:lesson_id] %>
+  <%= form.hidden_field :lesson_id, value: @word_list.present? ? @word_list.lesson_id : [:lesson_id] %>
 
   <div class="inline">
     <%= form.submit class: "rounded-lg py-3 px-5 bg-red-600 text-white inline-block font-medium cursor-pointer" %>

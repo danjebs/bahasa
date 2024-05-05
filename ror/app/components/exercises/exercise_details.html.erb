@@ -23,8 +23,8 @@
     </div>
   </div>
   <div data-collapsible-target="content">
-    <% if @exercise.type == "WordlistExercise" %>
-      <%= render Exercises::Wordlists::WordlistDetails.new(wordlist_exercise: @exercise) %>
+    <% if @exercise.type == "WordList" %>
+      <%= render Exercises::WordLists::WordListDetails.new(word_list: @exercise) %>
     <% else %>
       <p class="my-5">
         GENERIC EXERCISE DETECTED!!

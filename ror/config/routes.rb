@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   scope "/:lang/" do
     resources :lessons
     resources :exercises, except: [:show]
-    resources :wordlist_exercises, except: [:new, :destroy]
+    resources :word_lists, except: [:new, :destroy]
     resources :cards
     resources :translation_cards, except: [:destroy]
     resources :exercise_words

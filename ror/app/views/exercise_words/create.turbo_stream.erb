@@ -7,6 +7,6 @@
     <%= render Words::WordListing.new(exercise_word: @exercise_word) %>
   <% end %>
   <%= turbo_stream.replace "#{dom_id(@exercise_word.exercise)}_new_exercise_word_frame" do %>
-    <%= render Exercises::Wordlists::AddWordButtons.new(wordlist_exercise: @exercise_word.exercise) %>
+    <%= render Exercises::WordLists::AddWordButtons.new(wordlist: @exercise_word.exercise) %>
   <% end %>
 <% end %>
