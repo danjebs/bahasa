@@ -13,34 +13,29 @@
       )
     %>
 
-    <div class="flex justify-between items-center w-full p-4 border-b border-solid border-gray-200 dark:border-gray-600">
+    <div class="flex justify-between items-center w-full py-4 border-b border-solid border-gray-200 dark:border-gray-600">
       <div>
         <div class="text-lg font-medium text-gray-400 dark:text-gray-500">
-          Lesson
+          <%= "Lesson ##{@lesson.position}" %>
         </div>
         <h1>
           <%= @lesson.title %>
         </h1>
       </div>
+      <div>
+        <%= render LinkButton.new(
+            href: edit_lesson_path(@lesson),
+            icon: "edit",
+            color: :white,
+            size: :sm,
+            data: { turbo_frame: :remote_modal }
+          )
+        %>
+      </div>
     </div>
 
     <%= render TabBar.new(tabs: ["lesson", "practice"]) do |component| %>
       <% component.with_section do %>
-        <div class="flex justify-between items-center w-full p-4 last:border-none border-b md:border-none border-solid border-gray-200 dark:border-gray-600 md:gap-y-6">
-          <turbo-frame id="lesson_details" class="flex w-full justify-between">
-            <h2>
-              Intro
-            </h2>
-            <%= render LinkButton.new(
-                href: edit_lesson_path(@lesson),
-                icon: "edit",
-                color: :white,
-                size: :sm,
-                data: { turbo_frame: "lesson_details" }
-              )
-            %>
-          </turbo-frame>
-        </div>
         <turbo-frame
           id="exercises_list_frame"
           data-controller="reorderable"

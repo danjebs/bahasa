@@ -1,38 +1,43 @@
-<turbo-frame id="new_exercise_frame">
-  <section class="md:p-4 border-b border-solid border-gray-200 dark:border-gray-600 md:border md:shadow-md md:rounded-md md:mb-6">
-    <%= form_with(model: @exercise.becomes(Exercise), class: "contents") do |form| %>
+<turbo-frame id="remote_modal">
+  <%= render UI::Layout::Modal.new(id: dom_id(@exercise)) do |component| %>
+    <% component.with_heading do %>
+      Add New Exercise
+    <% end %>
+    <section class="md:p-4 border-b border-solid border-gray-200 dark:border-gray-600 md:border md:shadow-md md:rounded-md md:mb-6">
+      <%= form_with(model: @exercise.becomes(Exercise), class: "contents") do |form| %>
 
-      <%= render Forms::ErrorNotice.new(model: @exercise) %>
+        <%= render Forms::ErrorNotice.new(model: @exercise) %>
 
-      <% if params[:type].present? %>
-        <%= form.hidden_field :type, value: params[:type] %>
-      <% else %>
+        <% if params[:type].present? %>
+          <%= form.hidden_field :type, value: params[:type] %>
+        <% else %>
+          <div class="my-5">
+            <%= form.label :type %>
+            <%= form.select :type,
+              options_for_select([["Blurb", "Blurb"], ["Word List", "WordList"], ["Phrase List", "PhraseList"]]),
+              {},
+              { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" }
+            %>
+          </div>
+        <% end %>
+
         <div class="my-5">
-          <%= form.label :type %>
-          <%= form.select :type,
-            options_for_select([["Word List", "WordList"], ["Block", "BLockExercise"]]),
-            {},
-            { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" }
+          <%= form.label :title %>
+          <%= form.text_field :title, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+        </div>
+
+        <%= form.hidden_field :lesson_id, value: @exercise&.lesson_id %>
+
+        <div class="inline">
+          <%= form.submit class: "rounded-lg py-3 px-5 bg-red-600 text-white inline-block font-medium cursor-pointer" %>
+          <%= render LinkButton.new(
+            href: :back,
+            label: "Cancel",
+            color: :white,
+            data: { turbo_frame: "remote_modal" })
           %>
         </div>
       <% end %>
-
-      <div class="my-5">
-        <%= form.label :title %>
-        <%= form.text_field :title, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-      </div>
-
-      <%= form.hidden_field :lesson_id, value: @exercise&.lesson_id %>
-
-      <div class="inline">
-        <%= form.submit class: "rounded-lg py-3 px-5 bg-red-600 text-white inline-block font-medium cursor-pointer" %>
-        <%= render LinkButton.new(
-          href: :back,
-          label: "Cancel",
-          color: :white,
-          data: { turbo_frame: "new_exercise_frame" })
-        %>
-      </div>
-    <% end %>
-  </section>
+    </section>
+  <% end %>
 </turbo-frame>

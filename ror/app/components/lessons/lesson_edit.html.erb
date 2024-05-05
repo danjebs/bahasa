@@ -1,3 +1,8 @@
-<turbo-frame id="lesson_details">
-  <%= render Lessons::LessonForm.new(lesson: @lesson) %>
+<turbo-frame id="remote_modal">
+  <%= render UI::Layout::Modal.new(id: dom_id(@lesson)) do |component| %>
+    <% component.with_heading do %>
+      Edit Lesson
+    <% end %>
+    <%= render Lessons::LessonForm.new(lesson: @lesson) %>
+  <% end %>
 </turbo-frame>

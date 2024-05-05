@@ -57,11 +57,14 @@ class ExercisesController < ApplicationController
   end
 
   def destroy
+    authorize @exercise
+
     @exercise.destroy!
 
     respond_to do |format|
+      format.turbo_stream
       format.html {
-        render Lessons::LessonShow(lesson: @exercise.lesson),
+        render Lessons::LessonShow.new(lesson: @exercise.lesson),
         notice: "Exercise was successfully destroyed."
       }
       format.json { head :no_content }

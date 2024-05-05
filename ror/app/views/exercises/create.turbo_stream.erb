@@ -1,12 +1,12 @@
 <% if @exercise.errors.any? %>
-  <%= turbo_stream.replace "new_exercise_frame" do %>
+  <%= turbo_stream.replace :remote_modal do %>
     <% render Exercises::ExerciseNew.new(exercise: @exercise) %>
   <% end %>
 <% else %>
   <%= turbo_stream.append "exercises_list_frame" do %>
     <%= render Exercises::ExerciseDetails.new(exercise: @exercise) %>
   <% end %>
-  <%= turbo_stream.replace "new_exercise_frame" do %>
-    <%= render Lessons::AddExerciseButtons.new(lesson: @exercise.lesson) %>
+  <%= turbo_stream.replace :remote_modal do %>
+    <%= turbo_frame_tag :remote_modal %>
   <% end %>
 <% end %>

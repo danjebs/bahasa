@@ -21,7 +21,7 @@ class ExercisePolicy < ApplicationPolicy
   end
 
   def destroy?
-    false
+    user&.role_is_admin?
   end
 
   class Scope < Scope

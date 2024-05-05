@@ -1,26 +1,21 @@
 <div
   id="<%= dom_id(@exercise.becomes(Exercise)) %>"
-  class="md:p-4 border-sdf border-solid border-gray-200"
+  class="md:py-4 border-sdf border-solid border-gray-200"
   data-id="<%= @exercise.id %>"
   data-model="exercise"
   data-controller="collapsible"
 >
   <div class="flex justify-between items-center w-full">
-    <div>
-      <div class="text-sm font-medium text-gray-400 dark:text-gray-400 decoration-white">
-        <%= @exercise.type %>
-      </div>
-      <h2>
-        <%= @exercise.title %>
-      </h2>
-    </div>
+    <h2>
+      <%= @exercise.title %>
+    </h2>
     <div class="flex">
       <%= render LinkButton.new(
         href: edit_polymorphic_path(@exercise),
         icon: :edit,
         color: :white,
         size: :sm,
-        data: { turbo_frame: "#{dom_id(@exercise)}" }
+        data: { turbo_frame: :remote_modal }
       ) %>
       <button class="reorder-handle cursor-grab">
         <%= render partial: "shared/icon", locals: { name: 'chevron-up-down' } %>

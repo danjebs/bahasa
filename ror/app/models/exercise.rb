@@ -1,7 +1,8 @@
 class Exercise < ApplicationRecord
-  acts_as_list scope: :lesson
 
   belongs_to :lesson
+
+  acts_as_list scope: :lesson
 
   validates :title, presence: true, uniqueness: { scope: :lesson_id }
   validates :type, presence: true

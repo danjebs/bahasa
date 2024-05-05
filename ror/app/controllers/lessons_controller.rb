@@ -12,8 +12,6 @@ class LessonsController < ApplicationController
 
   def show
     authorize @lesson
-
-    render Lessons::LessonShow.new(lesson: @lesson)
   end
 
   def new
@@ -37,10 +35,7 @@ class LessonsController < ApplicationController
 
     respond_to do |format|
       if @lesson.save
-        format.html {
-          render Lessons::LessonShow.new(lesson: @lesson),
-          notice: "Lesson was successfully created."
-        }
+        format.html { redirect_to lesson_url(@lesson), notice: "Lesson was successfully created." }
         format.json { render json: @lesson, status: :created, location: @lesson }
       else
         format.html {
@@ -57,6 +52,7 @@ class LessonsController < ApplicationController
 
     respond_to do |format|
       if @lesson.update(lesson_params)
+        format.turbo_stream
         format.html {
           render Lessons::LessonShow.new(lesson: @lesson),
           notice: "Lesson was successfully updated."
@@ -78,6 +74,7 @@ class LessonsController < ApplicationController
     @lesson.destroy!
 
     respond_to do |format|
+      format.turbo_stream
       format.html {
         redirect_to lessons_url,
         notice: "Lesson was successfully destroyed."
@@ -94,6 +91,6 @@ class LessonsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def lesson_params
-      params.require(:lesson).permit(:title, :slug)
+      params.require(:lesson).permit(:title)
     end
 end

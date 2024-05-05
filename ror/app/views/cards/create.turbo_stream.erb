@@ -1,0 +1,12 @@
+<% if @card.errors.any? %>
+  <%= turbo_stream.replace "#{dom_id(@card.lesson)}_new_card_frame" do %>
+    <% render Cards::CardNew.new(card: @card) %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.append "#{dom_id(@card.lesson)}_cards_list_frame" do %>
+    <%= render Cards::CardListing.new(card: @card) %>
+  <% end %>
+  <%= turbo_stream.replace "#{dom_id(@card.lesson)}_new_card_frame" do %>
+    <%= render Lessons::AddCardButtons.new(lesson: @card.lesson) %>
+  <% end %>
+<% end %>

@@ -1,0 +1,10 @@
+<% if @exercise.errors.any? %>
+  <%= turbo_stream.replace "remote_modal" do %>
+    <% render Exercises::Blurbs::BlurbEdit(exercise: @exercise) %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.remove "exercise_#{@exercise.id}" %>
+  <%= turbo_stream.replace "remote_modal" do %>
+    <%= turbo_frame_tag :remote_modal %>
+  <% end %>
+<% end %>

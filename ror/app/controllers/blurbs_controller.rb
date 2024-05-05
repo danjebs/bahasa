@@ -12,6 +12,7 @@ class BlurbsController < ApplicationController
 
     respond_to do |format|
       if @blurb.update(blurb_params)
+        format.turbo_stream
         format.html {
           render Exercises::Blurbs::BlurbDetails.new(blurb: @blurb),
           notice: "Blurb was successfully updated."

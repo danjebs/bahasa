@@ -2,17 +2,20 @@
   <div class="block p-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
     <%= render LinkButton.new(
         href: new_exercise_path(lesson_id: @lesson.id, type: "Blurb"),
-        label: "Add Blurb"
+        label: "Add Blurb",
+        data: { turbo_frame: :remote_modal }
       )
     %>
     <%= render LinkButton.new(
         href: new_exercise_path(lesson_id: @lesson.id, type: "WordList"),
-        label: "Add Word List"
+        label: "Add Word List",
+        data: { turbo_frame: :remote_modal }
       )
     %>
     <%= render LinkButton.new(
         href: new_exercise_path(lesson_id: @lesson.id, type: "PhraseList"),
-        label: "Add Phrase List"
+        label: "Add Phrase List",
+        data: { turbo_frame: :remote_modal }
       )
     %>
   </div>
