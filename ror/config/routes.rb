@@ -5,8 +5,8 @@ Rails.application.routes.draw do
     resources :lessons
     resources :exercises, only: [:index, :new, :create, :update, :destroy]
     resources :wordlist_exercises, only: [:index, :create, :edit, :update]
-    resources :cards, only: [:new, :create, :update, :destroy]
-    resources :translation_cards, only: [:edit, :update]
+    resources :cards
+    resources :translation_cards, except: [:destroy]
     resources :exercise_words
   end
 

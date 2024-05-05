@@ -1,0 +1,2 @@
+class TranslationCardPolicy < CardPolicy
+end

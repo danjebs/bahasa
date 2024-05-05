@@ -1,0 +1,12 @@
+<% if @translation_card.errors.any? %>
+  <%= turbo_stream.replace "#{dom_id(@translation_card.lesson)}_new_card_frame" do %>
+    <% render Cards::Translations::TranslationCardNew.new(translation_card: @translation_card) %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.append "#{dom_id(@translation_card.lesson)}_cards_list_frame" do %>
+    <%= render Cards::CardListing.new(card: @translation_card) %>
+  <% end %>
+  <%= turbo_stream.replace "#{dom_id(@translation_card.lesson)}_new_card_frame" do %>
+    <%= render Lessons::AddCardButtons.new(lesson: @translation_card.lesson) %>
+  <% end %>
+<% end %>

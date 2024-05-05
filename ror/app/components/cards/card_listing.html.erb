@@ -1,0 +1,39 @@
+<turbo-frame
+  id="<%= dom_id(@card) %>"
+  data-controller="card"
+  data-id="<%= @card.id %>"
+>
+  <div class="flex justify-between items-center border-b border-solid border-gray-100">
+    <div class="flex gap-2">
+      <div class="w-36 py-2 px-3">
+        <%= @card.front %>
+      </div>
+      <div class="w-36 py-2 px-3">
+        <%= @card.back %>
+      </div>
+    </div>
+    <div class="flex justify-center items-center">
+      <%= render LinkButton.new(
+        href: @card.becomes(Card),
+        icon: :trash,
+        color: :white,
+        size: :sm,
+        data: {
+          turbo_method: :delete,
+          turbo_confirm: "Are you sure?",
+          turbo_frame: "#{dom_id(@card)}"
+        }
+      ) %>
+      <button class="reorder-handle cursor-grab">
+        <%= render partial: "shared/icon", locals: { name: 'chevron-up-down' } %>
+      </button>
+      <%= render LinkButton.new(
+        href: edit_polymorphic_path(@card),
+        icon: :edit,
+        color: :white,
+        size: :sm,
+        data: { turbo_frame: "#{dom_id(@card)}" }
+      ) %>
+    </div>
+  </div>
+</turbo-frame>

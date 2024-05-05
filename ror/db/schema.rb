@@ -10,13 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_14_153906) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_28_031356) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
   create_enum "user_role", ["student", "teacher", "admin"]
+
+  create_table "cards", force: :cascade do |t|
+    t.string "type"
+    t.string "front"
+    t.string "back"
+    t.integer "position"
+    t.bigint "lesson_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lesson_id"], name: "index_cards_on_lesson_id"
+  end
 
   create_table "exercise_words", force: :cascade do |t|
     t.bigint "exercise_id", null: false
@@ -69,6 +80,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_14_153906) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "cards", "lessons"
   add_foreign_key "exercise_words", "exercises"
   add_foreign_key "exercises", "lessons"
   add_foreign_key "lessons", "languages"

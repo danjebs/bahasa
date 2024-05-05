@@ -1,0 +1,7 @@
+<% if @card.errors.any? %>
+  <%= turbo_stream.replace "#{dom_id(@card)}" do %>
+    <% render Cards::CardListing(card: @card) %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.remove "#{dom_id(@card)}" %>
+<% end %>
