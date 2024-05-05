@@ -1,5 +1,5 @@
 <div
-  id="<%= dom_id @exercise %>"
+  id="<%= dom_id(@exercise.becomes(Exercise)) %>"
   class="md:p-4 border-sdf border-solid border-gray-200"
   data-id="<%= @exercise.id %>"
   data-controller="collapsible"
@@ -10,10 +10,17 @@
         <%= @exercise.type %>
       </div>
       <h2>
-          <%= @exercise.title %>
+        <%= @exercise.title %>
       </h2>
     </div>
     <div class="flex">
+      <%= render LinkButton.new(
+        href: edit_polymorphic_path(@exercise),
+        icon: :edit,
+        color: :white,
+        size: :sm,
+        data: { turbo_frame: "#{dom_id(@exercise)}" }
+      ) %>
       <button class="reorder-handle cursor-grab">
         <%= render partial: "shared/icon", locals: { name: 'chevron-up-down' } %>
       </button>
@@ -27,6 +34,8 @@
       <%= render Exercises::WordLists::WordListDetails.new(word_list: @exercise) %>
     <% elsif @exercise.type == "PhraseList" %>
       <%= render Exercises::PhraseLists::PhraseListDetails.new(phrase_list: @exercise) %>
+    <% elsif @exercise.type == "Blurb" %>
+      <%= render Exercises::Blurbs::BlurbDetails.new(blurb: @exercise) %>
     <% else %>
       <p class="my-5">
         GENERIC EXERCISE DETECTED!!

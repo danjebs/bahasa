@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :exercises, except: [:show]
     resources :word_lists, except: [:new, :destroy]
     resources :phrase_lists, except: [:new, :destroy]
+    resources :blurbs, except: [:new, :destroy]
     resources :cards
     resources :translation_cards, except: [:destroy]
     resources :phrases

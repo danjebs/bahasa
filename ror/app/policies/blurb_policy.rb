@@ -1,0 +1,2 @@
+class BlurbPolicy < ExercisePolicy
+end

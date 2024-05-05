@@ -31,7 +31,7 @@ gem "bootsnap", require: false
 # gem "kredis"
 
 # media processing
-# gem "image_processing", "~> 1.2"
+gem "image_processing", "~> 1.2"
 
 # random stuff
 gem "tzinfo-data", platforms: %i[ windows jruby ]

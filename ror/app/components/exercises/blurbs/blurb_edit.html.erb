@@ -1,0 +1,26 @@
+<turbo-frame id="<%= dom_id(@blurb) %>">
+  <%= form_with(model: @blurb, class: "contents") do |form| %>
+    <%= render Forms::ErrorNotice.new(model: @blurb) %>
+
+    <%= form.hidden_field :lesson_id, value: @blurb.present? ? @blurb.lesson_id : [:lesson_id] %>
+
+    <div class="field">
+      <%= form.label :content %>
+      <%= form.rich_text_area :content %>
+    </div>
+
+    <div class="inline">
+      <%= form.submit class: "rounded-lg py-3 px-5 bg-red-600 text-white inline-block font-medium cursor-pointer" %>
+
+      <%= render LinkButton.new(
+          href: :back,
+          label: "Cancel",
+          color: :gray,
+          data: { turbo_frame: dom_id(@blurb) }
+        )
+      %>
+    </div>
+  <% end %>
+</turbo-frame>
+
+
