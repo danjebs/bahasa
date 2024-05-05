@@ -16,14 +16,9 @@ class ExercisesController < ApplicationController
 
     respond_to do |format|
       if @exercise.save
-        format.turbo_stream do
-          turbo_stream.append(
-            :exercises,
-            Lessons::LessonShow.new(lesson: @exercise.lesson)
-          )
-        end
+        format.turbo_stream
         format.html {
-          render Lessons::LessonShow(lesson: @exercise.lesson),
+          render Lessons::LessonShow.new(lesson: @exercise.lesson),
           notice: "Exercise was successfully created."
         }
       else
@@ -45,7 +40,7 @@ class ExercisesController < ApplicationController
     respond_to do |format|
       if @exercise.update(exercise_params)
         format.html {
-          render Lessons::LessonShow(lesson: @exercise.lesson),
+          render Lessons::LessonShow.new(lesson: @exercise.lesson),
           notice: "Exercise was successfully updated."
         }
       else

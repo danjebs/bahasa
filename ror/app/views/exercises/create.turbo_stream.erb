@@ -1,6 +1,6 @@
 <% if @exercise.errors.any? %>
   <%= turbo_stream.replace "new_exercise_frame" do %>
-    <% render "new", exercise: @exercise, lesson_id: @exercise.lesson_id %>
+    <% render Exercises::ExerciseNew.new(exercise: @exercise) %>
   <% end %>
 <% else %>
   <%= turbo_stream.append "exercises_list_frame" do %>

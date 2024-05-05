@@ -1,14 +1,16 @@
-<div class=" border border-solid border-gray-100 rounded-lg">
-  <div class="flex w-full font-semibold bg-gray-50">
-    <div class="w-36 py-2 px-3">
-      English
+<div class="border border-solid border-gray-100 rounded-lg">
+  <% if @wordlist_exercise.words.length > 0 %>
+    <div class="flex w-full font-semibold bg-gray-50">
+      <div class="w-36 py-2 px-3">
+        English
+      </div>
+      <div class="w-36 py-2 px-3">
+        Indonesian
+      </div>
+      <div class="">
+      </div>
     </div>
-    <div class="w-36 py-2 px-3">
-      Indonesian
-    </div>
-    <div class="">
-    </div>
-  </div>
+  <% end %>
 
   <turbo-frame
     id="<%= dom_id(@wordlist_exercise) %>_list_frame"

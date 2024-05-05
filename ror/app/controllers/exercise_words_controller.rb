@@ -22,12 +22,7 @@ class ExerciseWordsController < ApplicationController
 
     respond_to do |format|
       if @exercise_word.save
-        format.turbo_stream {
-          turbo_stream.append(
-            :exercise_words,
-            Lessons::LessonShow.new(lesson: @exercise_word.exercise.lesson)
-          )
-        }
+        format.turbo_stream
         format.html {
           render Lessons::LessonShow.new(lesson: @exercise_word.exercise.lesson),
           notice: "Exercise word was successfully created."
@@ -72,7 +67,7 @@ class ExerciseWordsController < ApplicationController
     @exercise_word.destroy!
 
     respond_to do |format|
-      format.turbo_stream { turbo_stream.remove(:exercise_words) }
+      format.turbo_stream
       format.html {
         render Lessons::LessonShow(lesson: @exercise_word.exercise.lesson),
         notice: "Exercise word was successfully destroyed."

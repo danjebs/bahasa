@@ -10,7 +10,9 @@ class WordlistExercisesController < ApplicationController
 
     respond_to do |format|
       if @wordlist_exercise.update(wordlist_exercise_params)
-        format.html { redirect_to exercise_url(@wordlist_exercise), notice: "Wordlist Exercise was successfully updated." }
+        format.html {
+          redirect_to lesson_url(@wordlist_exercise.lesson),
+          notice: "Wordlist Exercise was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
