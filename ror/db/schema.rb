@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_05_122418) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_12_021117) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
+  create_enum "step_status", ["created", "started", "completed"]
   create_enum "user_role", ["student", "teacher", "admin"]
 
   create_table "action_text_rich_texts", force: :cascade do |t|
@@ -77,6 +78,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_05_122418) do
     t.index ["lesson_id"], name: "index_exercises_on_lesson_id"
   end
 
+  create_table "journeys", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "language_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["language_id"], name: "index_journeys_on_language_id"
+    t.index ["user_id"], name: "index_journeys_on_user_id"
+  end
+
   create_table "languages", force: :cascade do |t|
     t.string "code", default: "", null: false
     t.string "name", default: "", null: false
@@ -104,6 +114,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_05_122418) do
     t.index ["exercise_id"], name: "index_phrases_on_exercise_id"
   end
 
+  create_table "steps", force: :cascade do |t|
+    t.bigint "journey_id", null: false
+    t.bigint "lesson_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.enum "status", enum_type: "step_status"
+    t.index ["journey_id"], name: "index_steps_on_journey_id"
+    t.index ["lesson_id"], name: "index_steps_on_lesson_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "name", default: "", null: false
@@ -114,6 +134,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_05_122418) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.enum "role", enum_type: "user_role"
+    t.bigint "default_language_id"
+    t.index ["default_language_id"], name: "index_users_on_default_language_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -132,7 +154,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_05_122418) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "cards", "lessons"
   add_foreign_key "exercises", "lessons"
+  add_foreign_key "journeys", "languages"
+  add_foreign_key "journeys", "users"
   add_foreign_key "lessons", "languages"
   add_foreign_key "phrases", "exercises"
+  add_foreign_key "steps", "journeys"
+  add_foreign_key "steps", "lessons"
+  add_foreign_key "users", "languages", column: "default_language_id"
   add_foreign_key "words", "exercises"
 end

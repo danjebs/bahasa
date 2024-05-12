@@ -1,18 +1,6 @@
 Rails.application.routes.draw do
   root to: "static_pages#home"
 
-  scope "/:lang/" do
-    resources :lessons
-    resources :exercises, except: [:show]
-    resources :word_lists, except: [:new, :destroy]
-    resources :phrase_lists, except: [:new, :destroy]
-    resources :blurbs, except: [:new, :destroy]
-    resources :cards
-    resources :translation_cards, except: [:destroy]
-    resources :phrases
-    resources :words
-  end
-
   devise_for :users,
     skip: [:sessions],
     controllers: {
@@ -26,6 +14,21 @@ Rails.application.routes.draw do
     post "login", to: "devise/sessions#create", as: :user_session
     get "logout", to: "devise/sessions#destroy", as: :destroy_user_session
     get "welcome", to: "users/confirmations#welcome"
+  end
+
+  get "/journeys", to: "journeys#index"
+  resources :journeys, path: "/", param: :lang, only: [:show]
+
+  scope "/:lang/" do
+    resources :lessons
+    resources :exercises, except: [:show]
+    resources :word_lists, except: [:new, :destroy]
+    resources :phrase_lists, except: [:new, :destroy]
+    resources :blurbs, except: [:new, :destroy]
+    resources :cards
+    resources :translation_cards, except: [:destroy]
+    resources :phrases
+    resources :words
   end
 
   get "up" => "rails/health#show", as: :rails_health_check

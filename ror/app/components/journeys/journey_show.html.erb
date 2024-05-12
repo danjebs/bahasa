@@ -1,0 +1,24 @@
+<div class="h-full">
+  <div class="container m-auto flex flex-col items-center">
+    <h1>
+      <%= "Your #{@journey.language.name} Journey" %>
+    </h1>
+    <div class="flex flex-col gap-4">
+      <%= render LinkButton.new(
+        href: continue_path,
+        label: "Continue",
+        size: :lg
+      ) %>
+      <%= render LinkButton.new(
+        href: new_lesson_path,
+        label: "Add New Lesson",
+        size: :lg
+      ) %>
+      <%= render LinkButton.new(
+        href: lessons_path,
+        label: "Lesson List",
+        size: :lg
+      ) %>
+    </div>
+  </div>
+</div>

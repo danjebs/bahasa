@@ -9,7 +9,7 @@ class LinkButton < ViewComponent::Base
           data: @data
         ) do
     %>
-      <div class="flex items-center">
+      <div class="flex justify-center items-center">
         <%= render partial: "shared/icon", locals: { name: @icon } %>
         <%= @label %>
       </div>

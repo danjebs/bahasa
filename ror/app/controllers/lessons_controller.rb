@@ -87,6 +87,12 @@ class LessonsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_lesson
       @lesson = Lesson.find(params[:id])
+
+    # TODO: don't call this on preload
+    # TODO add logic to hadle case when the journey/step does not exist
+    @step = current_user
+      .journeys.find_by(language_id: @lesson.language_id)
+      .steps.create_with(status: :started).find_or_create_by!(lesson_id: @lesson.id)
     end
 
     # Only allow a list of trusted parameters through.

@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
 
   private
     def set_lang
-      @lang = params[:lang]
+      @lang = params[:lang] if Language.exists?(code: params[:lang])
     end
 
     def default_url_options
