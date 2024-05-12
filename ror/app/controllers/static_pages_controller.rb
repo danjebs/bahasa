@@ -6,8 +6,8 @@ class StaticPagesController < ApplicationController
       redirect_to current_user.default_language
     elsif current_user.present?
       redirect_to journeys_path
+    else
+      redirect_to :new_user_session
     end
-
-    redirect_to :new_user_session
   end
 end

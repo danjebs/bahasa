@@ -1,29 +1,35 @@
 <h1>
   Hallo
 </h1>
-<section>
-  <h2>
-    Continue Your Journey
-  </h2>
-  <% @journeys.each do |journey| %>
-    <%= render LinkButton.new(
-      href: "/#{journey.language.code}",
-      label: journey.language.name,
-      size: :lg,
-      color: :red
-    ) %>
-  <% end %>
-</div>
-<section>
-  <h2>
-    Start a New Journey
-  </h2>
-  <% @languages_to_learn.each do |language| %>
-    <%= render LinkButton.new(
-      href: "/#{language.code}",
-      label: "Learn #{language.name}",
-      size: :lg,
-      color: :red
-    ) %>
-  <% end %>
-</div>
+<% if @journeys.present? %>
+  <section>
+    <h2>
+      Continue Your Journey
+    </h2>
+    <div class="flex flex-col gap-4">
+      <% @journeys.each do |journey| %>
+        <%= render LinkButton.new(
+          href: "/#{journey.language.code}",
+          label: journey.language.name,
+          size: :lg,
+          color: :red
+        ) %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+<% if @languages_to_learn.present? %>
+  <section>
+    <h2>
+      Start a New Journey
+    </h2>
+    <% @languages_to_learn.each do |language| %>
+      <%= render LinkButton.new(
+        href: "/#{language.code}",
+        label: "Learn #{language.name}",
+        size: :lg,
+        color: :red
+      ) %>
+    <% end %>
+  </div>
+<% end %>
