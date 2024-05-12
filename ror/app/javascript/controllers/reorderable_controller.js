@@ -17,7 +17,7 @@ export default class extends Controller {
   }
 
   async endDrag(e) {
-    let { id, controller, model } = e.item.dataset
+    let { id, model } = e.item.dataset
     const url = this.data.get('url').replace(':id', id)
 
     const response = await patch(url, {

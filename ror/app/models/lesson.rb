@@ -7,4 +7,6 @@ class Lesson < ApplicationRecord
   acts_as_list scope: :language_id
 
   validates :title, presence: true, uniqueness: { scope: :language_id }
+
+  scope :ordered, -> { order(language_id: :asc, position: :asc) }
 end

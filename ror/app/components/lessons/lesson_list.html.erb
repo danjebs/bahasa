@@ -13,9 +13,13 @@
       )
     %>
   </div>
-
-  <div id="lessons" class="min-w-full rounded-lg shadow-md border border-solid border-gray-100">
-    <% @lessons.each do |lesson| %>
+  <div
+    id="<%= params[:lang] %>_lessons"
+    class="min-w-full rounded-lg shadow-md border border-solid border-gray-100"
+    data-controller="reorderable"
+    data-reorderable-url="<%= lesson_path(':id') %>"
+  >
+    <% @lessons.ordered.each do |lesson| %>
       <%= render Lessons::LessonListing.new(lesson: lesson) %>
     <% end %>
   </div>

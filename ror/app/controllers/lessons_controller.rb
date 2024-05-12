@@ -50,6 +50,10 @@ class LessonsController < ApplicationController
   def update
     authorize @lesson
 
+    if lesson_params[:position].present? && lesson_params[:position] != @lesson.position
+      @lesson.insert_at(lesson_params[:position])
+    end
+
     respond_to do |format|
       if @lesson.update(lesson_params)
         format.turbo_stream
@@ -97,6 +101,6 @@ class LessonsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def lesson_params
-      params.require(:lesson).permit(:title)
+      params.require(:lesson).permit(:title, :position)
     end
 end
