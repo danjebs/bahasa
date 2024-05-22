@@ -13,6 +13,7 @@
       <%= render Forms::FormActions(
         form: form,
         is_modal: true,
+        cancel_href: :back,
         delete_href: @blurb.becomes(Exercise),
         delete_frame: dom_id(@blurb.becomes(Exercise))
       ) %>

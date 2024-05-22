@@ -3,5 +3,7 @@
   data-model="card"
   data-id="<%= @translation_card.id %>"
 >
-  <%= render Cards::Translations::TranslationCardForm.new(translation_card: @translation_card) %>
+  <div class="p-4 border-b border-b-solid border-b-gray-100">
+    <%= render Cards::Translations::TranslationCardForm.new(translation_card: @translation_card) %>
+  </div>
 </turbo-frame>

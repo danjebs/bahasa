@@ -46,20 +46,8 @@
         <%= render Lessons::AddExerciseButtons.new lesson: @lesson %>
       <% end %>
       <% component.with_section do %>
+        <%= render Cards::Translations::TranslationCardNew.new(lesson_id: @lesson.id) %>
         <div class="border border-solid border-gray-100 dark:border-gray-700 rounded-lg">
-          <% if @lesson.cards.length > 0 %>
-            <div class="flex w-full font-semibold bg-gray-50 dark:bg-gray-700">
-              <div class="w-36 py-2 px-3">
-                Front
-              </div>
-              <div class="w-36 py-2 px-3">
-                Back
-              </div>
-              <div class="">
-              </div>
-            </div>
-          <% end %>
-
           <turbo-frame
             id="<%= dom_id(@lesson) %>_cards_list_frame"
             data-controller="reorderable"
@@ -67,7 +55,6 @@
           >
             <%= render Cards::CardListing.with_collection(@lesson.cards.ordered) %>
           </turbo-frame>
-          <%= render Lessons::AddCardButtons.new(lesson: @lesson) %>
         </div>
       <% end %>
     <% end %>

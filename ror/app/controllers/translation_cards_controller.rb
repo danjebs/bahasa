@@ -6,7 +6,7 @@ class TranslationCardsController < ApplicationController
 
     @translation_card = TranslationCard.new(lesson_id: params[:lesson_id])
 
-    render Cards::Translations::TranslationCardNew.new(translation_card: @translation_card)
+    render Cards::Translations::TranslationCardNew.new(lesson_id: @translation_card.lesson_id)
   end
 
   def create
@@ -23,7 +23,7 @@ class TranslationCardsController < ApplicationController
         format.json { render json: @translation_card, status: :created, location: @translation_card }
       else
         format.html {
-          render Cards::Translations::TranslationCardNew.new(translation_card: @translation_card),
+          render Cards::Translations::TranslationCardNew.new(lesson_id: @translation_card.lesson_id),
           status: :unprocessable_entity
         }
         format.json { render json: @translation_card.errors, status: :unprocessable_entity }

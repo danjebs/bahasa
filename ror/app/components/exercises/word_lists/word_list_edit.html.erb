@@ -3,5 +3,5 @@
 
   <%= render Forms::TextField.new(form: form, field: :title) %>
 
-  <%= render Forms::FormActions.new(form: form) %>
+  <%= render Forms::FormActions.new(form: form, cancel_href: :back) %>
 <% end %>

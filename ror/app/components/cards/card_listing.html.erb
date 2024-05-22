@@ -4,11 +4,11 @@
   data-id="<%= @card.id %>"
 >
   <div class="flex justify-between items-center border-b border-solid border-gray-100 dark:border-gray-700">
-    <div class="flex gap-2">
-      <div class="w-36 py-2 px-3">
+    <div class="flex-grow py-2">
+      <div class="px-3 text-sm text-gray-500 dark:text-gray-400">
         <%= @card.front %>
       </div>
-      <div class="w-36 py-2 px-3">
+      <div class="px-3">
         <%= @card.back %>
       </div>
     </div>

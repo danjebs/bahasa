@@ -6,5 +6,5 @@ class Card < ApplicationRecord
   validates :type, presence: true
   validates :front, presence: true
 
-  scope :ordered, -> { order(lesson_id: :asc, position: :asc) }
+  scope :ordered, -> { order(lesson_id: :asc, position: :desc) }
 end

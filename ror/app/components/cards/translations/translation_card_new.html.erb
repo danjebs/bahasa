@@ -1,6 +1,10 @@
 <turbo-frame
   id="<%= dom_id(@translation_card.lesson) %>_new_card_frame"
-  class="md:p-4 border-b border-solid border-gray-200 dark:border-gray-600 md:border md:shadow-md md:rounded-md md:mb-6"
 >
-  <%= render Cards::Translations::TranslationCardForm.new(translation_card: @translation_card) %>
+  <div class="bg-gray-100 rounded-lg mb-6 p-4">
+    <h2>
+      Add New Practice Card
+    </h2>
+    <%= render Cards::Translations::TranslationCardForm.new(translation_card: @translation_card) %>
+  </div>
 </turbo-frame>
