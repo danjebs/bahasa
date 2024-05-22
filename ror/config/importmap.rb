@@ -8,3 +8,4 @@ pin_all_from "app/javascript/controllers", under: "controllers"
 pin "sortablejs" # @1.15.2
 pin "trix"
 pin "@rails/actiontext", to: "actiontext.esm.js"
+pin "dayjs" # @1.11.11

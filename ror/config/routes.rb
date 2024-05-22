@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
   get "/journeys", to: "journeys#index"
   resources :journeys, path: "/", param: :lang, only: [:show]
+  resources :deck_cards, only: [:update]
 
   scope "/:lang/" do
     resources :lessons
@@ -25,6 +26,7 @@ Rails.application.routes.draw do
     resources :word_lists, except: [:new, :destroy]
     resources :phrase_lists, except: [:new, :destroy]
     resources :blurbs, except: [:new, :destroy]
+    resources :decks, except: [:edit, :update, :delete]
     resources :cards
     resources :translation_cards, except: [:destroy]
     resources :phrases

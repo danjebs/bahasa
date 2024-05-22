@@ -5,6 +5,11 @@
     </h1>
     <div class="flex flex-col gap-4">
       <%= render LinkButton.new(
+        href: new_deck_path,
+        label: "Daily Practice",
+        size: :lg
+      ) %>
+      <%= render LinkButton.new(
         href: continue_path,
         label: "Continue",
         size: :lg
