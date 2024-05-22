@@ -24,9 +24,6 @@
           turbo_frame: "#{dom_id(@card)}"
         }
       ) %>
-      <button class="reorder-handle cursor-grab">
-        <%= render partial: "shared/icon", locals: { name: 'chevron-up-down' } %>
-      </button>
       <%= render LinkButton.new(
         href: edit_polymorphic_path(@card),
         icon: :edit,
@@ -34,6 +31,7 @@
         size: :sm,
         data: { turbo_frame: "#{dom_id(@card)}" }
       ) %>
+      <%= render UI::Atoms::ReorderHandle.new %>
     </div>
   </div>
 </turbo-frame>

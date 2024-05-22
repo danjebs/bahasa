@@ -13,8 +13,6 @@
     </div>
   <% end %>
   <div class="flex-grow-0 flex items-center">
-    <button class="reorder-handle cursor-grab">
-      <%= render partial: "shared/icon", locals: { name: 'chevron-up-down' } %>
-    </button>
+    <%= render UI::Atoms::ReorderHandle.new %>
   </div>
 </div>

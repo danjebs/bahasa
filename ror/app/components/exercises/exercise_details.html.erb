@@ -17,10 +17,8 @@
         size: :sm,
         data: { turbo_frame: :remote_modal }
       ) %>
-      <button class="reorder-handle cursor-grab">
-        <%= render partial: "shared/icon", locals: { name: 'chevron-up-down' } %>
-      </button>
-      <button data-action="click->collapsible#toggleOpen" data-collapsible-target="button" class="reorder-handle cursor-pointer rotate-180">
+      <%= render UI::Atoms::ReorderHandle.new %>
+      <button data-action="click->collapsible#toggleOpen" data-collapsible-target="button" class="cursor-pointer rotate-180">
         <%= render partial: "shared/icon", locals: { name: 'chevron-down' } %>
       </button>
     </div>

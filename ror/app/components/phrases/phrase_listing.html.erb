@@ -24,9 +24,6 @@
         turbo_frame: "#{dom_id(@phrase)}"
       }
     ) %>
-    <button class="reorder-handle cursor-grab">
-      <%= render partial: "shared/icon", locals: { name: 'chevron-up-down' } %>
-    </button>
     <%= render LinkButton.new(
       href: edit_phrase_path(@phrase),
       icon: :edit,
@@ -34,5 +31,6 @@
       size: :sm,
       data: { turbo_frame: "#{dom_id(@phrase)}" }
     ) %>
+    <%= render UI::Atoms::ReorderHandle.new %>
   </div>
 </turbo-frame>

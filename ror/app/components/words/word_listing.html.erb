@@ -32,9 +32,7 @@
         size: :sm,
         data: { turbo_frame: "#{dom_id(@word)}" }
       ) %>
-      <button class="reorder-handle cursor-grab bg-white-100 hover:bg-gray-100 dark:hover:bg-gray-700 py-1.5 px-2.5 text-sm font-normal rounded-full">
-        <%= render partial: "shared/icon", locals: { name: 'chevron-up-down' } %>
-      </button>
+      <%= render UI::Atoms::ReorderHandle.new %>
     </div>
   </div>
 </turbo-frame>
