@@ -1,43 +1,22 @@
-<section class="md:p-4 border-b border-solid border-gray-200 dark:border-gray-600 md:border md:shadow-md md:rounded-md md:mb-6">
-  <div class="mx-auto md:w-2/3 w-full">
-    <h1 class="font-bold text-4xl">
-      New Deck
-    </h1>
-    <%= form_with(model: @deck, class: "contents") do |form| %>
-      <%= render Forms::ErrorNotice.new(model: @deck) %>
+<section class="max-w-xl mx-auto">
+  <h1>
+    Start Your Daily Practice
+  </h1>
+  <%= form_with(model: @deck, class: "contents") do |form| %>
+    <%= render Forms::ErrorNotice.new(model: @deck) %>
 
-      <%= form.hidden_field :journey_id, value: @deck&.journey_id %>
+    <%= render Forms::HiddenField.new(form: form, field: :journey_id, value: @deck&.journey_id) %>
+    <%= render Forms::SelectField.new(
+      form: form,
+      field: :difficulty,
+      options: [["Quick", "quick"], ["Medium", "medium"], ["Long", "long"], ["Marathon", "marathon"]]
+    ) %>
+    <%= render Forms::SelectField.new(
+      form: form,
+      field: :duration,
+      options: [["Easy", "easy"], ["Normal", "normal"], ["Hard", "hard"]]
+    ) %>
 
-      <div class="my-5">
-        <%= form.label :duration %>
-        <%= form.select :duration,
-          options_for_select([["Quick", "quick"], ["Medium", "medium"], ["Long", "long"], ["Marathon", "marathon"]]),
-          {},
-          { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" }
-        %>
-      </div>
-
-      <div class="my-5">
-        <%= form.label :difficulty %>
-        <%= form.select :difficulty,
-          options_for_select([["Easy", "easy"], ["Normal", "normal"], ["Hard", "hard"]]),
-          {},
-          { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" }
-        %>
-      </div>
-
-      <div class="inline">
-        <%= form.submit class: "rounded-lg py-3 px-5 bg-red-600 text-white inline-block font-medium cursor-pointer" %>
-      </div>
-
-      <%= render LinkButton.new(
-          href: @deck,
-          label: "Cancel",
-          color: :gray,
-          data: { turbo_frame: :remote_modal }
-        )
-      %>
-    <% end %>
-
-  </div>
+    <%=render Forms::FormActions.new(form: form, cancel_href: @deck, is_modal: true) %>
+  <% end %>
 </section>

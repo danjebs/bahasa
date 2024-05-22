@@ -6,18 +6,16 @@
     <%= form_with(model: @blurb, class: "contents") do |form| %>
       <%= render Forms::ErrorNotice.new(model: @blurb) %>
 
-      <%= form.hidden_field :lesson_id, value: @blurb.present? ? @blurb.lesson_id : [:lesson_id] %>
+      <%= render Forms::HiddenField.new(form: form, field: :lesson_id, value: @blurb.present? ? @blurb.lesson_id : [:lesson_id]) %>
+      <%= render Forms::TextField.new(form: form, field: :title) %>
+      <%= render Forms::RichTextField.new(form: form, field: :content) %>
 
-      <div class="field">
-        <%= form.label :title %>
-        <%= form.text_field :title, autofocus: true, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-1 w-full" %>
-      </div>
-
-      <div class="field">
-        <%= form.label :content %>
-        <%= form.rich_text_area :content %>
-      </div>
-
+      <%= render Forms::FormActions(
+        form: form,
+        is_modal: true,
+        delete_href: @blurb.becomes(Exercise),
+        delete_frame: dom_id(@blurb.becomes(Exercise))
+      ) %>
       <div class="flex justify-between">
         <div class="flex">
           <%= form.submit class: "rounded-lg py-3 px-5 bg-red-600 text-white inline-block font-medium cursor-pointer" %>
