@@ -13,7 +13,7 @@
       )
     %>
 
-    <div class="flex justify-between items-center w-full py-4 border-b border-solid border-gray-200 dark:border-gray-600">
+    <div class="flex justify-between items-center w-full py-4">
       <div>
         <div class="text-lg font-medium text-gray-400 dark:text-gray-500">
           <%= "Lesson ##{@lesson.position}" %>
@@ -34,7 +34,7 @@
       </div>
     </div>
 
-    <%= render TabBar.new(tabs: ["lesson", "practice"]) do |component| %>
+    <%= render UI::Layout::TabBar.new(tabs: ["lesson", "practice"]) do |component| %>
       <% component.with_section do %>
         <turbo-frame
           id="exercises_list_frame"
