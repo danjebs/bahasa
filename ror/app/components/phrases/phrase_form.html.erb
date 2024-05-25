@@ -17,7 +17,13 @@
 
     <div class="flex-grow-0">
       <%= form.submit "Save", class: "" %>
-      <%= render LinkButton.new(href: :back, label: "Cancel", size: :sm, color: :white) %>
+      <%= render LinkButton.new(
+        href: :back,
+        label: "Cancel",
+        size: :sm,
+        color: :white,
+        data: { turbo_frame: "#{dom_id(@phrase.exercise)}_new_phrase_frame" }
+      ) %>
     </div>
   </div>
 <% end %>

@@ -2,21 +2,13 @@
   <h1>
     Start Your Daily Practice
   </h1>
-  <%= form_with(model: @deck, class: "contents") do |form| %>
-    <%= render Forms::ErrorNotice.new(model: @deck) %>
-
-    <%= render Forms::HiddenField.new(form: form, field: :journey_id, value: @deck&.journey_id) %>
-    <%= render Forms::SelectField.new(
-      form: form,
-      field: :difficulty,
-      options: [["Quick", "quick"], ["Medium", "medium"], ["Long", "long"], ["Marathon", "marathon"]]
-    ) %>
-    <%= render Forms::SelectField.new(
-      form: form,
-      field: :duration,
-      options: [["Easy", "easy"], ["Normal", "normal"], ["Hard", "hard"]]
-    ) %>
-
-    <%=render Forms::FormActions.new(form: form, cancel_href: @deck, is_modal: true) %>
-  <% end %>
+  <%= render Forms::Form.new(
+    model: @deck,
+    cancel_href: lessons_path,
+    fields: [
+      { type: :select, name: :difficulty, options: [["Quick", "quick"], ["Medium", "medium"], ["Long", "long"], ["Marathon", "marathon"]] },
+      { type: :select, name: :duration, options: [["Easy", "easy"], ["Normal", "normal"], ["Hard", "hard"]] },
+      { type: :hidden, name: :journey_id, value: @deck.journey_id },
+    ]
+  ) %>
 </section>

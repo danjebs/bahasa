@@ -10,7 +10,7 @@ class ExercisesController < ApplicationController
   def new
     authorize Exercise
 
-    @exercise = Exercise.new(lesson_id: params[:lesson_id])
+    @exercise = Exercise.new(lesson_id: params[:lesson_id], type: params[:type])
 
     render Exercises::ExerciseNew.new(exercise: @exercise)
   end

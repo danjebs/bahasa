@@ -3,25 +3,15 @@
     <% component.with_heading do %>
       Add New Exercise
     <% end %>
-    <%= form_with(model: @exercise.becomes(Exercise), class: "contents") do |form| %>
-
-      <%= render Forms::ErrorNotice.new(model: @exercise) %>
-
-      <% if params[:type].present? %>
-        <%= form.hidden_field :type, value: params[:type] %>
-        <%= render Forms::HiddenField.new(form: form, field: :type, value: params[:type]) %>
-      <% else %>
-        <%= render Forms::SelectField.new(
-          form: form,
-          field: :type,
-          options: [["Blurb", "Blurb"], ["Word List", "WordList"], ["Phrase List", "PhraseList"]]
-        ) %>
-      <% end %>
-
-      <%= render Forms::TextField.new(form: form, field: :title) %>
-      <%= render Forms::HiddenField.new(form: form, field: :lesson_id, value: @exercise&.lesson_id) %>
-
-      <%= render Forms::FormActions.new(form: form, cancel_href: :back, is_modal: true) %>
-    <% end %>
+    <%= render Forms::Form.new(
+      model: @exercise.becomes(Exercise),
+      fields: [
+        { name: :title, type: :text },
+        @exercise.type.present? ? { name: :type, type: :hidden, value: @exercise.type } : { name: :type, type: :select, options: [["Blurb", "Blurb"], ["Word List", "WordList"], ["Phrase List", "PhraseList"]] },
+        { name: :lesson_id, type: :hidden, value: @exercise.lesson_id }
+      ],
+      cancel_href: @exercise.lesson,
+      is_modal: true
+    ) %>
   <% end %>
 </turbo-frame>

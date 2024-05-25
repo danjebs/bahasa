@@ -1,19 +1,19 @@
 <%= form_with(model: @model, class: "contents") do |form| %>
   <%= render Forms::ErrorNotice.new(model: @model) %>
 
-  <% @fields.each do |field| %>
+  <% @fields.each_with_index do |field, i| %>
     <div class="mb-5">
       <%= form.label field[:name] unless field[:type] == :hidden %>
       <% if field[:type] == :text %>
-        <%= form.text_field field[:name], class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+        <%= form.text_field field[:name], autofocus: i == 0, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
       <% elsif field[:type] == :select %>
         <%= form.select field[:name],
           options_for_select(field[:options]),
-          {},
+          { autofocus: i == 0 },
           { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" }
         %>
       <% elsif field[:type] == :rich_text %>
-        <%= form.rich_text_area field[:name] %>
+        <%= form.rich_text_area field[:name], autofocus: i == 0 %>
       <% elsif field[:type] == :hidden %>
         <%= form.hidden_field field[:name], value: field[:value] %>
       <% end %>
@@ -42,7 +42,7 @@
         data: {
           turbo_method: :delete,
           turbo_confirm: "Are you sure?",
-          turbo_frame: "#{dom_id(@model)}"
+          turbo_frame: "remote-modal"
         }
       ) %>
     <% end %>

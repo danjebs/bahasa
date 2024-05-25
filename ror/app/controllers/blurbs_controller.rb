@@ -1,6 +1,33 @@
 class BlurbsController < ApplicationController
   before_action :set_blurb, only: [:edit, :update]
 
+  def new
+    authorize Blurb
+
+    @blurb = Blurb.new(lesson_id: params[:lesson_id])
+
+    render Exercises::Blurbs::BlurbNew.new(blurb: @blurb)
+  end
+
+  def create
+    authorize Blurb
+
+    @blurb = Blurb.new(blurb_params)
+
+    respond_to do |format|
+      if @blurb.save
+        format.html { redirect_to @blurb.lesson, notice: "Exercise was successfully created." }
+        format.json { render json: @blurb, status: :created, location: @blurb }
+      else
+        format.html {
+          render Exercises::Blurbs::BlurbNew.new(blurb: @blurb),
+          status: :unprocessable_entity
+        }
+        format.json { render json: @blurb.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def edit
     authorize @blurb
 
@@ -33,6 +60,6 @@ class BlurbsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def blurb_params
-      params.require(:blurb).permit(:title, :position, :content)
+      params.require(:blurb).permit(:lesson_id, :title, :position, :content)
     end
 end

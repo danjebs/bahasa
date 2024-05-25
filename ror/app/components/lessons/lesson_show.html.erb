@@ -19,6 +19,17 @@
     </div>
     <div>
       <%= render LinkButton.new(
+        href: @model,
+        icon: :trash,
+        color: :white,
+        size: :sm,
+        data: {
+          turbo_method: :delete,
+          turbo_confirm: "Are you sure?",
+          turbo_frame: "_top"
+        }
+      ) %>
+      <%= render LinkButton.new(
           href: edit_lesson_path(@lesson),
           icon: "edit",
           color: :white,
