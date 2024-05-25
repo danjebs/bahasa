@@ -1,8 +1,9 @@
 class Lesson < ApplicationRecord
   belongs_to :language, touch: true
 
-  has_many :cards
-  has_many :exercises
+  has_many :cards, dependent: :destroy
+  has_many :exercises, dependent: :destroy
+  has_many :steps, dependent: :destroy
 
   broadcasts_refreshes
 

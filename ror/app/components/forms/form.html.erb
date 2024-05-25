@@ -1,0 +1,50 @@
+<%= form_with(model: @model, class: "contents") do |form| %>
+  <%= render Forms::ErrorNotice.new(model: @model) %>
+
+  <% @fields.each do |field| %>
+    <div class="mb-5">
+      <%= form.label field[:name] unless field[:type] == :hidden %>
+      <% if field[:type] == :text %>
+        <%= form.text_field field[:name], class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+      <% elsif field[:type] == :select %>
+        <%= form.select field[:name],
+          options_for_select(field[:options]),
+          {},
+          { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" }
+        %>
+      <% elsif field[:type] == :rich_text %>
+        <%= form.rich_text_area field[:name] %>
+      <% elsif field[:type] == :hidden %>
+        <%= form.hidden_field field[:name], value: field[:value] %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="flex justify-between items-center">
+    <div class="flex gap-4">
+      <%= form.submit class: "rounded-lg py-3 px-5 bg-red-600 text-white inline-block font-medium cursor-pointer" %>
+      <% if @cancel_href.present? %>
+        <%= render LinkButton.new(
+            href: @cancel_href,
+            label: "Cancel",
+            color: :white,
+            data: @cancel_data
+          )
+        %>
+      <% end %>
+    </div>
+    <% if @delete_href.present? %>
+      <%= render LinkButton.new(
+        href: @delete_href,
+        icon: :trash,
+        color: :white,
+        size: :sm,
+        data: {
+          turbo_method: :delete,
+          turbo_confirm: "Are you sure?",
+          turbo_frame: "#{dom_id(@model)}"
+        }
+      ) %>
+    <% end %>
+  </div>
+<% end %>

@@ -2,5 +2,9 @@
   <h1>
     Add a New Lesson
   </h1>
-  <%= render Lessons::LessonForm.new(lesson: @lesson) %>
+  <%= render Forms::Form.new(
+    model: @lesson,
+    cancel_href: lessons_path,
+    fields: [{ name: :title, type: :text }]
+  ) %>
 </section>
