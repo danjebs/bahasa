@@ -1,5 +1,6 @@
+<%= helpers.turbo_stream_from @exercise %>
+
 <div
-  id="<%= dom_id(@exercise.becomes(Exercise)) %>"
   class="md:py-4 border-sdf border-solid border-gray-200"
   data-id="<%= @exercise.id %>"
   data-model="exercise"
@@ -10,13 +11,28 @@
       <%= @exercise.title %>
     </h2>
     <div class="flex">
-      <%= render LinkButton.new(
-        href: edit_polymorphic_path(@exercise),
-        icon: :edit,
-        color: :white,
-        size: :sm,
-        data: { turbo_frame: :remote_modal }
-      ) %>
+      <div data-controller="modal-form">
+        <%= render UI::Atoms::Button.new(
+          action: "modal-form#onOpen",
+          icon: "edit",
+          color: :white,
+          size: :sm,
+        ) %>
+        <%= render UI::Layout::ModalForm.new(id: "#{dom_id(@exercise)}_modal_edit_form") do |component| %>
+          <% component.with_heading do %>
+            Edit <%= "#{@exercise.type.humanize}: #{@exercise.title}" %>
+          <% end %>
+          <%= render Forms::Form.new(
+            model: @exercise,
+            cancel_href: lessons_path,
+            delete_href: @exercise,
+            fields: [
+              { name: :title, type: :text },
+              @exercise.type == "Blurb" ? { name: :content, type: :rich_text } : nil
+            ]
+          ) %>
+        <% end %>
+      </div>
       <%= render UI::Atoms::ReorderHandle.new %>
       <button data-action="click->collapsible#toggleOpen" data-collapsible-target="button" class="cursor-pointer rotate-180">
         <%= render partial: "shared/icon", locals: { name: 'chevron-down' } %>
@@ -24,12 +40,16 @@
     </div>
   </div>
   <div data-collapsible-target="content">
-    <turbo-frame
-      id="<%= dom_id(@exercise.becomes(Exercise)) %>_content"
-      src="<%= exercise_path @exercise %>"
-      loading="lazy"
-    >
-      ...
-    </turbo-frame>
+    <% if @exercise.type == "WordList" %>
+      <%= render Exercises::WordLists::WordListDetails.new(word_list: @exercise) %>
+    <% elsif @exercise.type == "PhraseList" %>
+      <%= render Exercises::PhraseLists::PhraseListDetails.new(phrase_list: @exercise) %>
+    <% elsif @exercise.type == "Blurb" %>
+      <%= render Exercises::Blurbs::BlurbDetails.new(blurb: @exercise) %>
+    <% else %>
+      <p class="my-5">
+        GENERIC EXERCISE DETECTED!!
+      </p>
+    <% end %>
   </div>
 </div>

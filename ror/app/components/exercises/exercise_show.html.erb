@@ -1,7 +1,7 @@
 <h1>
   <%= @exercise.title %>
 </h1>
-<turbo-frame id="<%= dom_id(@exercise.becomes(Exercise)) %>_content">
+<turbo-frame id="<%= dom_id(@exercise) %>_content">
   <% if @exercise.type == "WordList" %>
     <%= render Exercises::WordLists::WordListDetails.new(word_list: @exercise) %>
   <% elsif @exercise.type == "PhraseList" %>

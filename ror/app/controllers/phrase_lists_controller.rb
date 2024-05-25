@@ -1,6 +1,25 @@
 class PhraseListsController < ApplicationController
   before_action :set_phrase_list, only: [:edit, :update]
 
+  def create
+    authorize PhraseList
+
+    @phrase_list = PhraseList.new(phrase_list_params)
+
+    respond_to do |format|
+      if @phrase_list.save
+        format.html { redirect_to @phrase_list.lesson, notice: "Phrase List was successfully created." }
+        format.json { render json: @phrase_list, status: :created, location: @phrase_list }
+      else
+        format.html {
+          redirect_to @phrase_list.lesson,
+          status: :unprocessable_entity
+        }
+        format.json { render json: @phrase_list.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def edit
     authorize @phrase_list
 
@@ -13,7 +32,7 @@ class PhraseListsController < ApplicationController
     respond_to do |format|
       if @phrase_list.update(phrase_list_params)
         format.html {
-          render Exercises::PhraseLists::PhraseListDetails.new(phrase_list: @phrase_list),
+          redirect_to @phrase_list.lesson,
           notice: "Phrase List was successfully updated."
         }
         format.json { render json: @phrase_list, status: :created, location: @phrase_list }
@@ -35,6 +54,6 @@ class PhraseListsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def phrase_list_params
-      params.require(:phrase_list).permit(:title, :position)
+      params.require(:phrase_list).permit(:lesson_id, :title, :position)
     end
 end

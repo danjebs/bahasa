@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     resources :exercises
     resources :word_lists, except: [:new, :destroy]
     resources :phrase_lists, except: [:new, :destroy]
-    resources :blurbs, except: [:new, :destroy]
+    resources :blurbs, except: [:destroy]
     resources :decks, except: [:edit, :update, :delete]
     resources :cards
     resources :translation_cards, except: [:destroy]

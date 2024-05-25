@@ -10,8 +10,7 @@
         { type: :rich_text, name: :content },
         { type: :hidden, name: :lesson_id, value: @blurb.lesson_id },
       ],
-      cancel_href: @blurb.lesson,
-      is_modal: true
+      cancel_href: @blurb.lesson
     ) %>
   <% end %>
 </turbo-frame>

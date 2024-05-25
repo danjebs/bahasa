@@ -19,10 +19,7 @@ class BlurbsController < ApplicationController
         format.html { redirect_to @blurb.lesson, notice: "Exercise was successfully created." }
         format.json { render json: @blurb, status: :created, location: @blurb }
       else
-        format.html {
-          render Exercises::Blurbs::BlurbNew.new(blurb: @blurb),
-          status: :unprocessable_entity
-        }
+        format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @blurb.errors, status: :unprocessable_entity }
       end
     end
@@ -39,11 +36,7 @@ class BlurbsController < ApplicationController
 
     respond_to do |format|
       if @blurb.update(blurb_params)
-        format.turbo_stream
-        format.html {
-          render Exercises::Blurbs::BlurbDetails.new(blurb: @blurb),
-          notice: "Blurb was successfully updated."
-        }
+        format.html { redirect_to @blurb.lesson, notice: "Blurb was successfully updated." }
         format.json { render json: @blurb, status: :created, location: @blurb }
       else
         format.html { render :edit, status: :unprocessable_entity }
