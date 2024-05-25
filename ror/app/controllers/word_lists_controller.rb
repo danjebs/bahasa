@@ -3,6 +3,8 @@ class WordListsController < ApplicationController
 
   def edit
     authorize @word_list
+
+    render Exercises::WordLists::WordListEdit.new(word_list: @word_list)
   end
 
   def update

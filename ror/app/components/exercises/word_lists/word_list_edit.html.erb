@@ -1,7 +1,13 @@
-<%= form_with(model: @word_list, class: "contents") do |form| %>
-  <%= render Forms::ErrorNotice.new(model: @word_list) %>
-
-  <%= render Forms::TextField.new(form: form, field: :title) %>
-
-  <%= render Forms::FormActions.new(form: form, cancel_href: :back) %>
-<% end %>
+<turbo-frame id="remote_modal">
+  <%= render UI::Layout::Modal.new(id: dom_id(@word_list)) do |component| %>
+    <% component.with_heading do %>
+      Edit Word List
+    <% end %>
+    <%= render Forms::Form.new(
+      model: @word_list,
+      fields: [{ type: :text, name: :title }],
+      cancel_href: @word_list.lesson,
+      delete_href: @word_list.becomes(Exercise)
+    ) %>
+  <% end %>
+</turbo-frame>

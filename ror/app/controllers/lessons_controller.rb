@@ -74,11 +74,7 @@ class LessonsController < ApplicationController
     @lesson.destroy!
 
     respond_to do |format|
-      format.turbo_stream
-      format.html {
-        redirect_to lessons_url,
-        notice: "Lesson was successfully destroyed."
-      }
+      format.html { redirect_to lessons_url, notice: "Lesson was successfully destroyed." }
       format.json { head :no_content }
     end
   end

@@ -1,6 +1,5 @@
 class LessonPolicy < ApplicationPolicy
   def index?
-    p "DBUG LessonPolicy #{user.id}"
     user&.role_is_admin?
   end
 

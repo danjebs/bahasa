@@ -3,48 +3,16 @@
     <% component.with_heading do %>
       Edit Blurb
     <% end %>
-    <%= form_with(model: @blurb, class: "contents") do |form| %>
-      <%= render Forms::ErrorNotice.new(model: @blurb) %>
-
-      <%= render Forms::HiddenField.new(form: form, field: :lesson_id, value: @blurb.present? ? @blurb.lesson_id : [:lesson_id]) %>
-      <%= render Forms::TextField.new(form: form, field: :title) %>
-      <%= render Forms::RichTextField.new(form: form, field: :content) %>
-
-      <%= render Forms::FormActions(
-        form: form,
-        is_modal: true,
-        cancel_href: :back,
-        delete_href: @blurb.becomes(Exercise),
-        delete_frame: dom_id(@blurb.becomes(Exercise))
-      ) %>
-      <div class="flex justify-between">
-        <div class="flex">
-          <%= form.submit class: "rounded-lg py-3 px-5 bg-red-600 text-white inline-block font-medium cursor-pointer" %>
-
-          <%= render LinkButton.new(
-              href: :back,
-              label: "Cancel",
-              color: :gray,
-              data: { turbo_frame: :remote_modal }
-            )
-          %>
-        </div>
-        <div>
-          <%= render LinkButton.new(
-            href: @blurb.becomes(Exercise),
-            icon: :trash,
-            color: :white,
-            size: :sm,
-            data: {
-              turbo_method: :delete,
-              turbo_confirm: "Are you sure?",
-              turbo_frame: "#{dom_id(@blurb.becomes(Exercise))}"
-            }
-          ) %>
-        </div>
-      </div>
-    <% end %>
+    <%= render Forms::Form.new(
+      model: @blurb,
+      fields: [
+        { type: :hidden, name: :lesson_id, value: @blurb.lesson_id },
+        { type: :text, name: :title },
+        { type: :rich_text, name: :content }
+      ],
+      cancel_href: :back,
+      delete_href: @blurb.becomes(Exercise),
+      is_modal: true
+    ) %>
   <% end %>
 </turbo-frame>
-
-

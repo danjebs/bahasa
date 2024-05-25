@@ -1,6 +1,8 @@
 class Card < ApplicationRecord
   belongs_to :lesson
 
+  has_many :deck_cards, dependent: :destroy
+
   acts_as_list scope: :lesson
 
   validates :type, presence: true

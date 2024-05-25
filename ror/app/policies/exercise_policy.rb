@@ -17,7 +17,7 @@ class ExercisePolicy < ApplicationPolicy
   end
 
   def edit?
-    false
+    user&.role_is_admin?
   end
 
   def update?

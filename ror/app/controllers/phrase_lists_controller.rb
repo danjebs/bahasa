@@ -3,6 +3,8 @@ class PhraseListsController < ApplicationController
 
   def edit
     authorize @phrase_list
+
+    render Exercises::PhraseLists::PhraseListEdit.new(phrase_list: @phrase_list)
   end
 
   def update
@@ -20,6 +22,9 @@ class PhraseListsController < ApplicationController
         format.json { render json: @phrase_list.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def destroy
   end
 
   private
