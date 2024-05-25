@@ -1,8 +1,10 @@
 class Lesson < ApplicationRecord
-  belongs_to :language
+  belongs_to :language, touch: true
 
   has_many :cards
   has_many :exercises
+
+  broadcasts_refreshes
 
   acts_as_list scope: :language_id
 

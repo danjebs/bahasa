@@ -1,5 +1,11 @@
 class ExercisesController < ApplicationController
-  before_action :set_exercise, only: [:update, :destroy]
+  before_action :set_exercise, only: [:show, :update, :destroy]
+
+  def show
+    authorize @exercise
+
+    render Exercises::ExerciseShow.new(exercise: @exercise)
+  end
 
   def new
     authorize Exercise
@@ -16,11 +22,7 @@ class ExercisesController < ApplicationController
 
     respond_to do |format|
       if @exercise.save
-        format.turbo_stream
-        format.html {
-          render Lessons::LessonShow.new(lesson: @exercise.lesson),
-          notice: "Exercise was successfully created."
-        }
+        format.html { redirect_to @exercise.lesson, notice: "Exercise was successfully created." }
         format.json { render json: @exercise, status: :created, location: @exercise }
       else
         format.html {
@@ -62,7 +64,6 @@ class ExercisesController < ApplicationController
     @exercise.destroy!
 
     respond_to do |format|
-      format.turbo_stream
       format.html {
         render Lessons::LessonShow.new(lesson: @exercise.lesson),
         notice: "Exercise was successfully destroyed."

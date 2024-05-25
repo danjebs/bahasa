@@ -1,6 +1,0 @@
-<%= turbo_stream.replace dom_id(@lesson) do %>
-  <%= render Lessons::LessonShow.new(lesson: @lesson) %>
-<% end %>
-<%= turbo_stream.replace "remote_modal" do %>
-  <%= turbo_frame_tag :remote_modal %>
-<% end %>

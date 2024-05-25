@@ -1,6 +1,7 @@
 class Exercise < ApplicationRecord
+  broadcasts_refreshes
 
-  belongs_to :lesson
+  belongs_to :lesson, touch: true
 
   acts_as_list scope: :lesson
 

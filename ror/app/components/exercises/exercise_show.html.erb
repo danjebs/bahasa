@@ -1,0 +1,16 @@
+<h1>
+  <%= @exercise.title %>
+</h1>
+<turbo-frame id="<%= dom_id(@exercise.becomes(Exercise)) %>_content">
+  <% if @exercise.type == "WordList" %>
+    <%= render Exercises::WordLists::WordListDetails.new(word_list: @exercise) %>
+  <% elsif @exercise.type == "PhraseList" %>
+    <%= render Exercises::PhraseLists::PhraseListDetails.new(phrase_list: @exercise) %>
+  <% elsif @exercise.type == "Blurb" %>
+    <%= render Exercises::Blurbs::BlurbDetails.new(blurb: @exercise) %>
+  <% else %>
+    <p class="my-5">
+      GENERIC EXERCISE DETECTED!!
+    </p>
+  <% end %>
+</turbo-frame>

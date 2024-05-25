@@ -56,11 +56,7 @@ class LessonsController < ApplicationController
 
     respond_to do |format|
       if @lesson.update(lesson_params)
-        format.turbo_stream
-        format.html {
-          render Lessons::LessonShow.new(lesson: @lesson),
-          notice: "Lesson was successfully updated."
-        }
+        format.html { redirect_to @lesson, notice: "Lesson was successfully updated." }
         format.json { render json: @lesson, status: :created, location: @lesson }
       else
         format.html {

@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 
   scope "/:lang/" do
     resources :lessons
-    resources :exercises, except: [:show]
+    resources :exercises
     resources :word_lists, except: [:new, :destroy]
     resources :phrase_lists, except: [:new, :destroy]
     resources :blurbs, except: [:new, :destroy]

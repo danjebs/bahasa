@@ -15,4 +15,5 @@
   <div class="flex-grow-0 flex items-center">
     <%= render UI::Atoms::ReorderHandle.new %>
   </div>
+  <%= helpers.turbo_stream_from @lesson %>
 </div>
