@@ -1,16 +1,10 @@
-<turbo-frame id="remote_modal">
-  <%= render UI::Layout::Modal.new(id: dom_id(@blurb)) do |component| %>
-    <% component.with_heading do %>
-      New Blurb
-    <% end %>
-    <%= render Forms::Form.new(
-      model: @blurb,
-      fields: [
-        { type: :text, name: :title },
-        { type: :rich_text, name: :content },
-        { type: :hidden, name: :lesson_id, value: @blurb.lesson_id },
-      ],
-      cancel_href: @blurb.lesson
-    ) %>
-  <% end %>
-</turbo-frame>
+<%= render Forms::Form.new(
+  model: @blurb,
+  cancel_href: @blurb.lesson,
+  delete_href: @blurb.becomes(Exercise),
+  fields: [
+    { name: :title, type: :text },
+    { name: :content, type: :rich_text },
+    { name: :lesson_id, type: :hidden, value: @blurb.lesson_id }
+  ]
+) %>

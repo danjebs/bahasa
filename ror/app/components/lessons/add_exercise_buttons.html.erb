@@ -1,52 +1,32 @@
 <div class="sticky bottom-0 flex gap-4 p-4 bg-gray-100 dark:bg-gray-700">
-  <div data-controller="modal-form">
-    <%= render UI::Atoms::Button.new(action: "modal-form#onOpen", label: "Add Phrase List") %>
-    <%= render UI::Layout::ModalForm.new(id: "#{dom_id(@lesson)}_new_phrase_list_modal") do |component| %>
-      <% component.with_heading do %>
-        Add Phrase List
-      <% end %>
-      <%= render Forms::Form.new(
-        model: PhraseList.new(lesson_id: @lesson.id),
-        cancel_href: lessons_path,
-        fields: [
-          { name: :title, type: :text },
-          { name: :lesson_id, type: :hidden, value: @lesson.id }
-        ]
-      ) %>
+  <%= render UI::Layout::Modal.new(
+    model: @lesson,
+    id:  "#{dom_id(@lesson)}_new_phrase_list_modal",
+    heading: "Add Phrase List"
+  ) do |component| %>
+    <% component.with_trigger do %>
+      <%= render UI::Atoms::Button.new(action: "modal#open", label: "Add Phrase List") %>
     <% end %>
-  </div>
-  <div data-controller="modal-form">
-    <%= render UI::Atoms::Button.new(action: "modal-form#onOpen", label: "Add Word List") %>
-    <%= render UI::Layout::ModalForm.new(id: "#{dom_id(@lesson)}_new_blurb_modal") do |component| %>
-      <% component.with_heading do %>
-        Add Word List
-      <% end %>
-      <%= render Forms::Form.new(
-        model: WordList.new(lesson_id: @lesson.id),
-        cancel_href: lessons_path,
-        fields: [
-          { name: :title, type: :text },
-          { name: :lesson_id, type: :hidden, value: @lesson.id }
-        ]
-      ) %>
+    <%= render Exercises::PhraseLists::PhraseListNew.new(phrase_list: PhraseList.new(lesson_id: @lesson.id)) %>
+  <% end %>
+  <%= render UI::Layout::Modal.new(
+    model: @lesson,
+    id: "#{dom_id(@lesson)}_new_word_list_modal",
+    heading: "Add Word List"
+  ) do |component| %>
+    <% component.with_trigger do %>
+      <%= render UI::Atoms::Button.new(action: "modal#open", label: "Add Word List") %>
     <% end %>
-  </div>
-  <div data-controller="modal-form">
-    <%= render UI::Atoms::Button.new(action: "modal-form#onOpen", label: "Add Blurb") %>
-    <%= render UI::Layout::ModalForm.new(id: "#{dom_id(@lesson)}_new_blurb_modal") do |component| %>
-      <% component.with_heading do %>
-        Add Blurb
-      <% end %>
-      <%= render Forms::Form.new(
-        model: Blurb.new(lesson_id: @lesson.id),
-        cancel_href: lessons_path,
-        delete_href: @exercise,
-        fields: [
-          { name: :title, type: :text },
-          { name: :content, type: :rich_text },
-          { name: :lesson_id, type: :hidden, value: @lesson.id }
-        ]
-      ) %>
+    <%= render Exercises::WordLists::WordListNew.new(word_list: WordList.new(lesson_id: @lesson.id)) %>
+  <% end %>
+  <%= render UI::Layout::Modal.new(
+    model: @lesson,
+    id: "#{dom_id(@lesson)}_new_blurb_modal",
+    heading: "Add Blurb"
+  ) do |component| %>
+    <% component.with_trigger do %>
+      <%= render UI::Atoms::Button.new(action: "modal#open", label: "Add Blurb") %>
     <% end %>
-  </div>
+    <%= render Exercises::Blurbs::BlurbNew.new(blurb: Blurb.new(lesson_id: @lesson.id)) %>
+  <% end %>
 </div>

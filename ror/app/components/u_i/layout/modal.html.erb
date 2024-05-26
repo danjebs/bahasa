@@ -1,15 +1,18 @@
-<dialog
-  id="<%= @id %>_modal"
-  data-controller="remote-modal"
-  class="w-full max-w-xl mx-auto p-6 rounded-xl dark:bg-gray-800 backdrop:bg-gray-700 backdrop:opacity-70 shadow-lg"
->
-  <div class="flex justify-between items-center">
-    <h2>
-      <%= heading %>
-    </h2>
-    <button class="cursor-pointer" data-controller="remote_modal" data-action="click->remote-modal#close">
-      <%= render partial: "shared/icon", locals: { name: 'x' } %>
-    </button>
-  </div>
-  <%= content %>
-</dialog>
+<div data-controller="modal">
+  <%= trigger %>
+  <dialog
+    id="<%= @id %>"
+    data-modal-target="modal"
+    class="w-full max-w-xl mx-auto p-6 rounded-xl dark:bg-gray-800 backdrop:bg-gray-700 backdrop:opacity-70 shadow-lg"
+  >
+    <div class="flex justify-between items-center">
+      <h2>
+        <%= @heading %>
+      </h2>
+      <button class="cursor-pointer" data-action="modal#close">
+        <%= render partial: "shared/icon", locals: { name: 'x' } %>
+      </button>
+    </div>
+    <%= content %>
+  </dialog>
+</div>

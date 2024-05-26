@@ -9,30 +9,31 @@
       <%= @exercise.title %>
     </h2>
     <div class="flex">
-      <div data-controller="modal-form">
-        <%= render UI::Atoms::Button.new(
-          action: "modal-form#onOpen",
-          icon: "edit",
-          color: :white,
-          size: :sm,
-        ) %>
-        <%= render UI::Layout::ModalForm.new(id: "#{dom_id(@exercise)}_modal_edit_form") do |component| %>
-          <% component.with_heading do %>
-            Edit <%= "#{@exercise.type.humanize}: #{@exercise.title}" %>
-          <% end %>
-          <%= render Forms::Form.new(
-            model: @exercise,
-            cancel_href: @exercise.lesson,
-            delete_href: @exercise.becomes(Exercise),
-            fields: [
-              { name: :title, type: :text },
-              @exercise.type == "Blurb" ? { name: :content, type: :rich_text } : nil
-            ]
+      <%= render UI::Layout::Modal.new(
+        model: @exercise,
+        id: "#{dom_id(@exercise)}_edit_modal",
+        heading: "Edit #{@exercise.type.humanize}: #{@exercise.title}"
+      ) do |component| %>
+        <% component.with_trigger do %>
+          <%= render UI::Atoms::Button.new(
+            action: "modal#open",
+            icon: "edit",
+            color: :white,
+            size: :sm,
           ) %>
         <% end %>
-      </div>
+        <%= render Forms::Form.new(
+          model: @exercise,
+          cancel_href: @exercise.lesson,
+          delete_href: @exercise.becomes(Exercise),
+          fields: [
+            { name: :title, type: :text },
+            @exercise.type == "Blurb" ? { name: :content, type: :rich_text } : nil
+          ]
+        ) %>
+      <% end %>
       <%= render UI::Atoms::ReorderHandle.new %>
-      <button data-action="click->collapsible#toggleOpen" data-collapsible-target="button" class="cursor-pointer rotate-180">
+      <button data-action="collapsible#toggleOpen" data-collapsible-target="button" class="cursor-pointer rotate-180">
         <%= render partial: "shared/icon", locals: { name: 'chevron-down' } %>
       </button>
     </div>

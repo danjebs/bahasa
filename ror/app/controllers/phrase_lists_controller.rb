@@ -1,6 +1,14 @@
 class PhraseListsController < ApplicationController
   before_action :set_phrase_list, only: [:edit, :update]
 
+  def new
+    authorize PhraseList
+
+    @phrase_list = PhraseList.new(word_list_params)
+
+    render Exercises::PhraseLists::PhraseListNew.new(phrase_list: @phrase_list)
+  end
+
   def create
     authorize PhraseList
 

@@ -18,20 +18,21 @@
           <%= @lesson.title %>
         </h1>
       </div>
-      <div data-controller="modal-form">
-        <%= render UI::Atoms::Button.new(
-          action: "modal-form#onOpen",
-          icon: "edit",
-          color: :white,
-          size: :sm,
-        ) %>
-        <%= render UI::Layout::ModalForm.new(id: "#{dom_id(@lesson)}_modal_edit_form") do |component| %>
-          <% component.with_heading do %>
-            Edit <%= "#{@lesson.title}" %>
-          <% end %>
-          <%= render Lessons::LessonEdit.new(lesson: @lesson) %>
+      <%= render UI::Layout::Modal.new(
+        id: "#{dom_id(@lesson)}_modal_edit_form",
+        model: @lesson,
+        heading: "Edit #{@lesson.title}"
+      ) do |component| %>
+        <% component.with_trigger do %>
+          <%= render UI::Atoms::Button.new(
+            action: "modal#open",
+            icon: "edit",
+            color: :white,
+            size: :sm,
+          ) %>
         <% end %>
-      </div>
+        <%= render Lessons::LessonEdit.new(lesson: @lesson) %>
+      <% end %>
     </div>
 
     <%= render UI::Layout::TabBar.new(tabs: ["lesson", "practice"]) do |component| %>

@@ -1,0 +1,8 @@
+<%= render Forms::Form.new(
+  model: @word_list,
+  cancel_href: @word_list.lesson,
+  fields: [
+    { name: :title, type: :text },
+    { name: :lesson_id, type: :hidden, value: @word_list.lesson_id }
+  ]
+) %>
