@@ -1,12 +1,12 @@
 <div data-controller="tab-bar">
   <div class="sticky top-0 pt-4 bg-white border-b border-gray-200 dark:border-gray-500">
     <nav class="-mb-px flex" aria-label="Tabs">
-      <% @tabs.map do |tab| %>
+      <% @tabs.each_with_index do |tab, i| %>
         <button
           data-tab-bar-target="tabs"
           data-action="tab-bar#onClickTab"
           data-tab-id="<%= tab %>"
-          class="shrink-0 capitalize px-8 py-4 font-medium text-gray-500 rounded-t-lg border border-solid border-gray-100"
+          class="shrink-0 capitalize px-8 py-4 font-medium text-gray-500 <%= i == 0 ? 'bg-red-100' : '' %>  rounded-t-lg border border-solid border-gray-100"
         >
           <%= tab %>
         </button>
@@ -15,7 +15,7 @@
   </div>
   <% sections.each_with_index do |section, i| %>
     <div
-      class="hidden py-6"
+      class="<%= i == 0 ? '' : 'hidden' %> py-6"
       id="<%= @tabs[i] %>"
       data-tab-bar-target="sections"
       data-section-id="<%= @tabs[i] %>"

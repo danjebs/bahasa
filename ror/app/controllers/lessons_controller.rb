@@ -6,6 +6,7 @@ class LessonsController < ApplicationController
     authorize Lesson
 
     @lessons = Lesson.all
+    @language = Language.find_by(code: params[:lang])
 
     render Lessons::LessonList.new(lessons: @lessons)
   end
