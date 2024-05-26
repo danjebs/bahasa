@@ -6,8 +6,8 @@
     model: @deck,
     cancel_href: lessons_path,
     fields: [
-      { type: :select, name: :difficulty, options: [["Quick", "quick"], ["Medium", "medium"], ["Long", "long"], ["Marathon", "marathon"]] },
-      { type: :select, name: :duration, options: [["Easy", "easy"], ["Normal", "normal"], ["Hard", "hard"]] },
+      { type: :select, name: :duration, options: [["Quick", "quick"], ["Medium", "medium"], ["Long", "long"], ["Marathon", "marathon"]] },
+      { type: :select, name: :difficulty, options: [["Easy", "easy"], ["Normal", "normal"], ["Hard", "hard"]] },
       { type: :hidden, name: :journey_id, value: @deck.journey_id },
     ]
   ) %>
