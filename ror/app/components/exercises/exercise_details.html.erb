@@ -1,24 +1,24 @@
 <div
-  class="md:p-4 bg-white dark:bg-gray-700 md:border border-solid border-gray-100 dark:border-gray-600 rounded-lg shadow-md mb-6"
+  class="px-3 py-4 md:px-4 mb-6 bg-white dark:bg-gray-700 rounded-lg shadow-md"
   data-id="<%= @exercise.id %>"
   data-model="exercise"
   data-controller="collapsible"
 >
-  <div class="flex justify-between items-center w-full reorder-handle cursor-grab">
+  <div class="flex justify-between items-center w-full mb-2 reorder-handle cursor-grab">
     <h2>
       <%= @exercise.title %>
     </h2>
-    <div class="flex">
+    <div class="hidden md:flex">
       <%= render UI::Layout::Modal.new(
         model: @exercise,
         id: "#{dom_id(@exercise)}_edit_modal",
         heading: "Edit #{@exercise.type.humanize}: #{@exercise.title}"
       ) do |component| %>
         <% component.with_trigger do %>
-          <%= render UI::Atoms::Button.new(
+          <%= render UI::Atoms::IconButton.new(
             action: "modal#open",
             icon: "edit",
-            color: :white,
+            color: :red,
             size: :sm,
           ) %>
         <% end %>

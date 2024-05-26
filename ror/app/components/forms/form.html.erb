@@ -33,10 +33,10 @@
       <% end %>
     </div>
     <% if @delete_href.present? %>
-      <%= render LinkButton.new(
+      <%= render UI::Atoms::IconLink.new(
         href: @delete_href,
         icon: :trash,
-        color: :white,
+        color: :red,
         size: :sm,
         data: {
           turbo_method: :delete,

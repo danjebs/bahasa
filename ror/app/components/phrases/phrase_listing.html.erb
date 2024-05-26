@@ -12,11 +12,11 @@
       <%= @phrase.translation %>
     </div>
   </div>
-  <div class="flex justify-center items-center">
-    <%= render LinkButton.new(
+  <div class="hidden md:flex justify-center items-center">
+    <%= render UI::Atoms::IconLink.new(
       href: @phrase,
       icon: :trash,
-      color: :white,
+      color: :red,
       size: :sm,
       data: {
         turbo_method: :delete,
@@ -24,10 +24,10 @@
         turbo_frame: "#{dom_id(@phrase)}"
       }
     ) %>
-    <%= render LinkButton.new(
+    <%= render UI::Atoms::IconLink.new(
       href: edit_phrase_path(@phrase),
       icon: :edit,
-      color: :white,
+      color: :red,
       size: :sm,
       data: { turbo_frame: "#{dom_id(@phrase)}" }
     ) %>

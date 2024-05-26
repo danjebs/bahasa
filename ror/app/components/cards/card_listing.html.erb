@@ -12,8 +12,8 @@
         <%= @card.back %>
       </div>
     </div>
-    <div class="flex justify-center items-center">
-      <%= render LinkButton.new(
+    <div class="hidden md:flex justify-center items-center">
+      <%= render UI::Atoms::IconLink.new(
         href: edit_polymorphic_path(@card),
         icon: :edit,
         color: :white,

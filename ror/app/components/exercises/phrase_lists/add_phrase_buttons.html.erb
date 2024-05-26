@@ -1,5 +1,5 @@
 <turbo-frame id="<%= dom_id(@phrase_list) %>_new_phrase_frame">
-  <div class="flex justify-end py-2 px-3">
+  <div class="hidden md:flex justify-end py-2 px-3">
     <%= render(LinkButton.new(
       label: "Add Phrase",
       href: new_phrase_path(exercise_id: @phrase_list.id),
