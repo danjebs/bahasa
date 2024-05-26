@@ -1,13 +1,8 @@
-<turbo-frame id="remote_modal">
-  <%= render UI::Layout::Modal.new(id: dom_id(@lesson)) do |component| %>
-    <% component.with_heading do %>
-      Edit Lesson
-    <% end %>
     <%= render Forms::Form.new(
       model: @lesson,
-      cancel_href: @lesson,
+      cancel_href: lessons_path,
       delete_href: @lesson,
-      fields: [{ name: :title, type: :text }]
+      fields: [
+        { name: :title, type: :text }
+      ]
     ) %>
-  <% end %>
-</turbo-frame>
