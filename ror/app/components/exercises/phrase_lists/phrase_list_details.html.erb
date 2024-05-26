@@ -1,17 +1,4 @@
-<div class="border border-solid border-gray-100 dark:border-gray-700 rounded-lg">
-  <% if @phrase_list.phrases.length > 0 %>
-    <div class="flex w-full font-semibold bg-gray-50 dark:bg-gray-700">
-      <div class="w-36 py-2 px-3">
-        English
-      </div>
-      <div class="w-36 py-2 px-3">
-        Indonesian
-      </div>
-      <div class="">
-      </div>
-    </div>
-  <% end %>
-
+<div class="border border-solid border-gray-100 dark:border-gray-600 rounded-lg overflow-clip">
   <turbo-frame
     id="<%= dom_id(@phrase_list) %>_list_frame"
     data-controller="reorderable"

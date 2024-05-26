@@ -4,8 +4,8 @@ class UI::Atoms::Button < ViewComponent::Base
 
   erb_template <<-ERB
     <button data-action="<%= @action %>" class="<%= ["w-full", @css_color_classes, @css_size_classes].join(" ") %>">
-      <div class="flex justify-center items-center">
-        <%= render partial: "shared/icon", locals: { name: @icon } %>
+      <div class="flex justify-center items-center gap-2">
+        <%= render partial: "shared/icon", locals: { name: @icon, css_class: "h-5 w-5" } %>
         <%= @label %>
       </div>
     </button>
@@ -18,16 +18,16 @@ class UI::Atoms::Button < ViewComponent::Base
     @data = data
 
     @css_size_classes = {
-      sm: "py-1.5 px-3 text-sm font-normal rounded-full",
-      md: "py-3 px-4 text-base font-medium rounded-full",
-      lg: "py-4 px-5 text-lg font-semibold rounded-full",
+      xs: "py-1 px-2 text-sm font-normal rounded",
+      sm: "py-1.5 px-3 text-sm font-normal rounded",
+      md: "py-2 px-4 text-sm font-medium rounded-md",
+      lg: "py-3 px-5 text-lg font-semibold rounded-md",
     }[size]
 
     @css_color_classes = {
-      red: "bg-rose-100 hover:bg-rose-200 text-rose-600 dark:border-rose-700 dark:hover:bg-red-700 textdark:-red-700 dark:hover:text-gray-700",
-      # red: "border-2 border-solid border-red-600 hover:bg-red-600 text-red-600 hover:text-white dark:border-red-700 dark:hover:bg-red-700 textdark:-red-700 dark:hover:text-gray-700",
+      red: "bg-gradient-to-r from-primary-500 to-primary-600 hover:to-primary-500 text-white dark:from-primary-700 dark:to-primary-600 dark:hover:to-primary-700 dark:text-primary-100",
       gray: "bg-gray-100 hover:bg-gray-200 text-gray-700 dark:text-gray-200",
-      white: "bg-white-100 hover:bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700",
+      white: "bg-white hover:bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 border border-solid border-gray-200 dark:border-gray-500 shadow-sm",
     }[color]
   end
 end

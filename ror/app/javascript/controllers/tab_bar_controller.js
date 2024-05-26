@@ -19,7 +19,8 @@ export default class extends Controller {
     })
 
     this.tabsTargets.forEach((tab) => {
-      tab.classList.toggle("bg-red-100", tab.dataset.tabId === id)
+      tab.classList.toggle("bg-primary-600", tab.dataset.tabId === id)
+      tab.classList.toggle("text-white", tab.dataset.tabId === id)
     })
   }
 }

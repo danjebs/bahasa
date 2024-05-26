@@ -1,5 +1,5 @@
 <turbo-frame id="<%= dom_id(@word_list) %>_new_word_frame">
-  <div class="flex justify-end py-2 px-3">
+  <div class="flex justify-end py-1 px-3">
     <%= render(LinkButton.new(
       label: "Add Word",
       href: new_word_path(exercise_id: @word_list.id),

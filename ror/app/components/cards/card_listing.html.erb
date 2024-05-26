@@ -3,7 +3,7 @@
   data-model="card"
   data-id="<%= @card.id %>"
 >
-  <div class="flex justify-between items-center border-b border-solid border-gray-100 dark:border-gray-700">
+  <div class="flex justify-between items-center px-3 border-b border-solid border-gray-100 dark:border-gray-700">
     <div class="flex-grow py-2">
       <div class="px-3 text-sm text-gray-500 dark:text-gray-400">
         <%= @card.front %>
@@ -14,24 +14,12 @@
     </div>
     <div class="flex justify-center items-center">
       <%= render LinkButton.new(
-        href: @card.becomes(Card),
-        icon: :trash,
-        color: :white,
-        size: :sm,
-        data: {
-          turbo_method: :delete,
-          turbo_confirm: "Are you sure?",
-          turbo_frame: "#{dom_id(@card)}"
-        }
-      ) %>
-      <%= render LinkButton.new(
         href: edit_polymorphic_path(@card),
         icon: :edit,
         color: :white,
         size: :sm,
         data: { turbo_frame: "#{dom_id(@card)}" }
       ) %>
-      <%= render UI::Atoms::ReorderHandle.new %>
     </div>
   </div>
 </turbo-frame>

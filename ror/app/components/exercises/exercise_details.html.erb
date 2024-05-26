@@ -1,10 +1,10 @@
 <div
-  class="md:py-4 border-sdf border-solid border-gray-200"
+  class="md:p-4 bg-white dark:bg-gray-700 md:border border-solid border-gray-100 dark:border-gray-600 rounded-lg shadow-md mb-6"
   data-id="<%= @exercise.id %>"
   data-model="exercise"
   data-controller="collapsible"
 >
-  <div class="flex justify-between items-center w-full">
+  <div class="flex justify-between items-center w-full reorder-handle cursor-grab">
     <h2>
       <%= @exercise.title %>
     </h2>
@@ -32,10 +32,6 @@
           ]
         ) %>
       <% end %>
-      <%= render UI::Atoms::ReorderHandle.new %>
-      <button data-action="collapsible#toggleOpen" data-collapsible-target="button" class="cursor-pointer rotate-180">
-        <%= render partial: "shared/icon", locals: { name: 'chevron-down' } %>
-      </button>
     </div>
   </div>
   <div data-collapsible-target="content">

@@ -4,27 +4,16 @@
   data-id="<%= @word.id %>"
   class="flex justify-between items-center border-b last-of-type:border-none border-solid border-gray-100 dark:border-gray-600"
 >
-  <div class="flex w-full justify-between items-center">
+  <div class="reorder-handle flex w-full justify-between items-center cursor-grab px-3">
     <div class="flex gap-2">
-      <div class="w-36 py-2 px-3">
+      <div class="w-36 py-2">
         <%= @word.word %>
       </div>
-      <div class="w-36 py-2 px-3">
+      <div class="w-36 py-2">
         <%= @word.translation %>
       </div>
     </div>
     <div class="flex justify-center items-center">
-      <%= render LinkButton.new(
-        href: @word,
-        icon: :trash,
-        color: :white,
-        size: :sm,
-        data: {
-          turbo_method: :delete,
-          turbo_confirm: "Are you sure?",
-          turbo_frame: "#{dom_id(@word)}"
-        }
-      ) %>
       <%= render LinkButton.new(
         href: edit_word_path(@word),
         icon: :edit,
@@ -32,7 +21,6 @@
         size: :sm,
         data: { turbo_frame: "#{dom_id(@word)}" }
       ) %>
-      <%= render UI::Atoms::ReorderHandle.new %>
     </div>
   </div>
 </turbo-frame>
