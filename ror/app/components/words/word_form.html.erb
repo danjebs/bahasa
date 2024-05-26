@@ -1,22 +1,11 @@
-<%= form_with(model: @word, class: "contents") do |form| %>
-  <%= render Forms::ErrorNotice.new(model: @word) %>
-
-  <div class="flex w-full justify-between items-center border-b border-solid border-gray-200 dark:border-gray-600">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-      <%= form.hidden_field :exercise_id, value: @word&.exercise_id || params[:exercise_id] %>
-
-      <div class="w-36 py-1">
-        <%= form.text_field :word, autofocus: true, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-1 w-full" %>
-      </div>
-
-      <div class="w-36 py-1">
-        <%= form.text_field :translation, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-1 w-full" %>
-      </div>
-    </div>
-
-    <div class="flex-grow-0">
-      <%= form.submit "Save", class: "" %>
-      <%= render LinkButton.new(href: @word.exercise, label: "Cancel", size: :sm, color: :white) %>
-    </div>
-  </div>
-<% end %>
+<%= render Forms::InlineForm.new(
+  model: @word,
+  direction: :row,
+  cancel_href: @word.exercise.lesson,
+  delete_href: @word,
+  fields: [
+    { name: :exercise_id, type: :hidden,  value: @word.exercise_id },
+    { name: :word, type: :text },
+    { name: :translation, type: :text },
+  ]
+) %>

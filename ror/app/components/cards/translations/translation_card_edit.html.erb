@@ -4,6 +4,14 @@
   data-id="<%= @translation_card.id %>"
 >
   <div class="p-4 border-b border-b-solid border-b-gray-100">
-    <%= render Cards::Translations::TranslationCardForm.new(translation_card: @translation_card) %>
+    <%= render Forms::InlineForm.new(
+      model: @translation_card,
+      direction: :col,
+      cancel_href: @translation_card.lesson,
+      fields: [
+        { type: :text, name: :front },
+        { type: :text, name: :back },
+      ],
+    ) %>
   </div>
 </turbo-frame>

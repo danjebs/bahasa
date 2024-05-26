@@ -1,3 +1,13 @@
 <turbo-frame id="<%= dom_id(@phrase) %>">
-  <%= render Phrases::PhraseForm.new(phrase: @phrase) %>
+  <%= render Forms::InlineForm.new(
+    model: @phrase,
+    cancel_href: @phrase.exercise.lesson,
+    delete_href: @phrase,
+    direction: :col,
+    fields: [
+      { name: :phrase, type: :text },
+      { name: :translation, type: :text },
+      { name: :exercise_id, type: :hidden, value: @phrase.exercise_id },
+    ]
+  ) %>
 </turbo-frame>

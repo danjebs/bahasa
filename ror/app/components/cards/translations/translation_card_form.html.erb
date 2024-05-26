@@ -1,9 +1,0 @@
-<%= form_with(model: @translation_card, class: "contents") do |form| %>
-  <%= render Forms::ErrorNotice.new(model: @translation_card) %>
-
-  <%= render Forms::HiddenField.new(form: form, field: :lesson_id, value: @translation_card&.lesson_id || params[:lesson_id]) %>
-  <%= render Forms::TextField.new(form: form, field: :front) %>
-  <%= render Forms::TextField.new(form: form, field: :back) %>
-
-  <%= render Forms::FormActions.new(form: form) %>
-<% end %>

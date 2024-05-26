@@ -5,6 +5,14 @@
     <h2>
       Add New Practice Card
     </h2>
-    <%= render Cards::Translations::TranslationCardForm.new(translation_card: @translation_card) %>
+    <%= render Forms::Form.new(
+      model: @translation_card,
+      cancel_href: @translation_card.lesson,
+      fields: [
+        { type: :text, name: :front },
+        { type: :text, name: :back },
+        { type: :hidden, name: :lesson_id, value: @translation_card.lesson_id },
+      ]
+    ) %>
   </div>
 </turbo-frame>
