@@ -22,7 +22,7 @@
           <% end %>
           <%= render Forms::Form.new(
             model: @exercise,
-            cancel_href: lessons_path,
+            cancel_href: @exercise.lesson,
             delete_href: @exercise.becomes(Exercise),
             fields: [
               { name: :title, type: :text },

@@ -1,39 +1,38 @@
-<%= helpers.turbo_stream_from @lesson %>
+<main id="<%= dom_id @lesson %>" class="container mx-auto">
+  <%= render LinkButton.new(
+      href: lessons_path,
+      label: "#{@lesson.language.name} Journey",
+      color: :white,
+      size: :sm
+    )
+  %>
+  <turbo-frame id="<%= dom_id(@lesson) %>_frame" turbo-visit-control="reload">
+    <%= helpers.turbo_stream_from @lesson %>
 
-<turbo-frame id="<%= dom_id(@lesson) %>_frame">
-  <main id="<%= dom_id @lesson %>" class="container mx-auto">
-    <%= render LinkButton.new(
-        href: lessons_path,
-        label: "#{@lesson.language.name} Journey",
-        color: :white,
-        size: :sm
-      )
-    %>
-      <div class="flex justify-between items-center w-full py-4">
-        <div>
-          <div class="text-lg font-medium text-gray-400 dark:text-gray-500">
-            <%= "Lesson ##{@lesson.position}" %>
-          </div>
-          <h1>
-            <%= @lesson.title %>
-          </h1>
+    <div class="flex justify-between items-center w-full py-4">
+      <div>
+        <div class="text-lg font-medium text-gray-400 dark:text-gray-500">
+          <%= "Lesson ##{@lesson.position}" %>
         </div>
-        <div data-controller="modal-form">
-          <%= render UI::Atoms::Button.new(
-            action: "modal-form#onOpen",
-            icon: "edit",
-            color: :white,
-            size: :sm,
-          ) %>
-          <%= render UI::Layout::ModalForm.new(id: "#{dom_id(@lesson)}_modal_edit_form") do |component| %>
-            <% component.with_heading do %>
-              Edit <%= "#{@lesson.title}" %>
-            <% end %>
-            <%= render Lessons::LessonEdit.new(lesson: @lesson) %>
-          <% end %>
-        </div>
+        <h1>
+          <%= @lesson.title %>
+        </h1>
       </div>
-    </turbo-frame>
+      <div data-controller="modal-form">
+        <%= render UI::Atoms::Button.new(
+          action: "modal-form#onOpen",
+          icon: "edit",
+          color: :white,
+          size: :sm,
+        ) %>
+        <%= render UI::Layout::ModalForm.new(id: "#{dom_id(@lesson)}_modal_edit_form") do |component| %>
+          <% component.with_heading do %>
+            Edit <%= "#{@lesson.title}" %>
+          <% end %>
+          <%= render Lessons::LessonEdit.new(lesson: @lesson) %>
+        <% end %>
+      </div>
+    </div>
 
     <%= render UI::Layout::TabBar.new(tabs: ["lesson", "practice"]) do |component| %>
       <% component.with_section do %>
@@ -59,5 +58,5 @@
         </div>
       <% end %>
     <% end %>
-  </main>
-</turbo-frame>
+  </turbo-frame>
+</main>
