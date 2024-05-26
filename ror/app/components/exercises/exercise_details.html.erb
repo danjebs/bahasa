@@ -23,7 +23,7 @@
           <%= render Forms::Form.new(
             model: @exercise,
             cancel_href: lessons_path,
-            delete_href: @exercise,
+            delete_href: @exercise.becomes(Exercise),
             fields: [
               { name: :title, type: :text },
               @exercise.type == "Blurb" ? { name: :content, type: :rich_text } : nil

@@ -71,7 +71,7 @@ class PhrasesController < ApplicationController
     respond_to do |format|
       format.turbo_stream
       format.html {
-        render Lessons::LessonShow(lesson: @phrase.exercise.lesson),
+        render Lessons::LessonShow.new(lesson: @phrase.exercise.lesson),
         notice: "Exercise phrase was successfully destroyed."
       }
       format.json { head :no_content }
