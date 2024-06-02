@@ -10,7 +10,7 @@ class User < ApplicationRecord
   has_many :card_proficiencies, through: :journeys
   has_many :cards, through: :decks
 
-  belongs_to :default_language, class_name: :Language
+  belongs_to :default_language, class_name: :Language, optional: true
 
   validates :name, presence: true
 

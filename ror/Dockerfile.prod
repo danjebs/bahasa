@@ -8,8 +8,8 @@ COPY Gemfile.lock /var/www/html/ror/Gemfile.lock
 RUN bundle install
 COPY . /var/www/html/ror
 
-# Run migrations
 RUN rails db:migrate
+RUN rails assets:precompile
 
 # Add a script to be executed every time the container starts.
 COPY entrypoint.sh /usr/bin/
