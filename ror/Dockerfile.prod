@@ -8,7 +8,7 @@ COPY Gemfile.lock /var/www/html/ror/Gemfile.lock
 RUN bundle install
 COPY . /var/www/html/ror
 
-# # Run migrations
+# Run migrations
 RUN rails db:migrate
 
 # Add a script to be executed every time the container starts.

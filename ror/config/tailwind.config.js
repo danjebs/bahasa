@@ -44,7 +44,7 @@ module.exports = {
         },
         gray: colors.slate
       },
-    },
+    }
   },
   plugins: [
     require('@tailwindcss/forms'),
