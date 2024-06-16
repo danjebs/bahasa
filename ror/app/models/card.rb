@@ -2,6 +2,7 @@ class Card < ApplicationRecord
   belongs_to :lesson
 
   has_many :deck_cards, dependent: :destroy
+  has_many :card_proficiencies
 
   acts_as_list scope: :lesson
 
@@ -9,11 +10,4 @@ class Card < ApplicationRecord
   validates :front, presence: true
 
   scope :ordered, -> { order(lesson_id: :asc, position: :desc) }
-
-  def difficulty_rating
-    [(front.split(" ").length / 2.to_f).ceil, DeckCard::MAX_SCORE].min
-  end
-
-  def max_points
-  end
 end

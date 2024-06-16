@@ -30,7 +30,7 @@ class UI::Atoms::IconLink < ViewComponent::Base
     @css_color_classes = {
       red: "bg-white text-primary-500 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:hover:text-primary-500 dark:hover:bg-gray-600",
       gray: "bg-gray-100 hover:bg-gray-200 text-gray-700 dark:text-gray-200",
-      white: "bg-white hover:bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-800",
+      white: "bg-white hover:bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-800",
     }[color]
   end
 end

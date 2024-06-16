@@ -3,13 +3,13 @@
     <div class="flex justify-between items-center w-full">
       <div></div>
       <%= render UI::Atoms::IconLink.new(
-        href: :root,
+        href: "/#{@lang}",
         icon: "x",
         size: :md,
         color: :white
       ) %>
     </div>
-    <div class="text-3xl font-semibold">
+    <div class="text-3xl font-semibold p-6">
       <%= content %>
     </div>
     <div class="grid grid-cols-2 gap-4 w-full p-4">
