@@ -1,6 +1,6 @@
 <turbo-frame id="<%= dom_id(@lesson) %>_new_card_frame">
   <div class="block p-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
-    <%= render LinkButton.new(
+    <%= render UI::Atoms::LinkButton.new(
         href: helpers.new_translation_card_path(lesson_id: @lesson.id),
         label: "Add Translation Card"
       )

@@ -28,7 +28,7 @@
     <div class="flex-grow-0 <%= @css[:buttons] %>">
       <%= form.submit "Save", class: "py-1.5 px-3 text-sm font-normal rounded bg-primary-600 text-white inline-block font-medium cursor-pointer" %>
       <% if @delete_href.present? %>
-        <%= render LinkButton.new(
+        <%= render UI::Atoms::LinkButton.new(
           href: @delete_href,
           label: "Delete",
           color: :gray,
@@ -40,7 +40,7 @@
           }
         ) %>
       <% end %>
-      <%= render LinkButton.new(
+      <%= render UI::Atoms::LinkButton.new(
         href: @cancel_href,
         label: "Cancel",
         size: :sm,

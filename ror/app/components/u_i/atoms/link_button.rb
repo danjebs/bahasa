@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-class LinkButton < ViewComponent::Base
+class UI::Atoms::LinkButton < ViewComponent::Base
 
   erb_template <<-ERB
     <%= link_to(
           @href,
-          class: ["inline-block", @css_color_classes, @css_size_classes].join(" "),
+          class: ["inline-block", @css_color_classes, @css_size_classes, @css_class].join(" "),
           data: @data
         ) do
     %>
@@ -16,11 +16,12 @@ class LinkButton < ViewComponent::Base
     <% end %>
   ERB
 
-  def initialize(href:, label: nil, size: :md, color: :red, data: nil, icon: nil)
+  def initialize(href:, label: nil, size: :md, color: :red, data: nil, icon: nil, css_class: "")
     @label = label
     @icon = icon
     @href = href
     @data = data
+    @css_class = css_class
 
     @css_size_classes = {
       xs: "py-1 px-2 text-sm font-normal rounded",

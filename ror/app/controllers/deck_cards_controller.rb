@@ -6,6 +6,8 @@ class DeckCardsController < ApplicationController
 
     respond_to do |format|
       if @deck_card.update(deck_card_params)
+        DeckCardScorer.call(deck_card: @deck_card)
+
         format.html { redirect_to @deck_card, notice: "Deck Card was successfully created." }
         format.json { render json: @deck_card, status: :ok, location: @deck_card }
       else

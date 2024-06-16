@@ -1,6 +1,6 @@
 class DecksController < ApplicationController
   before_action :set_deck, only: [:show]
-  before_action :set_breadcrumbs
+  before_action :set_breadcrumbs, except: [:show]
 
   def index
     authorize Deck
@@ -10,8 +10,6 @@ class DecksController < ApplicationController
 
   def show
     authorize @deck
-
-    add_breadcrumb("Daily Practice")
   end
 
   def new

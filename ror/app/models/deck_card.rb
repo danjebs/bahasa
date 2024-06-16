@@ -1,4 +1,7 @@
 class DeckCard < ApplicationRecord
+  MAX_SCORE = 10
+  MAX_TIME_TAKEN = 10
+
   belongs_to :deck
   belongs_to :card
 
@@ -10,6 +13,7 @@ class DeckCard < ApplicationRecord
 
   enum :outcome, {
     none: "none",
+    peek: "peek",
     hint: "hint",
     flash: "flash"
   }, prefix: :outcome_is

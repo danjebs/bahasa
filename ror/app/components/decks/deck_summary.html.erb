@@ -1,0 +1,34 @@
+<div
+  id="<%= dom_id(@deck) %>"
+  class="flex-grow w-full h-full"
+  data-id="<%= @deck.id %>"
+>
+  <%= render Decks::CardSide.new(side: :front) do |component| %>
+    <div class="text-center">
+      <div class="text-lg font-semibold text-primary-600">
+        Practice Complete!
+      </div>
+      <div>
+        <%= "You got #{@deck.deck_cards.outcome_is_flash.length} of #{@deck.deck_cards.length} cards without looking!" %>
+      </div>
+    </div>
+    <% component.with_button_left do %>
+      <%= render UI::Atoms::LinkButton.new(
+        href: @deck.journey.language.base_path,
+        label: "Home",
+        size: :lg,
+        color: :red,
+        css_class: "w-full"
+      ) %>
+    <% end %>
+    <% component.with_button_right do %>
+      <%= render UI::Atoms::LinkButton.new(
+        href: new_deck_path,
+        label: "Practice More",
+        size: :lg,
+        color: :red,
+        css_class: "w-full"
+      ) %>
+    <% end %>
+  <% end %>
+</div>

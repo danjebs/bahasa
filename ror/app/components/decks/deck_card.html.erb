@@ -1,0 +1,39 @@
+<div
+  id="<%= dom_id(@deck_card) %>"
+  class="flex-grow w-full h-full"
+  data-id="<%= @deck_card.id %>"
+  data-controller="deck-card"
+  data-deck-card-target="card"
+  data-deck-card-status="<%= @deck_card.status %>"
+>
+  <%= render Decks::CardSide.new(side: :front) do |component| %>
+    <%= @deck_card.card.front %>
+    <% component.with_button_left do %>
+      <%= render UI::Atoms::Button.new(
+        action: "deck-card#turnCard",
+        label: "Show",
+        size: :lg,
+        color: :red
+      ) %>
+    <% end %>
+    <% component.with_button_right do %>
+      <%= render UI::Atoms::Button.new(
+        action: "deck-card#flashCard",
+        label: "Next",
+        size: :lg,
+        color: :red
+      ) %>
+    <% end %>
+  <% end %>
+  <%= render Decks::CardSide.new(side: :back, hidden: true) do |component| %>
+    <%= @deck_card.card.back %>
+    <% component.with_button_right do %>
+      <%= render UI::Atoms::Button.new(
+        action: "deck-card#nextCard",
+        label: "Next",
+        size: :lg,
+        color: :red
+      ) %>
+    <% end %>
+  <% end %>
+</div>

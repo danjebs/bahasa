@@ -16,8 +16,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_12_045240) do
 
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
-  create_enum "deck_card_outcome", ["none", "hint", "flash"]
-  create_enum "deck_card_status", ["created", "attempted", "completed"]
+  create_enum "deck_card_outcome", ["none", "hint", "peek", "flash", "fail"]
+  create_enum "deck_card_status", ["created", "started", "completed"]
   create_enum "deck_status", ["created", "started", "completed"]
   create_enum "step_status", ["created", "started", "completed"]
   create_enum "user_role", ["student", "teacher", "admin"]
@@ -63,7 +63,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_12_045240) do
   create_table "card_proficiencies", force: :cascade do |t|
     t.bigint "journey_id", null: false
     t.bigint "card_id", null: false
-    t.integer "rating"
+    t.integer "score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["card_id"], name: "index_card_proficiencies_on_card_id"

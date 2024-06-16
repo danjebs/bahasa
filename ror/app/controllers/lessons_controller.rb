@@ -15,7 +15,6 @@ class LessonsController < ApplicationController
   def show
     authorize @lesson
 
-    add_breadcrumb("Lessons", lessons_path)
     add_breadcrumb(@lesson.title, @lesson)
   end
 
@@ -106,13 +105,8 @@ class LessonsController < ApplicationController
     end
 
     def set_breadcrumbs
-      language = Language.find_by(code: params[:lang])
+      language = Language.find_by(code: @lang)
       add_breadcrumb(language.name, language.base_path) if language.present?
       add_breadcrumb("Lessons", lessons_path)
-    end
-
-    def set_breadcrumbs
-      language = Language.find_by(code: params[:lang])
-      add_breadcrumb(language.name, language.base_path) if language.present?
     end
 end

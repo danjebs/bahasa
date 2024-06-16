@@ -5,4 +5,7 @@ class UI::Layout::Breadcrumbs < ViewComponent::Base
     @breadcrumbs = breadcrumbs || []
   end
 
+  def render?
+    @breadcrumbs.present?
+  end
 end

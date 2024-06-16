@@ -25,4 +25,8 @@ class Deck < ApplicationRecord
   validates :status, presence: true
   validates :difficulty, presence: true
   validates :duration, presence: true
+
+  def next_deck_card
+    deck_cards.ordered.not_status_is_completed.first
+  end
 end

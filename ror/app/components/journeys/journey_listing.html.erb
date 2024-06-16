@@ -5,7 +5,7 @@
     </h2>
     <div class="flex flex-col gap-4">
       <% @journeys.each do |journey| %>
-        <%= render LinkButton.new(
+        <%= render UI::Atoms::LinkButton.new(
           href: "/#{journey.language.code}",
           label: journey.language.name,
           size: :lg,
@@ -21,7 +21,7 @@
       Start a New Journey
     </h2>
     <% @languages_to_learn.each do |language| %>
-      <%= render LinkButton.new(
+      <%= render UI::Atoms::LinkButton.new(
         href: "/#{language.code}",
         label: "Learn #{language.name}",
         size: :lg,

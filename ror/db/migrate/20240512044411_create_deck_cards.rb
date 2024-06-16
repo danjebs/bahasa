@@ -1,11 +1,11 @@
 class CreateDeckCards < ActiveRecord::Migration[7.1]
   def up
     execute <<-SQL
-      CREATE TYPE deck_card_status AS ENUM ('created', 'attempted', 'completed');
+      CREATE TYPE deck_card_status AS ENUM ('created', 'started', 'completed');
     SQL
 
     execute <<-SQL
-      CREATE TYPE deck_card_outcome AS ENUM ('none', 'hint', 'flash', 'fail');
+      CREATE TYPE deck_card_outcome AS ENUM ('none', 'hint', 'peek', 'flash', 'fail');
     SQL
 
 
@@ -14,7 +14,6 @@ class CreateDeckCards < ActiveRecord::Migration[7.1]
       t.references :card, null: false, foreign_key: true
       t.integer :position
       t.integer :time_taken
-      t.integer :score
 
       t.timestamps
     end
