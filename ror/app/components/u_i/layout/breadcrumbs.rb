@@ -2,7 +2,7 @@
 
 class UI::Layout::Breadcrumbs < ViewComponent::Base
   def initialize(breadcrumbs: [])
-    @breadcrumbs = breadcrumbs
+    @breadcrumbs = breadcrumbs || []
   end
 
 end

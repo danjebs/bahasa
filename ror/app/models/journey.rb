@@ -8,6 +8,6 @@ class Journey < ApplicationRecord
   has_many :card_proficiencies
 
   def next_lesson
-    language.lessons.ordered.where.not(id: steps.not_status_is_completed.pluck(:lesson_id)).first
+    language.lessons.ordered.where(id: steps.not_status_is_completed.pluck(:lesson_id)).first
   end
 end
