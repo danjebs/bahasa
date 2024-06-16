@@ -31,8 +31,8 @@ class LinkButton < ViewComponent::Base
 
     @css_color_classes = {
       red: "bg-gradient-to-r from-primary-500 to-primary-600 hover:to-primary-500 text-white dark:from-primary-700 dark:to-primary-600 dark:hover:to-primary-700 dark:text-primary-100",
-      gray: "bg-gray-100 hover:bg-gray-200 text-gray-700 dark:text-gray-200",
-      white: "bg-white hover:bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 border border-solid border-gray-200 dark:border-gray-500 shadow-sm",
+      white: "border-2 bg-transparent border-solid border-primary-500 text-primary-500 hover:bg-primary-500 hover:text-white font-semibold",
+      gray: "bg-white hover:bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 border border-solid border-gray-200 dark:border-gray-500 shadow-sm",
     }[color]
   end
 end

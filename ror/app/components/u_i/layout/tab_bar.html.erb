@@ -1,12 +1,12 @@
 <div data-controller="tab-bar">
-  <div class="sticky top-3 p-2 bg-white dark:bg-gray-900 rounded-lg mx-auto md:mx-0 w-fit">
+  <div class="sticky top-3 p-2 bg-white dark:bg-gray-900 rounded-lg shadow-sm mx-auto md:mx-0 w-fit">
     <nav class="flex" aria-label="Tabs">
       <% @tabs.each_with_index do |tab, i| %>
         <button
           data-tab-bar-target="tabs"
           data-action="tab-bar#onClickTab"
           data-tab-id="<%= tab %>"
-          class="shrink-0 capitalize px-8 py-2 font-medium <%= i == 0 ? 'bg-gradient-to-r from-primary-500 to-primary-600 hover:to-primary-500 text-white dark:from-primary-700 dark:to-primary-600 dark:hover:to-primary-700 dark:text-primary-100' : 'text-gray-500' %> rounded-lg"
+          class="shrink-0 capitalize px-8 py-2 font-medium <%= i == 0 ? 'bg-gradient-to-r from-primary-500 to-primary-600 hover:to-primary-500 text-white dark:from-primary-700 dark:to-primary-600 dark:hover:to-primary-700 dark:text-primary-100' : 'text-gray-500' %> rounded-md"
         >
           <%= tab %>
         </button>

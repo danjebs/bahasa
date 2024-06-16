@@ -27,7 +27,7 @@
         <%= render LinkButton.new(
             href: @cancel_href,
             label: "Cancel",
-            color: :white
+            color: :gray
           )
         %>
       <% end %>
@@ -36,7 +36,7 @@
       <%= render UI::Atoms::IconLink.new(
         href: @delete_href,
         icon: :trash,
-        color: :red,
+        color: :gray,
         size: :sm,
         data: {
           turbo_method: :delete,

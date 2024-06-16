@@ -1,11 +1,4 @@
 <main id="<%= dom_id @lesson %>" class="container mx-auto">
-  <%= render LinkButton.new(
-      href: lessons_path,
-      label: "#{@lesson.language.name} Journey",
-      color: :white,
-      size: :xs
-    )
-  %>
   <turbo-frame id="<%= dom_id(@lesson) %>_frame" turbo-visit-control="reload">
     <%= helpers.turbo_stream_from @lesson %>
 
@@ -29,7 +22,7 @@
               action: "modal#open",
               icon: :edit,
               label: "Edit",
-              color: :white,
+              color: :gray,
               size: :md,
             ) %>
           <% end %>

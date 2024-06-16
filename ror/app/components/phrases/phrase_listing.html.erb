@@ -16,7 +16,7 @@
     <%= render UI::Atoms::IconLink.new(
       href: @phrase,
       icon: :trash,
-      color: :red,
+      color: :white,
       size: :sm,
       data: {
         turbo_method: :delete,
@@ -27,7 +27,7 @@
     <%= render UI::Atoms::IconLink.new(
       href: edit_phrase_path(@phrase),
       icon: :edit,
-      color: :red,
+      color: :white,
       size: :sm,
       data: { turbo_frame: "#{dom_id(@phrase)}" }
     ) %>

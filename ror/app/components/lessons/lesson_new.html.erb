@@ -4,7 +4,7 @@
   </h1>
   <%= render Forms::Form.new(
     model: @lesson,
-    cancel_href: lessons_path,
+    cancel_href: :back,
     fields: [{ name: :title, type: :text }]
   ) %>
 </section>

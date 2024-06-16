@@ -21,8 +21,8 @@ class UI::Atoms::IconButton < ViewComponent::Base
 
     @css_color_classes = {
       red: "bg-white border-none text-primary-500 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:hover:text-primary-500 dark:hover:bg-gray-600",
-      gray: "bg-gray-100 hover:bg-gray-200 text-gray-700 dark:text-gray-200",
-      white: "bg-white hover:bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 border border-solid border-gray-200 dark:border-gray-500 shadow-sm",
+      white: "border-2 bg-transparent border-solid border-primary-500 text-primary-500 hover:bg-primary-500 hover:text-white font-semibold",
+      white: "bg-white hover:bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-800",
     }[color]
   end
 end
