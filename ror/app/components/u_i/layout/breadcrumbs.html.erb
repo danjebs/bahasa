@@ -1,0 +1,21 @@
+<nav class="my-4 lg:my-8">
+  <ol class="flex items-center gap-1 text-gray-500 text-sm font-medium">
+    <li>
+      <%= link_to "/" do %>
+        <%= render partial: "shared/icon", locals: { name: "home", css_class: "w-4 h-4" } %>
+      <% end %>
+    </li>
+    <% @breadcrumbs.each do |crumb| %>
+     <li class="flex items-center gap-1">
+      <%= render partial: "shared/icon", locals: { name: "chevron-right", css_class: "w-3 h-3 stroke-gray-500" } %>
+      <% if crumb.link? %>
+        <%= link_to crumb.name, crumb.path, class: "breadcrumb-link" %>
+      <% else %>
+        <span class="">
+          <%= crumb.name %>
+        </span>
+      <% end %>
+     </li>
+    <% end %>
+  </ol>
+</nav>

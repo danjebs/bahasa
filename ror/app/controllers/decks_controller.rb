@@ -1,5 +1,6 @@
 class DecksController < ApplicationController
   before_action :set_deck, only: [:show]
+  before_action :set_breadcrumbs
 
   def index
     authorize Deck
@@ -9,6 +10,8 @@ class DecksController < ApplicationController
 
   def show
     authorize @deck
+
+    add_breadcrumb("Daily Practice")
   end
 
   def new
@@ -16,6 +19,8 @@ class DecksController < ApplicationController
 
     @journey = current_user.journeys.joins(:language).find_by(language: { code: params[:lang] })
     @deck = Deck.new(journey_id: @journey.id)
+
+    add_breadcrumb("New Practice")
 
     render Decks::DeckNew.new(deck: @deck)
   end
@@ -49,5 +54,10 @@ class DecksController < ApplicationController
     # Only allow a list of trusted parameters through.
     def deck_params
       params.require(:deck).permit(:id, :journey_id, :difficulty, :duration)
+    end
+
+    def set_breadcrumbs
+      language = Language.find_by(code: params[:lang])
+      add_breadcrumb(language.name, language.base_path) if language.present?
     end
 end

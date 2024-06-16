@@ -8,4 +8,8 @@ class Language < ApplicationRecord
     message: "must be a 2-letter lowercase code"
   }
   validates :name, presence: true, uniqueness: true
+
+  def base_path
+    "/#{code}"
+  end
 end

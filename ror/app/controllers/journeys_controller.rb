@@ -1,5 +1,6 @@
 class JourneysController < ApplicationController
   before_action :set_journey, only: [:show]
+  before_action :set_breadcrumbs
 
   def index
     authorize Journey
@@ -31,5 +32,10 @@ class JourneysController < ApplicationController
     # Only allow a list of trusted parameters through.
     def journey_params
       params.require(:journey).permit(:id, :user_id, :language_id)
+    end
+
+    def set_breadcrumbs
+      language = Language.find_by(code: params[:lang])
+      add_breadcrumb(language.name, language.base_path) if language.present?
     end
 end

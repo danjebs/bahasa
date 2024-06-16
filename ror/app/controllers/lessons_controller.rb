@@ -1,6 +1,7 @@
 class LessonsController < ApplicationController
   before_action :set_lesson, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  before_action :set_breadcrumbs
 
   def index
     authorize Lesson
@@ -13,6 +14,8 @@ class LessonsController < ApplicationController
 
   def show
     authorize @lesson
+
+    add_breadcrumb(@lesson.title, @lesson)
   end
 
   def new
@@ -20,11 +23,15 @@ class LessonsController < ApplicationController
 
     @lesson = Lesson.new
 
+    add_breadcrumb("New Lesson")
+
     render Lessons::LessonNew.new(lesson: @lesson)
   end
 
   def edit
     authorize @lesson
+
+    add_breadcrumb("Edit #{@lesson.name}")
 
     render Lessons::LessonEdit.new(lesson: @lesson)
   end
@@ -95,5 +102,16 @@ class LessonsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def lesson_params
       params.require(:lesson).permit(:title, :position)
+    end
+
+    def set_breadcrumbs
+      language = Language.find_by(code: params[:lang])
+      add_breadcrumb(language.name, language.base_path) if language.present?
+      add_breadcrumb("Lessons", lessons_path)
+    end
+
+    def set_breadcrumbs
+      language = Language.find_by(code: params[:lang])
+      add_breadcrumb(language.name, language.base_path) if language.present?
     end
 end
