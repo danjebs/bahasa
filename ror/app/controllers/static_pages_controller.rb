@@ -3,7 +3,7 @@ class StaticPagesController < ApplicationController
 
   def home
     if current_user&.default_language.present?
-      redirect_to current_user.default_language
+      redirect_to "/#{current_user.default_language.code}"
     elsif current_user.present?
       redirect_to journeys_path
     else
