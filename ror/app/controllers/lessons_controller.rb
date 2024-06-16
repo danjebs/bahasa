@@ -15,6 +15,7 @@ class LessonsController < ApplicationController
   def show
     authorize @lesson
 
+    add_breadcrumb("Lessons", lessons_path)
     add_breadcrumb(@lesson.title, @lesson)
   end
 
