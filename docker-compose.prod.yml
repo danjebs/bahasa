@@ -2,6 +2,8 @@ version: '3'
 services:
   pg:
     image: 'postgres:16.2'
+    environment:
+      - POSTGRES_PASSWORD=${PG_PASSWORD}
   ror:
     build:
       dockerfile: ./Dockerfile.prod
