@@ -2,35 +2,35 @@
   id="<%= dom_id(@phrase) %>"
   data-model="phrase"
   data-id="<%= @phrase.id %>"
-  class="flex justify-between items-center border-b last-of-type:border-none border-solid border-gray-100 dark:border-gray-600"
 >
-  <div class="flex-grow py-2">
-    <div class="px-3 text-sm text-gray-500 dark:text-gray-400">
-      <%= @phrase.phrase %>
+  <div class="reorder-handle flex justify-between items-center gap-2 px-3 cursor-grab border-t last:border-t-none border-solid border-gray-100 dark:border-gray-600">
+    <div class="flex-grow py-2">
+      <div class="text-sm text-gray-500 dark:text-gray-400">
+        <%= @phrase.phrase %>
+      </div>
+      <div>
+        <%= @phrase.translation %>
+      </div>
     </div>
-    <div class="px-3">
-      <%= @phrase.translation %>
+    <div class="hidden md:flex justify-center items-center">
+      <%= render UI::Atoms::IconLink.new(
+        href: @phrase,
+        icon: :trash,
+        color: :white,
+        size: :sm,
+        data: {
+          turbo_method: :delete,
+          turbo_confirm: "Are you sure?",
+          turbo_frame: "#{dom_id(@phrase)}"
+        }
+      ) %>
+      <%= render UI::Atoms::IconLink.new(
+        href: edit_phrase_path(@phrase),
+        icon: :edit,
+        color: :white,
+        size: :sm,
+        data: { turbo_frame: "#{dom_id(@phrase)}" }
+      ) %>
     </div>
-  </div>
-  <div class="hidden md:flex justify-center items-center">
-    <%= render UI::Atoms::IconLink.new(
-      href: @phrase,
-      icon: :trash,
-      color: :white,
-      size: :sm,
-      data: {
-        turbo_method: :delete,
-        turbo_confirm: "Are you sure?",
-        turbo_frame: "#{dom_id(@phrase)}"
-      }
-    ) %>
-    <%= render UI::Atoms::IconLink.new(
-      href: edit_phrase_path(@phrase),
-      icon: :edit,
-      color: :white,
-      size: :sm,
-      data: { turbo_frame: "#{dom_id(@phrase)}" }
-    ) %>
-    <%= render UI::Atoms::ReorderHandle.new %>
   </div>
 </turbo-frame>

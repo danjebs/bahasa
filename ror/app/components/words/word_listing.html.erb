@@ -1,23 +1,21 @@
 <turbo-frame id="<%= dom_id(@word) %>" data-model="word" data-id="<%= @word.id %>">
-  <div class="flex justify-between items-center border-t border-solid border-gray-100 dark:border-gray-600">
-    <div class="reorder-handle flex w-full justify-between items-center cursor-grab px-3">
-      <div class="flex gap-2">
-        <div class="w-36 py-2">
-          <%= @word.word %>
-        </div>
-        <div class="w-36 py-2">
-          <%= @word.translation %>
-        </div>
+  <div class="reorder-handle flex w-full justify-between items-center px-3 cursor-grab border-b border-solid border-gray-100 dark:border-gray-600">
+    <div class="flex gap-2">
+      <div class="w-48 py-2">
+        <%= @word.word %>
       </div>
-      <div class="hidden md:flex justify-center items-center">
-        <%= render UI::Atoms::IconLink.new(
-          href: edit_word_path(@word),
-          icon: :edit,
-          color: :white,
-          size: :sm,
-          data: { turbo_frame: "#{dom_id(@word)}" }
-        ) %>
+      <div class="w-48 py-2">
+        <%= @word.translation %>
       </div>
+    </div>
+    <div class="hidden md:flex justify-center items-center">
+      <%= render UI::Atoms::IconLink.new(
+        href: edit_word_path(@word),
+        icon: :edit,
+        color: :white,
+        size: :sm,
+        data: { turbo_frame: "#{dom_id(@word)}" }
+      ) %>
     </div>
   </div>
 </turbo-frame>
