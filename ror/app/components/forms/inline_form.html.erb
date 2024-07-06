@@ -5,7 +5,7 @@
     <div class="<%= @css[:wrapper] %>">
       <% @fields.each_with_index do |field, i| %>
         <% if field[:type] == :hidden %>
-          <%= form.hidden_field :exercise_id, value: @phrase&.exercise_id || params[:exercise_id] %>
+          <%= form.hidden_field field[:name], value: field[:value] %>
         <% else %>
           <div class="<%= @css[:field] %>">
             <% if @direction == :col %>
