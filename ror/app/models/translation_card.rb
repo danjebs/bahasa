@@ -1,3 +1,3 @@
 class TranslationCard < Card
-  validates :back, presence: true, uniqueness: { scope: :lesson_id }
+  validates :front, presence: true, uniqueness: { scope: :lesson_id }
 end
