@@ -1,10 +1,10 @@
 <turbo-frame
   id="<%= dom_id(@translation_card.lesson) %>_new_card_frame"
 >
-  <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md mb-6 p-4">
-    <h2>
+  <div class="p-6 border border-solid border-gray-100 dark:border-gray-600 rounded-lg">
+    <h3>
       Add New Practice Card
-    </h2>
+    </h3>
     <%= render Forms::Form.new(
       model: @translation_card,
       cancel_href: @translation_card.lesson,
@@ -12,7 +12,8 @@
         { type: :text, name: :front },
         { type: :text, name: :back },
         { type: :hidden, name: :lesson_id, value: @translation_card.lesson_id },
-      ]
+      ],
+      autofocus: false
     ) %>
   </div>
 </turbo-frame>

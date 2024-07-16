@@ -1,12 +1,18 @@
 <div
-  class="px-3 py-4 md:px-4 mb-6 bg-white dark:bg-gray-700 rounded-lg shadow-md"
+  class="px-3 pb-4 md:px-4 mb-6 bg-white dark:bg-gray-700 rounded-lg shadow-md"
+  id="<%= dom_id @exercise %>"
   data-id="<%= @exercise.id %>"
   data-model="exercise"
   data-controller="collapsible"
 >
-  <div class="flex justify-between items-center w-full mb-2 reorder-handle cursor-grab">
+  <div class="sticky top-0 pt-4 flex justify-between items-center w-full mb-2 bg-white dark:bg-gray-700">
     <h2>
-      <%= @exercise.title %>
+      <div class="text-sm text-primary-500 dark:text-primary-400 font-medium">
+        <%= @exercise.type %>
+      </div>
+      <div>
+        <%= @exercise.title %>
+      </div>
     </h2>
     <div class="hidden md:flex">
       <%= render UI::Layout::Modal.new(
@@ -18,7 +24,7 @@
           <%= render UI::Atoms::IconButton.new(
             action: "modal#open",
             icon: "edit",
-            color: :white,
+            color: :gray,
             size: :sm,
           ) %>
         <% end %>

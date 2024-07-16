@@ -12,19 +12,16 @@
     @apply mb-2;
   }
 
-  h2, h3, h4 {
-    @apply text-primary-500;
-    @apply dark:text-gray-300;
-  }
-
   h1 {
     @apply text-xl font-bold;
-    @apply text-primary-600;
-    @apply dark:text-gray-300;
   }
 
   h2 {
-    @apply text-lg font-bold;
+    @apply text-lg font-semibold;
+  }
+
+  h3 {
+    @apply text-lg font-medium;
   }
 
   label {
