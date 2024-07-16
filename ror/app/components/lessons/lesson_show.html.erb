@@ -79,7 +79,7 @@
               data-controller="reorderable"
               data-reorderable-url="<%= card_path(':id') %>"
             >
-              <%= render Cards::CardListing.with_collection(@lesson.cards.ordered) %>
+              <%= render Cards::CardListing.with_collection(@lesson.translation_cards.ordered) %>
             </turbo-frame>
           </div>
         </section>
