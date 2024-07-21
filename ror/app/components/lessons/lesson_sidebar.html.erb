@@ -42,13 +42,16 @@
       data-reorderable-url="<%= exercise_path(':id') %>"
     >
       <% @lesson.exercises.ordered.each do |exercise| %>
-        <div id="<%= dom_id exercise %>_sidebar_link" data-id="<%= exercise.id %>" data-model="exercise">
+        <div id="<%= dom_id exercise %>_sidebar_link" data-id="<%= exercise.id %>" data-model="exercise" class="flex justify-between items-center">
           <%= link_to(exercise.title,
                 { anchor: dom_id(exercise, :details_wrapper) },
                 {
-                  class: "reorder-handle block text-gray-500 dark:text-gray-300 font-normal text-sm py-1 px-4 border-l border-solid border-gray-200 hover:border-primary-400 hover:text-primary-500 cursor-pointer",
+                  class: "block text-gray-500 dark:text-gray-300 font-normal text-sm py-1.5 px-4 border-l border-solid border-gray-200 hover:border-primary-400 hover:text-primary-500 cursor-pointer",
                   data: { turbo: "false" }
                 }) %>
+          <div class="hidden md:block">
+            <%= render UI::Atoms::ReorderHandle.new %>
+          </div>
         </div>
       <% end %>
     </turbo-frame>

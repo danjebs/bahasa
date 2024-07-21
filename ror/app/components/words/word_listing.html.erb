@@ -1,5 +1,5 @@
 <turbo-frame id="<%= dom_id(@word) %>" data-model="word" data-id="<%= @word.id %>">
-  <div class="reorder-handle flex w-full justify-between items-center px-3 cursor-grab border-b border-solid border-gray-100 dark:border-gray-600">
+  <div class="flex w-full justify-between items-center px-3 border-b border-solid border-gray-100 dark:border-gray-600">
     <div class="flex gap-2">
       <div class="w-48 py-2">
         <%= @word.word %>
@@ -16,6 +16,7 @@
         size: :sm,
         data: { turbo_frame: "#{dom_id(@word)}" }
       ) %>
+      <%= render UI::Atoms::ReorderHandle.new %>
     </div>
   </div>
 </turbo-frame>
