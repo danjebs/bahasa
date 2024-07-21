@@ -6,9 +6,15 @@
   data-deck-card-target="card"
   data-deck-card-status="<%= @deck_card.status %>"
 >
+  <div class="absolute flex justify-between items-center w-full">
+    <div></div>
+    <%= button_to @deck_card.deck, params: { deck: { status: :completed } }, method: :patch do %>
+      <%= render partial: "shared/icon", locals: { name: "x", css_class: "w-12 h-12 p-2" } %>
+    <% end %>
+  </div>
   <%= render Decks::CardSide.new(side: :front) do |component| %>
-    <%= @deck_card.card.front %>
-    <% component.with_button_left do %>
+    <%= @deck_card.front %>
+    <% component.with_button_right do %>
       <%= render UI::Atoms::Button.new(
         action: "deck-card#turnCard",
         label: "Show",
@@ -16,21 +22,21 @@
         color: :red
       ) %>
     <% end %>
-    <% component.with_button_right do %>
+  <% end %>
+  <%= render Decks::CardSide.new(side: :back, hidden: true) do |component| %>
+    <%= @deck_card.back %>
+    <% component.with_button_left do %>
       <%= render UI::Atoms::Button.new(
-        action: "deck-card#flashCard",
-        label: "Next",
+        action: "deck-card#markRight",
+        label: "I Was Right ✅",
         size: :lg,
         color: :red
       ) %>
     <% end %>
-  <% end %>
-  <%= render Decks::CardSide.new(side: :back, hidden: true) do |component| %>
-    <%= @deck_card.card.back %>
     <% component.with_button_right do %>
       <%= render UI::Atoms::Button.new(
-        action: "deck-card#nextCard",
-        label: "Next",
+        action: "deck-card#markWrong",
+        label: "I Was Wrong ❌",
         size: :lg,
         color: :red
       ) %>

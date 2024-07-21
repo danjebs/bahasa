@@ -10,34 +10,35 @@ export default class extends Controller {
   }
 
   turnCard() {
+    this.timerCompleted = dayjs()
+
     this.frontTarget.classList.toggle('hidden')
     this.backTarget.classList.toggle('hidden')
-
-    const { id } = this.cardTarget.dataset
-    this.updateDeckCard({
-      id,
-      status: 'completed',
-      outcome: 'peek',
-      timeTaken: dayjs().diff(this.timerStarted, 'seconds')
-    })
   }
 
-  async flashCard() {
+  markRight() {
+    this.markOutcomeAndShowNextCard('flash')
+  }
+
+  markWrong() {
+    this.markOutcomeAndShowNextCard('peek')
+  }
+
+  async markOutcomeAndShowNextCard(outcome) {
     const { id } = this.cardTarget.dataset
+
     const response = await this.updateDeckCard({
+      outcome,
       id,
       status: 'completed',
-      outcome: 'flash',
-      timeTaken: dayjs().diff(this.timerStarted, 'seconds')
+      timeTaken: this.timerCompleted.diff(this.timerStarted, 'seconds')
     })
 
     if (response.ok) {
-      this.nextCard()
+      Turbo.visit(window.location.pathname)
+    } else {
+      alert('Something went wrong, card didn\'t update')
     }
-  }
-
-  nextCard() {
-    Turbo.visit(window.location.pathname)
   }
 
   async updateDeckCard({ id, status, outcome, timeTaken }) {

@@ -10,4 +10,6 @@ class Card < ApplicationRecord
   validates :front, presence: true
 
   scope :ordered, -> { order(lesson_id: :asc, position: :desc) }
+  scope :translated, -> { where.not(back: [nil, ""]) }
+  scope :for_lesson, -> (lesson) { lesson.present? ? where(lesson_id: lesson.id) : all }
 end

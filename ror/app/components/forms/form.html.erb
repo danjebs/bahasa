@@ -8,6 +8,12 @@
         <%= form.text_field field[:name], autofocus: @autofocus && i == 0, class: "block shadow rounded-md outline-none px-3 py-2 mt-2 w-full" %>
       <% elsif field[:type] == :select %>
         <%= form.select field[:name],
+          field[:options],
+          { prompt: field[:prompt], autofocus: i == 0 },
+          { class: "block shadow rounded-md outline-none px-3 py-2 mt-2 w-full" }
+        %>
+      <% elsif field[:type] == :select_tag %>
+        <%= form.select field[:name],
           options_for_select(field[:options]),
           { autofocus: i == 0 },
           { class: "block shadow rounded-md outline-none px-3 py-2 mt-2 w-full" }

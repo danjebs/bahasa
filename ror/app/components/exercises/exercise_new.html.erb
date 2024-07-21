@@ -2,7 +2,7 @@
   model: @exercise.becomes(Exercise),
   fields: [
     { name: :title, type: :text },
-    @exercise.type.present? ? { name: :type, type: :hidden, value: @exercise.type } : { name: :type, type: :select, options: [["Blurb", "Blurb"], ["Word List", "WordList"], ["Phrase List", "PhraseList"]] },
+    @exercise.type.present? ? { name: :type, type: :hidden, value: @exercise.type } : { name: :type, type: :select_tag, options: [["Blurb", "Blurb"], ["Word List", "WordList"], ["Phrase List", "PhraseList"]] },
     { name: :lesson_id, type: :hidden, value: @exercise.lesson_id }
   ],
   cancel_href: @exercise.lesson
