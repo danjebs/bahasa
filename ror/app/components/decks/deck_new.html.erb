@@ -6,8 +6,7 @@
     model: @deck,
     cancel_href: lessons_path,
     fields: [
-      { type: :select, name: :duration, options: [["Quick", "quick"], ["Medium", "medium"], ["Long", "long"], ["Marathon", "marathon"]] },
-      { type: :select, name: :difficulty, options: [["Easy", "easy"], ["Normal", "normal"], ["Hard", "hard"]] },
+      { type: :select, name: :step_id, options: @deck.journey.steps.joins(:lesson).pluck("lessons.title", :id), prompt: "All Lessons" },
       { type: :hidden, name: :journey_id, value: @deck.journey_id },
     ]
   ) %>

@@ -29,7 +29,7 @@ class DeckCardScorer < ApplicationService
     deck_card_outcomes.each do |outcome, time_taken|
       break unless outcome == "flash"
 
-      proficiency_score += [(DeckCard::MAX_TIME_TAKEN - time_taken) / (DeckCard::MAX_TIME_TAKEN / 3), 0].max
+      proficiency_score += [(@deck_card.max_scoring_time - time_taken) / (@deck_card.max_scoring_time / 3), 0].max
     end
 
     card_proficiency = CardProficiency.find_or_create_by(

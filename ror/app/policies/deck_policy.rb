@@ -20,7 +20,7 @@ class DeckPolicy < ApplicationPolicy
   end
 
   def update?
-    user&.journeys.exists?(record.id)
+    user&.decks.exists?(record.id)
   end
 
   def destroy?

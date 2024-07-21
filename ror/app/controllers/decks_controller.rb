@@ -1,5 +1,5 @@
 class DecksController < ApplicationController
-  before_action :set_deck, only: [:show]
+  before_action :set_deck, only: [:show, :update]
   before_action :set_breadcrumbs, except: [:show]
 
   def index
@@ -26,10 +26,10 @@ class DecksController < ApplicationController
   def create
     authorize Deck
 
-    @deck = DeckGenerator.call(
+    @deck = Deck.create!(
       journey_id: deck_params[:journey_id],
-      difficulty: deck_params[:difficulty],
-      duration: deck_params[:duration],
+      step_id: deck_params[:step_id],
+      status: :created
     )
 
     respond_to do |format|
@@ -43,6 +43,23 @@ class DecksController < ApplicationController
     end
   end
 
+  def update
+    authorize @deck
+
+    respond_to do |format|
+      if @deck.update(deck_params)
+        @deck.prune_deck_cards if @deck.status_is_completed?
+
+        format.html { redirect_to @deck, notice: "Deck Card was successfully updated." }
+        format.json { render json: @deck, status: :ok, location: @deck }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @deck.errors, status: :unprocessable_entity }
+      end
+    end
+
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_deck
@@ -51,7 +68,7 @@ class DecksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def deck_params
-      params.require(:deck).permit(:id, :journey_id, :difficulty, :duration)
+      params.require(:deck).permit(:id, :journey_id, :step_id)
     end
 
     def set_breadcrumbs
