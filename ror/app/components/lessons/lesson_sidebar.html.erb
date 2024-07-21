@@ -1,0 +1,60 @@
+<div class="sticky top-4">
+  <div class="w-full py-4">
+    <div
+      class="flex justify-between items-center"
+      style="view-transition-name: <%= dom_id(@lesson) %>_heading"
+    >
+      <div class="w-full flex justify-between items-center">
+        <div class="text-sm font-medium text-primary-600 dark:text-primary-300">
+          <%= "Lesson ##{@lesson.position}" %>
+        </div>
+        <div class="hidden md:flex">
+          <%= render UI::Layout::Modal.new(
+            id: "#{dom_id(@lesson)}_modal_edit_form",
+            model: @lesson,
+            heading: "Edit #{@lesson.title}"
+          ) do |component| %>
+            <% component.with_trigger do %>
+              <%= render UI::Atoms::IconButton.new(
+                action: "modal#open",
+                icon: :edit,
+                color: :gray,
+                size: :sm,
+              ) %>
+            <% end %>
+            <%= render Lessons::LessonEdit.new(lesson: @lesson) %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <h1 class="text-lg text-gray-700">
+      <%= @lesson.title %>
+    </h1>
+  </div>
+
+  <div class="mb-6">
+    <%= link_to "Lesson",
+          { anchor: dom_id(@lesson, :lesson_section) },
+          { class: "block mb-4 text-sm font-semibold text-gray-500 dark:text-gray-300 cursor-pointer", data: { turbo: "false" } } %>
+    <turbo-frame
+      id="exercises_list_frame"
+      data-controller="reorderable"
+      data-reorderable-url="<%= exercise_path(':id') %>"
+    >
+      <% @lesson.exercises.ordered.each do |exercise| %>
+        <div id="<%= dom_id exercise %>_sidebar_link" data-id="<%= exercise.id %>" data-model="exercise">
+          <%= link_to(exercise.title,
+                { anchor: dom_id(exercise, :details_wrapper) },
+                {
+                  class: "reorder-handle block text-gray-500 dark:text-gray-300 font-normal text-sm py-1 px-4 border-l border-solid border-gray-200 hover:border-primary-400 hover:text-primary-500 cursor-pointer",
+                  data: { turbo: "false" }
+                }) %>
+        </div>
+      <% end %>
+    </turbo-frame>
+  </div>
+
+  <%= link_to "Practice",
+          { anchor: dom_id(@lesson, :practice_section) },
+          { class: "block mb-4 text-sm font-semibold text-gray-500 dark:text-gray-300 cursor-pointer", data: { turbo: "false" } } %>
+</div>
