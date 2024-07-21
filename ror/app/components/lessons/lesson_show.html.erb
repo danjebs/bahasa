@@ -2,11 +2,11 @@
   <turbo-frame id="<%= dom_id(@lesson) %>_frame" turbo-visit-control="reload">
     <%= helpers.turbo_stream_from @lesson %>
 
-    <div class="grid grid-cols-4 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
       <div class="col-span-1">
         <%= render Lessons::LessonSidebar.new(@lesson) %>
       </div>
-      <div class="col-span-3 flex flex-col gap-20">
+      <div class="col-span-1 md:col-span-3 flex flex-col gap-20">
         <section id="<%= dom_id(@lesson, :lesson_section) %>">
           <%= render Exercises::ExerciseDetails.with_collection(@lesson.exercises.ordered) %>
           <%= render Lessons::AddExerciseButtons.new lesson: @lesson %>
