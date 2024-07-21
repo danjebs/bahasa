@@ -9,22 +9,24 @@
         Practice Complete!
       </div>
       <div>
-        <%= "You got #{@deck.deck_cards.outcome_is_flash.length} of #{@deck.deck_cards.length} cards without looking!" %>
+        <%= "You got #{@deck.deck_cards.outcome_is_flash.length} of #{@deck.deck_cards.length} cards correct" %>
       </div>
     </div>
-    <% component.with_button_left do %>
-      <%= render UI::Atoms::LinkButton.new(
-        href: @deck.journey.language.base_path,
-        label: "Home",
-        size: :lg,
-        color: :red,
-        css_class: "w-full"
-      ) %>
+    <% if @deck.step.present? %>
+      <% component.with_button_left do %>
+        <%= render UI::Atoms::LinkButton.new(
+          href: @deck.step.lesson,
+          label: "Revise Lesson",
+          size: :lg,
+          color: :red,
+          css_class: "w-full"
+        ) %>
+      <% end %>
     <% end %>
     <% component.with_button_right do %>
       <%= render UI::Atoms::LinkButton.new(
-        href: new_deck_path,
-        label: "Practice More",
+        href: @deck.journey.language.base_path,
+        label: "Home",
         size: :lg,
         color: :red,
         css_class: "w-full"

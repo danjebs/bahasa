@@ -2,6 +2,7 @@ class Lesson < ApplicationRecord
   belongs_to :language, touch: true
 
   has_many :cards, dependent: :destroy
+  has_many :translation_cards, dependent: :destroy
   has_many :exercises, dependent: :destroy
   has_many :steps, dependent: :destroy
 

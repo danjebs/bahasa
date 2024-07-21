@@ -13,7 +13,7 @@
             <% end %>
             <% if field[:type] == :text %>
               <%= form.text_field field[:name], autofocus: i == 0, class: "shadow rounded-md px-3 py-1 w-full" %>
-            <% elsif field[:type] == :select %>
+            <% elsif field[:type] == :select_tag %>
               <%= form.select field[:name],
                 options_for_select(field[:options]),
                 { autofocus: i == 0 },

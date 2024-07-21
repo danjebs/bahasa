@@ -6,25 +6,23 @@
   body {
     @apply min-h-screen bg-gradient-to-b to-primary-50 from-10% from-gray-50 to-90%;
     @apply dark:from-gray-800 dark:to-secondary-950 dark:text-gray-300;
+    @apply text-sm;
   }
 
   h1, h2, h3, h4 {
-    @apply mb-2;
-  }
-
-  h2, h3, h4 {
-    @apply text-primary-500;
-    @apply dark:text-gray-300;
+    @apply mb-2 text-gray-600 dark:text-gray-300;
   }
 
   h1 {
     @apply text-xl font-bold;
-    @apply text-primary-600;
-    @apply dark:text-gray-300;
   }
 
   h2 {
-    @apply text-lg font-bold;
+    @apply text-lg font-semibold;
+  }
+
+  h3 {
+    @apply text-lg font-medium;
   }
 
   label {

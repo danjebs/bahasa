@@ -1,24 +1,13 @@
-<div data-deck-card-target="<%= @side %>" class="<%= @class_name %> h-full">
-  <div class="flex flex-col justify-between items-center h-full">
-    <div class="flex justify-between items-center w-full">
-      <div></div>
-      <%= render UI::Atoms::IconLink.new(
-        href: "/#{@lang}",
-        icon: "x",
-        size: :md,
-        color: :white
-      ) %>
+<div data-deck-card-target="<%= @side %>" class="<%= @class_name %> flex flex-col h-full">
+  <div class="flex-grow flex justify-center items-center text-center text-3xl font-semibold p-6">
+    <%= content %>
+  </div>
+  <div class="grid grid-cols-2 gap-4 w-full p-4">
+    <div>
+      <%= button_left %>
     </div>
-    <div class="text-3xl font-semibold p-6">
-      <%= content %>
-    </div>
-    <div class="grid grid-cols-2 gap-4 w-full p-4">
-      <div>
-        <%= button_left %>
-      </div>
-      <div>
-        <%= button_right %>
-      </div>
+    <div>
+      <%= button_right %>
     </div>
   </div>
 </div>

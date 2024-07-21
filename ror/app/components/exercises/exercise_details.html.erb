@@ -1,50 +1,58 @@
-<div
-  class="px-3 py-4 md:px-4 mb-6 bg-white dark:bg-gray-700 rounded-lg shadow-md"
-  data-id="<%= @exercise.id %>"
-  data-model="exercise"
-  data-controller="collapsible"
->
-  <div class="flex justify-between items-center w-full mb-2 reorder-handle cursor-grab">
-    <h2>
-      <%= @exercise.title %>
-    </h2>
-    <div class="hidden md:flex">
-      <%= render UI::Layout::Modal.new(
-        model: @exercise,
-        id: "#{dom_id(@exercise)}_edit_modal",
-        heading: "Edit #{@exercise.type.humanize}: #{@exercise.title}"
-      ) do |component| %>
-        <% component.with_trigger do %>
-          <%= render UI::Atoms::IconButton.new(
-            action: "modal#open",
-            icon: "edit",
-            color: :white,
-            size: :sm,
+<div id="<%= dom_id(@exercise, :details_wrapper) %>" class="pt-4 pb-2">
+  <div
+    class="px-3 pb-4 md:px-4 bg-white dark:bg-gray-700 rounded-lg shadow-md"
+    id="<%= dom_id(@exercise, :details) %>"
+    data-id="<%= @exercise.id %>"
+    data-model="exercise"
+    data-controller="collapsible"
+  >
+    <div class="sticky top-0 pt-4 flex justify-between items-center w-full mb-2 bg-white dark:bg-gray-700">
+      <h2>
+        <div class="text-sm text-primary-500 dark:text-primary-400 font-medium">
+          <%= @exercise.type %>
+        </div>
+        <div>
+          <%= @exercise.title %>
+        </div>
+      </h2>
+      <div class="hidden md:flex">
+        <%= render UI::Layout::Modal.new(
+          model: @exercise,
+          id: "#{dom_id(@exercise)}_edit_modal",
+          heading: "Edit #{@exercise.type.humanize}: #{@exercise.title}"
+        ) do |component| %>
+          <% component.with_trigger do %>
+            <%= render UI::Atoms::IconButton.new(
+              action: "modal#open",
+              icon: "edit",
+              color: :gray,
+              size: :sm,
+            ) %>
+          <% end %>
+          <%= render Forms::Form.new(
+            model: @exercise,
+            cancel_href: @exercise.lesson,
+            delete_href: @exercise.becomes(Exercise),
+            fields: [
+              { name: :title, type: :text },
+              @exercise.type == "Blurb" ? { name: :content, type: :rich_text } : nil
+            ]
           ) %>
         <% end %>
-        <%= render Forms::Form.new(
-          model: @exercise,
-          cancel_href: @exercise.lesson,
-          delete_href: @exercise.becomes(Exercise),
-          fields: [
-            { name: :title, type: :text },
-            @exercise.type == "Blurb" ? { name: :content, type: :rich_text } : nil
-          ]
-        ) %>
+      </div>
+    </div>
+    <div data-collapsible-target="content">
+      <% if @exercise.type == "WordList" %>
+        <%= render Exercises::WordLists::WordListDetails.new(word_list: @exercise) %>
+      <% elsif @exercise.type == "PhraseList" %>
+        <%= render Exercises::PhraseLists::PhraseListDetails.new(phrase_list: @exercise) %>
+      <% elsif @exercise.type == "Blurb" %>
+        <%= render Exercises::Blurbs::BlurbDetails.new(blurb: @exercise) %>
+      <% else %>
+        <p class="my-5">
+          GENERIC EXERCISE DETECTED!!
+        </p>
       <% end %>
     </div>
-  </div>
-  <div data-collapsible-target="content">
-    <% if @exercise.type == "WordList" %>
-      <%= render Exercises::WordLists::WordListDetails.new(word_list: @exercise) %>
-    <% elsif @exercise.type == "PhraseList" %>
-      <%= render Exercises::PhraseLists::PhraseListDetails.new(phrase_list: @exercise) %>
-    <% elsif @exercise.type == "Blurb" %>
-      <%= render Exercises::Blurbs::BlurbDetails.new(blurb: @exercise) %>
-    <% else %>
-      <p class="my-5">
-        GENERIC EXERCISE DETECTED!!
-      </p>
-    <% end %>
   </div>
 </div>

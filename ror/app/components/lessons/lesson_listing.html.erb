@@ -1,6 +1,7 @@
 <div
   id="<%= dom_id(@lesson) %>"
   class="flex justify-between items-center p-4 last:border-none bg-white dark:bg-gray-700 border-b border-solid border-gray-100 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800"
+  style="view-transition-name: <%= dom_id(@lesson) %>_heading"
   data-model="lesson"
   data-id="<%= @lesson.id %>"
 >

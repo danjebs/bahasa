@@ -3,7 +3,7 @@
   data-model="phrase"
   data-id="<%= @phrase.id %>"
 >
-  <div class="reorder-handle flex justify-between items-center gap-2 px-3 cursor-grab border-t last:border-t-none border-solid border-gray-100 dark:border-gray-600">
+  <div class="flex justify-between items-center gap-2 px-3 border-t last:border-t-none border-solid border-gray-100 dark:border-gray-600">
     <div class="flex-grow py-2">
       <div class="text-sm text-gray-500 dark:text-gray-400">
         <%= @phrase.phrase %>
@@ -31,6 +31,7 @@
         size: :sm,
         data: { turbo_frame: "#{dom_id(@phrase)}" }
       ) %>
+      <%= render UI::Atoms::ReorderHandle.new %>
     </div>
   </div>
 </turbo-frame>

@@ -3,19 +3,19 @@
 class UI::Atoms::Button < ViewComponent::Base
 
   erb_template <<-ERB
-    <button data-action="<%= @action %>" class="<%= ["w-full", @css_color_classes, @css_size_classes].join(" ") %>">
+    <%= button_tag(type: @type, data: @data, class: ["w-full", @css_color_classes, @css_size_classes].join(" ")) do %>
       <div class="flex justify-center items-center gap-2">
         <%= render partial: "shared/icon", locals: { name: @icon, css_class: "h-5 w-5" } %>
         <%= @label %>
       </div>
-    </button>
+    <% end %>
   ERB
 
-  def initialize(action:, label: nil, size: :md, color: :red, data: nil, icon: nil)
+  def initialize(action:, type: :button, label: nil, size: :md, color: :red, data: {}, icon: nil)
     @label = label
+    @type = type
     @icon = icon
-    @action = action
-    @data = data
+    @data = { **data, action: action }
 
     @css_size_classes = {
       xs: "py-1 px-2 text-sm font-normal rounded",
