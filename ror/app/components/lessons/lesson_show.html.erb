@@ -17,7 +17,7 @@
         >
           <%= render Cards::Translations::TranslationCardNew.new(lesson_id: @lesson.id) %>
 
-          <div class="bg-white dark:bg-gray-700 border border-solid border-gray-100 dark:border-gray-700 rounded-lg">
+          <div class="bg-white dark:bg-gray-700 border border-solid border-gray-100 dark:border-gray-600 rounded-lg">
             <turbo-frame
               id="<%= dom_id(@lesson) %>_cards_list_frame"
               data-controller="reorderable"
