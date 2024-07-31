@@ -12,4 +12,5 @@ class Card < ApplicationRecord
   scope :ordered, -> { order(lesson_id: :asc, position: :desc) }
   scope :translated, -> { where.not(back: [nil, ""]) }
   scope :for_lesson, -> (lesson) { lesson.present? ? where(lesson_id: lesson.id) : all }
+  scope :with_types, -> (types) { where(type: types) }
 end

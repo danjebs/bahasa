@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_21_032356) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_31_091121) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,6 +19,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_21_032356) do
   create_enum "deck_card_direction", ["to_base", "from_base"]
   create_enum "deck_card_outcome", ["none", "hint", "peek", "flash", "fail"]
   create_enum "deck_card_status", ["created", "started", "completed"]
+  create_enum "deck_difficulties", ["mixed", "easy", "medium", "hard", "ultra"]
   create_enum "deck_status", ["created", "started", "completed"]
   create_enum "step_status", ["created", "started", "completed"]
   create_enum "user_role", ["student", "teacher", "admin"]
@@ -105,6 +106,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_21_032356) do
     t.datetime "updated_at", null: false
     t.enum "status", enum_type: "deck_status"
     t.bigint "step_id"
+    t.enum "difficulty", default: "mixed", null: false, enum_type: "deck_difficulties"
     t.index ["journey_id"], name: "index_decks_on_journey_id"
     t.index ["step_id"], name: "index_decks_on_step_id"
   end

@@ -29,7 +29,8 @@ class DecksController < ApplicationController
     @deck = Deck.create!(
       journey_id: deck_params[:journey_id],
       step_id: deck_params[:step_id],
-      status: :created
+      status: :created,
+      difficulty: deck_params[:difficulty],
     )
 
     respond_to do |format|
@@ -68,7 +69,7 @@ class DecksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def deck_params
-      params.require(:deck).permit(:id, :journey_id, :step_id, :status)
+      params.require(:deck).permit(:id, :journey_id, :step_id, :status, :difficulty)
     end
 
     def set_breadcrumbs
