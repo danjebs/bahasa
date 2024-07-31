@@ -1,5 +1,5 @@
 class Card < ApplicationRecord
-  belongs_to :lesson
+  belongs_to :lesson, touch: true
 
   has_many :deck_cards, dependent: :destroy
   has_many :card_proficiencies
