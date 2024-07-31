@@ -24,7 +24,14 @@
     <% end %>
   <% end %>
   <%= render Decks::CardSide.new(side: :back, hidden: true) do |component| %>
-    <%= @deck_card.back %>
+    <div class="flex flex-col justify-center">
+      <div class="text-xl text-primary-600">
+        <%= @deck_card.front %>
+      </div>
+      <div>
+        <%= @deck_card.back %>
+      </div>
+    </div>
     <% component.with_button_left do %>
       <%= render UI::Atoms::Button.new(
         action: "deck-card#markRight",
