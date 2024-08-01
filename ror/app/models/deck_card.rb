@@ -38,8 +38,4 @@ class DeckCard < ApplicationRecord
   def back
     direction_is_from_base? ? card.back : card.front
   end
-
-  def max_scoring_time
-    front.split.size
-  end
 end

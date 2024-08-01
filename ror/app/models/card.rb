@@ -13,4 +13,8 @@ class Card < ApplicationRecord
   scope :translated, -> { where.not(back: [nil, ""]) }
   scope :for_lesson, -> (lesson) { lesson.present? ? where(lesson_id: lesson.id) : all }
   scope :with_types, -> (types) { where(type: types) }
+
+  def max_scoring_time
+    front.split.size
+  end
 end

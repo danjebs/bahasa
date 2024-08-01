@@ -37,14 +37,15 @@ class Deck < ApplicationRecord
       return deck_cards.ordered.not_status_is_completed.first
     end
 
-    next_card = journey.cards.translated.with_types(card_types)
+    deck_cards.create!(card_id: upcoming_cards.first.id)
+  end
+
+  def upcoming_cards
+    journey.cards.translated.with_types(card_types)
       .left_joins(:card_proficiencies)
       .for_lesson(step&.lesson)
       .where(card_proficiencies: { journey_id: [journey.id, nil] })
       .order(Arel.sql("card_proficiencies.score - (DATE_PART('day', card_proficiencies.updated_at - CURRENT_DATE))/7 NULLS FIRST, RANDOM ()"))
-      .first
-
-    deck_cards.create!(card_id: next_card.id)
   end
 
   def prune_deck_cards
