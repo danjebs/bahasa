@@ -45,7 +45,8 @@ class Deck < ApplicationRecord
       .left_joins(:card_proficiencies)
       .for_lesson(step&.lesson)
       .where(card_proficiencies: { journey_id: [journey.id, nil] })
-      .order(Arel.sql("card_proficiencies.score - (DATE_PART('day', card_proficiencies.updated_at - CURRENT_DATE))/7 NULLS FIRST, RANDOM ()"))
+      .where.not(id: cards.order(created_at: :desc).limit(3))
+      .order(Arel.sql("card_proficiencies.score - (DATE_PART('day', CURRENT_DATE - card_proficiencies.updated_at))/7 NULLS FIRST, card_proficiencies.updated_at"))
   end
 
   def prune_deck_cards
