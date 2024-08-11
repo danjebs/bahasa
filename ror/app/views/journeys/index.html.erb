@@ -1,0 +1,4 @@
+<%= render Journeys::JourneyListing.new(
+  journeys: current_user.journeys,
+  languages_to_learn: @languages_to_learn
+) %>

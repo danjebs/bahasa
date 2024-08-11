@@ -5,22 +5,11 @@ class JourneysController < ApplicationController
   def index
     authorize Journey
 
-    languages_to_learn = Language.where.not(id: current_user.languages.pluck(:id) << 1)
-
-    respond_to do |format|
-      format.html {
-        render Journeys::JourneyListing.new(
-          journeys: current_user.journeys,
-          languages_to_learn: languages_to_learn
-        )
-      }
-    end
+    @languages_to_learn = Language.where.not(id: current_user.languages.pluck(:id) << 1)
   end
 
   def show
     authorize @journey
-
-    render Journeys::JourneyShow.new(journey: @journey)
   end
 
   private

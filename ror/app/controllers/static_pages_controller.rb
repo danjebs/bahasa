@@ -1,7 +1,7 @@
 class StaticPagesController < ApplicationController
-  skip_after_action :verify_authorized
-
   def home
+    authorize :static_pages, :home?
+
     if current_user&.default_language.present?
       redirect_to "/#{current_user.default_language.code}"
     elsif current_user.present?
