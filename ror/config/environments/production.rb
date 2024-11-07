@@ -5,8 +5,8 @@ Rails.application.configure do
 
   config.hosts << "localhost"
   config.hosts << "ror"
-  config.hosts << "bahasa.kayaavani.com"
-  config.hosts << "kayaavani.com"
+  config.hosts << "bahasa.kokoro.id"
+  config.hosts << "kokoro.id"
 
   # Code is not reloaded between requests.
   config.enable_reloading = false
