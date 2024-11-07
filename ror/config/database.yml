@@ -23,6 +23,7 @@ test:
 
 production:
   primary:
+    <<: *default
     database: bahasa_prod
   cable:
     <<: *default
