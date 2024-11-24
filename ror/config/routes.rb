@@ -14,8 +14,9 @@ Rails.application.routes.draw do
     get "welcome", to: "users/confirmations#welcome"
   end
 
-  get "/journeys", to: "journeys#index"
-  resources :journeys, path: "/", param: :lang, only: [:show]
+  resources :journeys, only: [:index, :new, :create]
+  resources :journeys, path: "/", param: :lang, only: [:show, :edit, :update, :destroy]
+
   resources :deck_cards, only: [:update]
 
   scope "/:lang/" do

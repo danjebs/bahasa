@@ -5,6 +5,7 @@ class JourneysController < ApplicationController
   def index
     authorize Journey
 
+    @journeys = policy_scope(current_user.journeys)
     @languages_to_learn = Language.where.not(id: current_user.languages.pluck(:id) << 1)
   end
 

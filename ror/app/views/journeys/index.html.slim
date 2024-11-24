@@ -1,0 +1,28 @@
+- if @journeys.present?
+  section
+    h2
+      | Continue Your Journey
+
+    div class="flex flex-col gap-4"
+      - @journeys.each do |journey|
+        = render UI::Atoms::LinkButton.new(\
+          href: "/#{journey.language.code}",
+          label: journey.language.name,
+          id: dom_id(journey, :row),
+          size: :lg,
+          color: :red,
+        )
+
+- if @languages_to_learn.present?
+  section
+    h2
+      | Start a New Journey
+
+    - @languages_to_learn.each do |language|
+      = render UI::Atoms::LinkButton.new(\
+        href: "/#{language.code}",
+        label: "Learn #{language.name}",
+        id: dom_id(language, :row),
+        size: :lg,
+        color: :red,
+      )

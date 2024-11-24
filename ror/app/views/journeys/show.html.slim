@@ -1,0 +1,13 @@
+- content_for :title, "#{@journey.language.name} Journey"
+
+- continue_path = @journey.next_lesson.present? ? @journey.next_lesson : new_lesson_path
+
+div class="h-full"
+  div class="container m-auto flex flex-col items-center"
+    h1
+      = "Your #{@journey.language.name} Journey"
+    div class="flex flex-col gap-4"
+      = render UI::Atoms::LinkButton.new(href: new_deck_path, label: "Daily Practice", size: :lg)
+      = render UI::Atoms::LinkButton.new(href: continue_path, label: "Continue", size: :lg)
+      = render UI::Atoms::LinkButton.new(href: new_lesson_path, label: "Add New Lesson", size: :lg)
+      = render UI::Atoms::LinkButton.new(href: lessons_path, label: "Lesson List", size: :lg)
