@@ -1,15 +1,14 @@
 lesson_greetings_id:
   title: Greetings
-  language: id
+  course: learn_id_with_simba
   position: 1
 
 lesson_food_id:
   title: Food
-  language: id
+  course: learn_id_with_simba
   position: 2
 
-lesson_greetings_ta:
+lesson_greetings_de:
   title: Greetings
-  language: ta
+  course: learn_de_with_bean
   position: 1
-

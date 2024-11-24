@@ -2,11 +2,11 @@ require "test_helper"
 
 class LessonsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @student = users(:student_id_ta)
+    @student = users(:simba)
     @teacher = users(:teacher_id)
 
-    @other_student = users(:student_id)
-    @other_teacher = users(:teacher_ta)
+    @other_student = users(:bean)
+    @other_teacher = users(:teacher_de)
 
     @lesson = lessons(:lesson_greetings_id)
 
@@ -70,7 +70,7 @@ class LessonsControllerTest < ActionDispatch::IntegrationTest
   test "should not get new for student without existing journey" do
     sign_in @other_student
     get new_lesson_url(lang: @lesson.language.code)
-    assert_redirected_to root_url
+    assert_response :forbidden
   end
 
   test "should show lesson for student with access" do
@@ -87,19 +87,21 @@ class LessonsControllerTest < ActionDispatch::IntegrationTest
   test "should not show lesson for student without access" do
     sign_in @other_student
     get lesson_url(@lesson, lang: @lesson.language.code)
-    assert_redirected_to root_url
+    assert_response :forbidden
   end
 
   test "should not show lesson for teacher without access" do
     sign_in @other_teacher
     get lesson_url(@lesson, lang: @lesson.language.code)
-    assert_redirected_to root_url
+    assert_response :forbidden
   end
 
   test "should update lesson if student has access" do
     patch lesson_url(@lesson, lang: @lesson.language.code), params: { lesson: { title: "Updated Title", position: 2 } }
     assert_redirected_to lesson_url(@lesson, lang: @lesson.language.code)
+
     @lesson.reload
+
     assert_equal "Updated Title", @lesson.title
     assert_equal 2, @lesson.position
   end
@@ -126,7 +128,7 @@ class LessonsControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference("Lesson.count") do
       delete lesson_url(@lesson, lang: @lesson.language.code)
     end
-    assert_redirected_to root_url
+    assert_response :forbidden
   end
 
   test "should not destroy lesson for teacher with access" do
@@ -134,7 +136,7 @@ class LessonsControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference("Lesson.count") do
       delete lesson_url(@lesson, lang: @lesson.language.code)
     end
-    assert_redirected_to root_url
+    assert_response :forbidden
   end
 
   test "should handle invalid lesson creation" do

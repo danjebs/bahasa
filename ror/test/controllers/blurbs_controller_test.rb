@@ -2,10 +2,10 @@ require "test_helper"
 
 class BlurbsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @student = users(:student_id_ta)
+    @student = users(:bean)
     @teacher = users(:teacher_id_one)
 
-    @other_student = users(:student_id)
+    @other_student = users(:simba)
     @other_teacher = users(:teacher_id_two)
 
     @blurb = exercises(:blurb_lesson_greetings_id)

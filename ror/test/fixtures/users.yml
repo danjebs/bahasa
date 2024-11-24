@@ -3,17 +3,22 @@ teacher_id:
   email: kay@example.com
   default_language: id
 
+teacher_de:
+  name: Hans
+  email: hans@example.com
+  default_language: de
+
 teacher_ta:
   name: Pati
-  email: pat@example.com
+  email: pati@example.com
   default_language: ta
 
-student_id:
+simba:
   name: Simba
   email: simba@example.com
   default_language: id
 
-student_id_ta:
+bean:
   name: Bean
   email: bean@example.com
   default_language: id

@@ -6,6 +6,10 @@ id:
   code: id
   name: Indonesian
 
+de:
+  code: de
+  name: Deutsche
+
 ta:
   code: ta
   name: Tamil

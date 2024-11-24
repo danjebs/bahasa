@@ -2,11 +2,11 @@ require "test_helper"
 
 class JourneysControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @student = users(:student_id)
+    @student = users(:simba)
     @teacher = users(:teacher_id)
 
-    @other_student = users(:student_id_ta)
-    @other_teacher = users(:teacher_ta)
+    @other_student = users(:bean)
+    @other_teacher = users(:teacher_de)
 
     sign_in @student
   end
@@ -95,7 +95,7 @@ class JourneysControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should not access delete" do
-    first_journey = journeys(:student_id_language_id)
+    first_journey = journeys(:simba_language_id)
     assert_raises(ActionController::RoutingError) do
       delete journey_url(id: 1, lang: Journey.find(1).language.code)
     end

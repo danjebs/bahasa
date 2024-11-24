@@ -1,11 +1,11 @@
-student_id_language_id:
-  user: student_id
-  language: id
+simba_id:
+  user: simba
+  course: learn_id_with_simba
 
-student_id_ta_language_id:
-  user: student_id_ta
-  language: id
+bean_id:
+  user: bean
+  course: learn_id_with_bean
 
-student_id_ta_language_ta:
-  user: student_id_ta
-  language: ta
+bean_de:
+  user: bean
+  course: learn_de_with_bean
