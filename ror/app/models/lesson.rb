@@ -13,16 +13,16 @@ class Lesson < ApplicationRecord
 
   broadcasts_refreshes
 
-  acts_as_list scope: :language_id
+  acts_as_list scope: :course_id
 
-  validates :title, presence: true, uniqueness: { scope: :language_id }
+  validates :title, presence: true, uniqueness: { scope: :course_id }
 
   after_create :create_steps_for_journeys
 
   scope :accessible_by, ->(user) {
     return none if user.nil?
 
-    joins(course: :journeys).merge(Journey.accessible_by(user))
+    joins(course: :journeys).where(courses: { id: Journey.accessible_by(user).select(:course_id) })
   }
   scope :ordered, -> { order(course_id: :asc, position: :asc) }
 

@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
 
-  before_action :set_lang
   protect_from_forgery with: :exception
 
   after_action :verify_authorized, unless: :devise_controller?
@@ -26,14 +25,6 @@ class ApplicationController < ActionController::Base
   end
 
   private
-    def set_lang
-      @lang = params[:lang] if Language.exists?(code: params[:lang])
-    end
-
-    def default_url_options
-      { lang: @lang }
-    end
-
     def store_user_location!
       store_location_for(:user, request.fullpath)
     end

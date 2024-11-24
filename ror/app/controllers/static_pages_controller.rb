@@ -3,9 +3,9 @@ class StaticPagesController < ApplicationController
     authorize :static_pages, :home?
 
     if current_user&.default_language.present?
-      redirect_to "/#{current_user.default_language.code}"
+      redirect_to current_user.courses.last
     elsif current_user.present?
-      redirect_to journeys_path
+      redirect_to courses_path
     else
       redirect_to :new_user_session
     end

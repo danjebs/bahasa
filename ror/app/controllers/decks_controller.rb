@@ -1,13 +1,14 @@
 class DecksController < ApplicationController
   before_action :set_deck, only: [:show, :update]
+  before_action :set_journey, only: [:index, :new]
   before_action :set_breadcrumbs, except: [:show]
 
   def index
     authorize Deck
 
-    @decks = policy_scope(current_user.decks)
+    @decks = policy_scope(@journey.decks)
 
-    render Decks::DeckList.new(decks: current_user.decks)
+    render Decks::DeckList.new(decks: @journey.decks)
   end
 
   def show
@@ -15,15 +16,14 @@ class DecksController < ApplicationController
   end
 
   def new
-
-    @journey = current_user.journeys.joins(course: :language).find_by(course: { languages: { code: params[:lang] } })
     @deck = Deck.new(journey_id: @journey.id)
 
     authorize @deck
 
     add_breadcrumb("New Practice")
 
-    render Decks::DeckNew.new(deck: @deck)
+    @step_options = @journey.course.lessons.ordered.pluck(:title, :id)
+    @difficulty_options = Deck.difficulties.keys.map { |difficulty| [difficulty.humanize, difficulty] }
   end
 
   def create
@@ -70,13 +70,18 @@ class DecksController < ApplicationController
       @deck = Deck.find(params[:id])
     end
 
+    def set_journey
+      @journey = Journey.find(params[:journey_id])
+    end
+
     # Only allow a list of trusted parameters through.
     def deck_params
       params.require(:deck).permit(:id, :journey_id, :step_id, :status, :difficulty)
     end
 
     def set_breadcrumbs
-      language = Language.find_by(code: params[:lang])
-      add_breadcrumb(language.name, language.base_path) if language.present?
+      if @journey.present?
+        add_breadcrumb(@journey.language.name, @journey.language.base_path)
+      end
     end
 end

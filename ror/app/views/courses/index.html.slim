@@ -1,0 +1,19 @@
+- if @courses.present?
+  section
+    h1
+      | Your Courses
+
+    div class="flex flex-col gap-4"
+      - @courses.each do |course|
+        = render UI::Atoms::LinkButton.new(\
+          href: course,
+          label: course.language.name,
+          id: dom_id(course, :row),
+          size: :lg,
+          color: :red,
+        )
+
+- if @languages_to_learn.present?
+  section
+    h2
+      | Start a New Journey

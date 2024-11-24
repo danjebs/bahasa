@@ -1,0 +1,15 @@
+- content_for :title, "Add a New Lesson"
+
+section class="max-w-xl mx-auto"
+  h1
+    | Add a New Lesson
+
+  = render Forms::Form.new(\
+    model: @lesson,
+    url: [@course, @lesson],
+    cancel_href: :back,
+    fields: [\
+      { name: :title, type: :text },
+      { name: :course_id, type: :hidden, value: @lesson.course_id },
+    ],
+  )

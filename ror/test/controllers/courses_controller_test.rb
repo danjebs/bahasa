@@ -1,6 +1,6 @@
 require "test_helper"
 
-class JourneysControllerTest < ActionDispatch::IntegrationTest
+class CoursesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @student = users(:simba)
     @teacher = users(:teacher_id)

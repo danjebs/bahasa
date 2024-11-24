@@ -1,4 +1,5 @@
 class LessonsController < ApplicationController
+  before_action :set_course, only: [:index, :new, :create]
   before_action :set_lesson, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
   before_action :set_breadcrumbs
@@ -7,9 +8,6 @@ class LessonsController < ApplicationController
     authorize Lesson
 
     @lessons = policy_scope(Lesson.all)
-    @language = Language.find_by(code: params[:lang])
-
-    render Lessons::LessonList.new(lessons: @lessons)
   end
 
   def show
@@ -19,25 +17,15 @@ class LessonsController < ApplicationController
   end
 
   def new
-    @lesson = Lesson.new
+    @lesson = Lesson.new(course_id: @course.id)
 
     authorize @lesson
 
     add_breadcrumb("New Lesson")
-
-    render Lessons::LessonNew.new(lesson: @lesson)
-  end
-
-  def edit
-    authorize @lesson
-
-    add_breadcrumb("Edit #{@lesson.name}")
-
-    render Lessons::LessonEdit.new(lesson: @lesson)
   end
 
   def create
-    @lesson = Lesson.new(**lesson_params, language: Language.find_by(code: params[:lang]))
+    @lesson = Lesson.new(**lesson_params)
 
     authorize @lesson
 
@@ -46,13 +34,16 @@ class LessonsController < ApplicationController
         format.html { redirect_to lesson_url(@lesson), notice: "Lesson was successfully created." }
         format.json { render json: @lesson, status: :created, location: @lesson }
       else
-        format.html {
-          render Lessons::LessonNew.new(lesson: @lesson),
-          status: :unprocessable_entity
-        }
+        format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @lesson.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def edit
+    authorize @lesson
+
+    add_breadcrumb("Edit #{@lesson.title}")
   end
 
   def update
@@ -67,10 +58,7 @@ class LessonsController < ApplicationController
         format.html { redirect_to @lesson, notice: "Lesson was successfully updated." }
         format.json { render json: @lesson, status: :created, location: @lesson }
       else
-        format.html {
-          render Lessons::LessonEdit.new(lesson: @lesson),
-          status: :unprocessable_entity
-        }
+        format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @lesson.errors, status: :unprocessable_entity }
       end
     end
@@ -88,22 +76,25 @@ class LessonsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_lesson
       @lesson = Lesson.find(params[:id])
+    end
 
-    # TODO: don't call this on preload
-    # TODO add logic to hadle case when the journey/step does not exist
+    def set_course
+      @course = Course.find(params[:course_id])
     end
 
     # Only allow a list of trusted parameters through.
     def lesson_params
-      params.require(:lesson).permit(:title, :position)
+      params.require(:lesson).permit(:title, :position, :course_id)
     end
 
     def set_breadcrumbs
-      language = Language.find_by(code: @lang)
-      add_breadcrumb(language.name, language.base_path) if language.present?
-      add_breadcrumb("Lessons", lessons_path)
+      if @lesson.present?
+        add_breadcrumb(@lesson.course.language.name, @lesson.course)
+      elsif @course.present?
+        add_breadcrumb(@course.language.name, @course)
+        add_breadcrumb("Lessons", course_lessons_path(@course))
+      end
     end
 end

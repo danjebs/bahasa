@@ -3,7 +3,7 @@
     <% render Cards::Translations::TranslationCardNew.new(lesson_id: @translation_card.lesson_id) %>
   <% end %>
 <% else %>
-  <%= turbo_stream.prepend "#{dom_id(@translation_card.lesson)}_cards_list_frame" do %>
+  <%= turbo_stream.prepend "#{dom_id(@translation_card.lesson, :cards_list_frame)}" do %>
     <%= render Cards::CardListing.new(card: @translation_card) %>
   <% end %>
   <%= turbo_stream.replace "#{dom_id(@translation_card.lesson)}_new_card_frame" do %>

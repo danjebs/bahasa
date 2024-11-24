@@ -8,6 +8,16 @@ class Course < ApplicationRecord
 
   after_create :add_creator_as_owner
 
+  scope :accessible_by, -> (user) {
+    return none if user.nil?
+
+    joins(:roles).where(roles: { id: User.first.roles.select(:id) })
+  }
+
+  def accessible_by?(user)
+    user.has_role?(:owner, self) || user.has_role?(:student, self)
+  end
+
   def editable_by?(user)
     user.has_role?(:owner, self)
   end

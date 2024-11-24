@@ -1,4 +1,4 @@
-<%= form_with(model: @model, class: "contents") do |form| %>
+<%= form_with(model: @model, url: @url, class: "contents") do |form| %>
   <%= render Forms::ErrorNotice.new(model: @model) %>
 
   <% @fields.each_with_index do |field, i| %>
