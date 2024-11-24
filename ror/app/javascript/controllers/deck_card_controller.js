@@ -42,7 +42,7 @@ export default class extends Controller {
   }
 
   async updateDeckCard({ id, status, outcome, timeTaken }) {
-    const url = `/deck_cards/${id}`
+    const url = `/deck-cards/${id}`
 
     const response = await patch(url, {
       body: JSON.stringify({

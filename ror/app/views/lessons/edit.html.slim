@@ -1,8 +1,1 @@
-= render Forms::Form.new(\
-  model: @lesson,
-  cancel_href: @lesson,
-  delete_href: @lesson,
-  fields: [
-    { name: :title, type: :text }
-  ]
-)
+= render Lessons::LessonEditForm.new(lesson: @lesson)
