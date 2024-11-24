@@ -2,17 +2,17 @@ class TranslationCardsController < ApplicationController
   before_action :set_exercise, only: [:edit, :update]
 
   def new
-    authorize TranslationCard
-
     @translation_card = TranslationCard.new(lesson_id: params[:lesson_id])
+
+    authorize @translation_card
 
     render Cards::Translations::TranslationCardNew.new(lesson_id: @translation_card.lesson_id)
   end
 
   def create
-    authorize TranslationCard
-
     @translation_card = TranslationCard.new(translation_card_params)
+
+    authorize @translation_card
 
     respond_to do |format|
       if @translation_card.save

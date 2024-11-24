@@ -8,17 +8,17 @@ class ExercisesController < ApplicationController
   end
 
   def new
-    authorize Exercise
-
     @exercise = Exercise.new(lesson_id: params[:lesson_id], type: params[:type])
+
+    authorize @exercise
 
     render Exercises::ExerciseNew.new(exercise: @exercise)
   end
 
   def create
-    authorize Exercise
-
     @exercise = Exercise.new(exercise_params)
+
+    authorize @exercise
 
     respond_to do |format|
       if @exercise.save

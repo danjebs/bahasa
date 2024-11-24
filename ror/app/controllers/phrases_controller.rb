@@ -2,9 +2,9 @@ class PhrasesController < ApplicationController
   before_action :set_phrase, only: [:edit, :update, :destroy]
 
   def new
-    authorize Phrase
-
     @phrase = Phrase.new(exercise_id: params[:exercise_id])
+
+    authorize @phrase
 
     render Phrases::PhraseNew.new(phrase: @phrase)
   end
@@ -16,9 +16,9 @@ class PhrasesController < ApplicationController
   end
 
   def create
-    authorize Phrase
-
     @phrase = Phrase.new(phrase_params)
+
+    authorize @phrase
 
     respond_to do |format|
       if @phrase.save

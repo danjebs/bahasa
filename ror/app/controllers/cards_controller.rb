@@ -2,17 +2,17 @@ class CardsController < ApplicationController
   before_action :set_card, only: [:update, :destroy]
 
   def new
-    authorize Card
-
     @card = Card.new(lesson_id: params[:lesson_id])
+
+    authorize @card
 
     render Cards::CardNew.new(card: @card)
   end
 
   def create
-    authorize Card
-
     @card = Card.new(card_params)
+
+    authorize @card
 
     respond_to do |format|
       if @card.save

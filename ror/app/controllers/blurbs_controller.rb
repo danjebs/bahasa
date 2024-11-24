@@ -2,17 +2,17 @@ class BlurbsController < ApplicationController
   before_action :set_blurb, only: [:edit, :update]
 
   def new
-    authorize Blurb
-
     @blurb = Blurb.new(lesson_id: params[:lesson_id])
+
+    authorize @blurb
 
     render Exercises::Blurbs::BlurbNew.new(blurb: @blurb)
   end
 
   def create
-    authorize Blurb
-
     @blurb = Blurb.new(blurb_params)
+
+    authorize @blurb
 
     respond_to do |format|
       if @blurb.save

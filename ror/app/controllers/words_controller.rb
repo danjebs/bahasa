@@ -2,9 +2,9 @@ class WordsController < ApplicationController
   before_action :set_word, only: [:edit, :update, :destroy]
 
   def new
-    authorize Word
+    @word = Word.new(exercise_id: params[:exercise_id])\
 
-    @word = Word.new(exercise_id: params[:exercise_id])
+    authorize @word
 
     render Words::WordNew.new(word: @word)
   end
@@ -16,9 +16,9 @@ class WordsController < ApplicationController
   end
 
   def create
-    authorize Word
-
     @word = Word.new(word_params)
+
+    authorize @word
 
     respond_to do |format|
       if @word.save

@@ -2,17 +2,17 @@ class WordListsController < ApplicationController
   before_action :set_word_list, only: [:edit, :update]
 
   def new
-    authorize WordList
-
     @word_list = WordList.new(word_list_params)
+
+    authorize @word_list
 
     render Exercises::WordLists::WordListNew.new(word_list: @word_list)
   end
 
   def create
-    authorize WordList
-
     @word_list = WordList.new(word_list_params)
+
+    authorize @word_list
 
     respond_to do |format|
       if @word_list.save

@@ -6,7 +6,7 @@ class LessonsController < ApplicationController
   def index
     authorize Lesson
 
-    @lessons = Lesson.all
+    @lessons = policy_scope(Lesson.all)
     @language = Language.find_by(code: params[:lang])
 
     render Lessons::LessonList.new(lessons: @lessons)
@@ -19,9 +19,9 @@ class LessonsController < ApplicationController
   end
 
   def new
-    authorize Lesson
-
     @lesson = Lesson.new
+
+    authorize @lesson
 
     add_breadcrumb("New Lesson")
 
@@ -37,9 +37,9 @@ class LessonsController < ApplicationController
   end
 
   def create
-    authorize Lesson
-
     @lesson = Lesson.new(**lesson_params, language: Language.find_by(code: params[:lang]))
+
+    authorize @lesson
 
     respond_to do |format|
       if @lesson.save

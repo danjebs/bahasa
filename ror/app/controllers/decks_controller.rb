@@ -5,6 +5,8 @@ class DecksController < ApplicationController
   def index
     authorize Deck
 
+    @decks = policy_scope(current_user.decks)
+
     render Decks::DeckList.new(decks: current_user.decks)
   end
 
@@ -13,10 +15,11 @@ class DecksController < ApplicationController
   end
 
   def new
-    authorize Deck
 
     @journey = current_user.journeys.joins(course: :language).find_by(course: { languages: { code: params[:lang] } })
     @deck = Deck.new(journey_id: @journey.id)
+
+    authorize @deck
 
     add_breadcrumb("New Practice")
 
@@ -24,14 +27,14 @@ class DecksController < ApplicationController
   end
 
   def create
-    authorize Deck
-
     @deck = Deck.create!(
       journey_id: deck_params[:journey_id],
       step_id: deck_params[:step_id],
       status: :created,
       difficulty: deck_params[:difficulty],
     )
+
+    authorize @deck
 
     respond_to do |format|
       if @deck.save
