@@ -20,7 +20,7 @@ class JourneysController < ApplicationController
 
       # TODO: don't call this on preload
       language = Language.find_by(code: params[:lang])
-      @journey = current_user.journeys.find_or_create_by(language_id: language.id)
+      @journey = current_user.journeys.joins(:course).find_by(courses: { language_id: language.id })
     end
 
     # Only allow a list of trusted parameters through.

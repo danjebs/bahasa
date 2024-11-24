@@ -1,42 +1,35 @@
 class LessonPolicy < ApplicationPolicy
   def index?
-    user&.role_is_admin?
+    user.present?
   end
 
   def show?
-    true
-    # user&.languages.exists?(record.id)
+    record.accessible_by?(user)
   end
 
   def new?
-    user&.role_is_admin?
+    record.course.editable_by?(user)
   end
 
   def create?
-    user&.role_is_admin?
+    new?
   end
 
   def edit?
-    user&.role_is_admin?
+    record.editable_by?(user)
   end
 
   def update?
-    user&.role_is_admin?
+    edit?
   end
 
   def destroy?
-    user&.role_is_admin?
+    record.editable_by?(user)
   end
 
   class Scope < Scope
     def resolve
-      if user&.role_is_admin?
-        scope.all
-      # elsif user&.role_is_teacher?
-      #   scope.where(organisation: user.organisation)
-      else
-        scope.none
-      end
+      scope.accessible_by(user)
     end
   end
 end

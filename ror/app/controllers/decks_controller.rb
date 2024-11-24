@@ -15,7 +15,7 @@ class DecksController < ApplicationController
   def new
     authorize Deck
 
-    @journey = current_user.journeys.joins(:language).find_by(language: { code: params[:lang] })
+    @journey = current_user.journeys.joins(course: :language).find_by(course: { languages: { code: params[:lang] } })
     @deck = Deck.new(journey_id: @journey.id)
 
     add_breadcrumb("New Practice")

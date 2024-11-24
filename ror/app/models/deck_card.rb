@@ -29,6 +29,8 @@ class DeckCard < ApplicationRecord
 
   acts_as_list scope: :deck
 
+  delegate :editable_by?, to: :journey
+
   scope :ordered, -> { order(position: :asc) }
 
   def front

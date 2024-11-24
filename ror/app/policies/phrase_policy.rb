@@ -1,42 +1,35 @@
 class PhrasePolicy < ApplicationPolicy
   def index?
-    user&.role_is_admin?
+    false
   end
 
   def show?
-    true
-    # user&.languages.exists?(record.id)
+    record.exercise.lesson.accessible_by?(user)
   end
 
   def new?
-    user&.role_is_admin?
+    record.exercise.lesson.editable_by?(user)
   end
 
   def create?
-    user&.role_is_admin?
+    new?
   end
 
   def edit?
-    user&.role_is_admin?
+    record.exercise.lesson.editable_by?(user)
   end
 
   def update?
-    user&.role_is_admin?
+    edit?
   end
 
   def destroy?
-    user&.role_is_admin?
+    record.exercise.lesson.editable_by?(user)
   end
 
   class Scope < Scope
     def resolve
-      if user&.role_is_admin?
-        scope.all
-      # elsif user&.role_is_teacher?
-      #   scope.where(organisation: user.organisation)
-      else
-        scope.none
-      end
+      scope.joins(exercise: :lesson).merge(Lesson.accessible_by(user))
     end
   end
 end

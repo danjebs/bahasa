@@ -8,9 +8,9 @@ class Step < ApplicationRecord
     completed: "completed"
   }, prefix: :status_is
 
-  after_initialize :init
+  after_initialize :initialize_defaults
 
-  def init
+  def initialize_defaults
     self.status ||= :created
   end
 end

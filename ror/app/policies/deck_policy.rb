@@ -8,11 +8,11 @@ class DeckPolicy < ApplicationPolicy
   end
 
   def new?
-    user.present?
+    record.journey.user == user
   end
 
   def create?
-    user.present?
+    new?
   end
 
   def edit?
@@ -20,7 +20,7 @@ class DeckPolicy < ApplicationPolicy
   end
 
   def update?
-    user&.decks.exists?(record.id)
+    record.journey.user == user
   end
 
   def destroy?
@@ -29,7 +29,7 @@ class DeckPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      scope.joins(:journey).where(journey: { user_id: user&.id })
+      scope.joins(:journey).merge(Journey.accessible_by(user))
     end
   end
 end

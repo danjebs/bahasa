@@ -1,10 +1,10 @@
 class StepPolicy < ApplicationPolicy
   def index?
-    user.present?
+    false
   end
 
   def show?
-    user&.steps.exists?(record.id)
+    record.journey.accessible_by?(user)
   end
 
   def new?
@@ -16,7 +16,7 @@ class StepPolicy < ApplicationPolicy
   end
 
   def update?
-    false
+    record.journey.editable_by?(user)
   end
 
   def destroy?
@@ -25,7 +25,7 @@ class StepPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      scope.where(user_id: user&.id)
+      scope.joins(:journey).merge(Journey.accessible_by(user))
     end
   end
 end
