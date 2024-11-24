@@ -19,7 +19,7 @@ development:
 
 test:
   <<: *default
-  database: ror_test
+  database: bahasa_test
 
 production:
   primary:

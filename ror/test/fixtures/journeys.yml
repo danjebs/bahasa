@@ -1,0 +1,11 @@
+student_id_language_id:
+  user: student_id
+  language: id
+
+student_id_ta_language_id:
+  user: student_id_ta
+  language: id
+
+student_id_ta_language_ta:
+  user: student_id_ta
+  language: ta
