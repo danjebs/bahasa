@@ -1,19 +1,21 @@
-- if @courses.present?
-  section
-    h1
-      | Your Courses
+div class="flex flex-col gap-6 p-4 bg-white dark:bg-gray-700 rounded-lg shadow-md"
+  h1 class=""
+    = "Hi #{current_user.name}!"
 
-    div class="flex flex-col gap-4"
-      - @courses.each do |course|
-        = render UI::Atoms::LinkButton.new(\
-          href: course,
-          label: course.language.name,
-          id: dom_id(course, :row),
-          size: :lg,
-          color: :red,
-        )
+  - if @courses.present?
+    section class=""
+      h2 class="text-primary-600" Your Courses
 
-- if @languages_to_learn.present?
-  section
-    h2
-      | Start a New Journey
+      div class="flex flex-col gap-4"
+        - @courses.each do |course|
+          = render Courses::CourseRow.new(course: course)
+
+  - if @languages_to_learn.present?
+    section
+      h2 class="text-primary-600"
+        | Learn a New Language
+
+      - @languages_to_learn.each do |language|
+        = form_with url: language_journeys_path(language), method: :post, local: true do |form|
+          = form.hidden_field :language_id, value: language.id
+          = form.submit language.name, class: "text-base font-medium cursor-pointer"

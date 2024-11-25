@@ -8,7 +8,7 @@ class DeckPolicy < ApplicationPolicy
   end
 
   def new?
-    record.journey.user == user
+    record.journey&.user == user
   end
 
   def create?
@@ -20,7 +20,7 @@ class DeckPolicy < ApplicationPolicy
   end
 
   def update?
-    record.journey.user == user
+    record.journey&.user == user
   end
 
   def destroy?

@@ -5,8 +5,10 @@ Rails.application.routes.draw do
     resources :lessons, shallow: true
   end
 
-  resources :journeys do
-    resources :decks, shallow: true, except: [:edit, :delete]
+  resources :languages, only: [] do
+    resources :journeys, shallow: true, only: [:create] do
+      resources :decks, shallow: true, except: [:edit, :delete]
+    end
   end
 
   resources :exercises

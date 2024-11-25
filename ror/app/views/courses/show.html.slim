@@ -1,13 +1,25 @@
 - content_for :title, @course.name
 
-- continue_path = @journey.next_lesson.present? ? @journey.next_lesson : new_lesson_path
+div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6"
+  h1 class="" style="view-transition-name: #{dom_id(@course, :heading)}"
+    = @course.name
 
-div class="h-full"
-  div class="container m-auto flex flex-col items-center"
-    h1
-      = @course.name
-    div class="flex flex-col gap-4"
-      = render UI::Atoms::LinkButton.new(href: new_journey_deck_path(@journey), label: "Daily Practice", size: :lg)
-      = render UI::Atoms::LinkButton.new(href: continue_path, label: "Continue", size: :lg)
-      = render UI::Atoms::LinkButton.new(href: new_course_lesson_path(@course), label: "Add New Lesson", size: :lg)
-      = render UI::Atoms::LinkButton.new(href: course_lessons_path(@course), label: "Lesson List", size: :lg)
+  div
+    = render UI::Atoms::LinkButton.new(\
+        href: new_course_lesson_path(@course),
+        label: "New Lesson",
+      )
+    - if policy(Deck.new(journey: @journey)).new?
+      = render UI::Atoms::LinkButton.new(\
+          href: new_journey_deck_path(@journey),
+          label: "Daily Practice",
+        )
+
+div [
+  id=dom_id(@course, :lessons)
+  class="min-w-full rounded-lg shadow-md border border-solid border-gray-100 dark:border-gray-600 overflow-scroll"
+  data-controller="reorderable"
+  data-reorderable-url=lesson_path(':id')
+]
+  - @course.lessons.ordered.each do |lesson|
+    = render Lessons::LessonRow.new(lesson: lesson)

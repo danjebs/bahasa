@@ -12,7 +12,7 @@ class JourneyPolicy < ApplicationPolicy
   end
 
   def create?
-    false
+    user.present?
   end
 
   def update?

@@ -7,7 +7,7 @@ class LessonsController < ApplicationController
   def index
     authorize Lesson
 
-    @lessons = policy_scope(Lesson.all)
+    @lessons = policy_scope(Lesson.where(course: @course))
   end
 
   def show
@@ -94,7 +94,6 @@ class LessonsController < ApplicationController
         add_breadcrumb(@lesson.course.language.name, @lesson.course)
       elsif @course.present?
         add_breadcrumb(@course.language.name, @course)
-        add_breadcrumb("Lessons", course_lessons_path(@course))
       end
     end
 end

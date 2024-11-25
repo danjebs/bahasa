@@ -5,7 +5,7 @@ class CoursesController < ApplicationController
   def index
     authorize Course
 
-    @courses = policy_scope(current_user.courses)
+    @courses = policy_scope(Course.all)
     @languages_to_learn = Language.where.not(id: current_user.languages.pluck(:id) << 1)
   end
 
@@ -18,7 +18,7 @@ class CoursesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_course
-      @course = Course.find_by(params[:course_id])
+      @course = Course.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
