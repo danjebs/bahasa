@@ -7,7 +7,7 @@ class LinkJourneyAndLessonToCourse < ActiveRecord::Migration[7.2]
       course = Course.create!(
         language_id: journey.language_id,
         creator_id: journey.user_id,
-        name: "Learn #{Language.find(journey.language_id).name} with #{journey.user.name}"
+        name: "#{journey.user.name} Learns #{Language.find(journey.language_id).name}"
       )
 
       journey.update!(course_id: course.id)
