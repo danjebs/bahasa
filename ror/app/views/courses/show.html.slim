@@ -4,7 +4,7 @@ div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6"
   h1 class="" style="view-transition-name: #{dom_id(@course, :heading)}"
     = @course.name
 
-  div
+  div class="flex gap-2"
     = render UI::Atoms::LinkButton.new(\
         href: new_course_lesson_path(@course),
         label: "New Lesson",
