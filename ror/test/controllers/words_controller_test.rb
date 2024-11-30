@@ -2,7 +2,7 @@ require "test_helper"
 
 class WordsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @word = words(:one)
+    @word = words(:hello)
   end
 
   test "should get index" do

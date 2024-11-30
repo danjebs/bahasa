@@ -1,11 +1,14 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+lesson_greetings_id:
+  title: Greetings
+  course: learn_id_with_simba
+  position: 1
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the "{}" from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+lesson_food_id:
+  title: Food
+  course: learn_id_with_simba
+  position: 2
+
+lesson_greetings_de:
+  title: Greetings
+  course: learn_de_with_bean
+  position: 1

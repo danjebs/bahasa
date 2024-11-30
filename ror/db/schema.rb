@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_07_31_091121) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_24_064241) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -86,6 +86,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_07_31_091121) do
     t.index ["lesson_id"], name: "index_cards_on_lesson_id"
   end
 
+  create_table "courses", force: :cascade do |t|
+    t.bigint "language_id", null: false
+    t.bigint "creator_id", null: false
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["creator_id"], name: "index_courses_on_creator_id"
+    t.index ["language_id"], name: "index_courses_on_language_id"
+  end
+
   create_table "deck_cards", force: :cascade do |t|
     t.bigint "deck_id", null: false
     t.bigint "card_id", null: false
@@ -123,10 +133,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_07_31_091121) do
 
   create_table "journeys", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "language_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["language_id"], name: "index_journeys_on_language_id"
+    t.bigint "course_id", null: false
+    t.index ["course_id"], name: "index_journeys_on_course_id"
     t.index ["user_id"], name: "index_journeys_on_user_id"
   end
 
@@ -140,11 +150,11 @@ ActiveRecord::Schema[7.2].define(version: 2024_07_31_091121) do
   create_table "lessons", force: :cascade do |t|
     t.string "title", default: "", null: false
     t.string "slug", default: "", null: false
-    t.bigint "language_id"
     t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["language_id"], name: "index_lessons_on_language_id"
+    t.bigint "course_id", null: false
+    t.index ["course_id"], name: "index_lessons_on_course_id"
   end
 
   create_table "phrases", force: :cascade do |t|
@@ -155,6 +165,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_07_31_091121) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["exercise_id"], name: "index_phrases_on_exercise_id"
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.string "resource_type"
+    t.bigint "resource_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
+    t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
   end
 
   create_table "steps", force: :cascade do |t|
@@ -176,11 +196,18 @@ ActiveRecord::Schema[7.2].define(version: 2024_07_31_091121) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.enum "role", enum_type: "user_role"
     t.bigint "default_language_id"
     t.index ["default_language_id"], name: "index_users_on_default_language_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "users_roles", id: false, force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "role_id"
+    t.index ["role_id"], name: "index_users_roles_on_role_id"
+    t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
+    t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
   create_table "words", force: :cascade do |t|
@@ -198,14 +225,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_07_31_091121) do
   add_foreign_key "card_proficiencies", "cards"
   add_foreign_key "card_proficiencies", "journeys"
   add_foreign_key "cards", "lessons"
+  add_foreign_key "courses", "languages"
+  add_foreign_key "courses", "users", column: "creator_id"
   add_foreign_key "deck_cards", "cards"
   add_foreign_key "deck_cards", "decks"
   add_foreign_key "decks", "journeys"
   add_foreign_key "decks", "steps"
   add_foreign_key "exercises", "lessons"
-  add_foreign_key "journeys", "languages"
+  add_foreign_key "journeys", "courses"
   add_foreign_key "journeys", "users"
-  add_foreign_key "lessons", "languages"
+  add_foreign_key "lessons", "courses"
   add_foreign_key "phrases", "exercises"
   add_foreign_key "steps", "journeys"
   add_foreign_key "steps", "lessons"

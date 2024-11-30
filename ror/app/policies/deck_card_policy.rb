@@ -20,7 +20,7 @@ class DeckCardPolicy < ApplicationPolicy
   end
 
   def update?
-    user&.deck_cards.exists?(record.id)
+    record.editable_by?(user)
   end
 
   def destroy?
@@ -29,7 +29,7 @@ class DeckCardPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      scope.joins(:deck, :journey).where(journey: { user_id: user&.id })
+      scope.joins(deck: :journey).merge(Journey.accessible_by(user))
     end
   end
 end

@@ -1,0 +1,14 @@
+learn_id_with_simba:
+  language: id
+  creator: simba
+  name: Learn Indonesian with Simba
+
+learn_id_with_bean:
+  language: id
+  creator: bean
+  name: Learn Indonesian with Bean
+
+learn_de_with_bean:
+  language: id
+  creator: bean
+  name: Learn Deutsche with Bean

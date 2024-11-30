@@ -1,0 +1,11 @@
+simba_id:
+  user: simba
+  course: learn_id_with_simba
+
+bean_id:
+  user: bean
+  course: learn_id_with_bean
+
+bean_de:
+  user: bean
+  course: learn_de_with_bean

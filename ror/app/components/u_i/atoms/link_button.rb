@@ -5,6 +5,7 @@ class UI::Atoms::LinkButton < ViewComponent::Base
   erb_template <<-ERB
     <%= link_to(
           @href,
+          id: @id,
           class: ["inline-block", @css_color_classes, @css_size_classes, @css_class].join(" "),
           data: @data
         ) do
@@ -16,8 +17,9 @@ class UI::Atoms::LinkButton < ViewComponent::Base
     <% end %>
   ERB
 
-  def initialize(href:, label: nil, size: :md, color: :red, data: nil, icon: nil, css_class: "")
+  def initialize(href:, label: nil, id: nil, size: :md, color: :red, data: nil, icon: nil, css_class: "")
     @label = label
+    @id = id
     @icon = icon
     @href = href
     @data = data

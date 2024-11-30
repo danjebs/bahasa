@@ -1,34 +1,32 @@
 class JourneysController < ApplicationController
-  before_action :set_journey, only: [:show]
-  before_action :set_breadcrumbs
+  def create
+    language = Language.find(journey_params[:language_id])
 
-  def index
-    authorize Journey
+    course = Course.create!(
+      language: language,
+      creator: current_user,
+      name: "#{current_user.name} learns #{language.name}"
+    )
 
-    @languages_to_learn = Language.where.not(id: current_user.languages.pluck(:id) << 1)
-  end
+    @journey = Journey.new(user: current_user, course: course)
 
-  def show
     authorize @journey
+
+    respond_to do |format|
+      if @journey.save
+        format.html { redirect_to @journey.course, notice: "Journey was successfully created." }
+        format.json { render json: @journey, status: :created, location: @journey }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @journey.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_journey
-      redirect_to :root if params[:lang].nil?
-
-      # TODO: don't call this on preload
-      language = Language.find_by(code: params[:lang])
-      @journey = current_user.journeys.find_or_create_by(language_id: language.id)
-    end
-
     # Only allow a list of trusted parameters through.
     def journey_params
-      params.require(:journey).permit(:id, :user_id, :language_id)
-    end
-
-    def set_breadcrumbs
-      language = Language.find_by(code: params[:lang])
-      add_breadcrumb(language.name, language.base_path) if language.present?
+      # params.require(:journey).permit(:id, :language_id)
+      params.permit(:language_id)
     end
 end

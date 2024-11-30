@@ -1,0 +1,7 @@
+div [
+  id=dom_id(@course)
+  class="flex justify-between items-center"
+]
+  = link_to @course, class: "flex-grow", data: { turbo_visit_control: "reload" } do
+    span class="text-base font-medium text-gray-700 dark:text-gray-200" style="view-transition-name: #{dom_id(@course, :heading)}"
+      = @course.name

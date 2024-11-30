@@ -1,16 +1,14 @@
 <div class="border border-solid border-gray-100 dark:border-gray-600 rounded-lg overflow-clip">
-  <% if @word_list.words.length > 0 %>
     <div class="flex w-full font-semibold bg-gray-50 dark:bg-gray-600">
       <div class="w-48 py-2 px-3">
         English
       </div>
       <div class="w-48 py-2 px-3">
-        Indonesian
+        <%= @word_list.language.name %>
       </div>
       <div class="">
       </div>
     </div>
-  <% end %>
 
   <turbo-frame
     id="<%= dom_id(@word_list) %>_list_frame"

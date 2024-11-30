@@ -1,0 +1,28 @@
+- content_for :title, "Lesson #{@lesson.position} - #{@lesson.title}"
+
+main id="<%= dom_id @lesson %>" class="container mx-auto"
+  turbo-frame id="<%= dom_id(@lesson) %>_frame" turbo-visit-control="reload"
+    = turbo_stream_from @lesson
+
+    div class="grid grid-cols-1 md:grid-cols-4 gap-8"
+      div class="col-span-1"
+        = render Lessons::LessonSidebar.new(@lesson)
+
+      div class="col-span-1 md:col-span-3 flex flex-col gap-20"
+        section id="#{dom_id(@lesson, :lesson_section)}"
+          = render Exercises::ExerciseDetails.with_collection(@lesson.exercises.ordered)
+          = render Lessons::AddExerciseButtons.new(lesson: @lesson)
+
+        section [
+          id="#{dom_id(@lesson, :practice_section)}"
+          class="flex flex-col gap-12 bg-white dark:bg-gray-700 rounded-lg shadow-md mb-6 p-4"
+        ]
+          = render Cards::Translations::TranslationCardNew.new(lesson_id: @lesson.id)
+
+          div class="bg-white dark:bg-gray-700 border border-solid border-gray-100 dark:border-gray-600 rounded-lg"
+            turbo-frame [
+              id="#{dom_id(@lesson, :cards_list_frame)}"
+              data-controller="reorderable"
+              data-reorderable-url="#{card_path(':id')}"
+            ]
+              = render Cards::CardListing.with_collection(@lesson.translation_cards.ordered)

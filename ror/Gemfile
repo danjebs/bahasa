@@ -10,6 +10,7 @@ gem "dotenv"
 
 # foundation functionality
 gem "devise", "~> 4.9.4"
+gem "rolify", "~> 6.0.1"
 gem "pundit", "~> 2.3.1"
 gem "aasm", "~> 5.3.0"
 gem "acts_as_list", "~> 1.1.0"
@@ -22,6 +23,8 @@ gem "stimulus-rails"
 gem "requestjs-rails"
 gem "tailwindcss-rails"
 gem "view_component"
+gem "slim"
+gem "slim-rails"
 
 # api stuff
 gem "jbuilder"
@@ -40,6 +43,7 @@ gem "sentry-rails"
 
 # random stuff
 gem "tzinfo-data", platforms: %i[ windows jruby ]
+gem "ostruct"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]

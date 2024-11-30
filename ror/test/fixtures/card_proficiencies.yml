@@ -1,9 +1,0 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  deck_card: one
-  rating: 1
-
-two:
-  deck_card: two
-  rating: 1

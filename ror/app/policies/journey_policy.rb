@@ -4,7 +4,7 @@ class JourneyPolicy < ApplicationPolicy
   end
 
   def show?
-    user&.journeys.exists?(record.id)
+    record.accessible_by?(user)
   end
 
   def new?
@@ -12,7 +12,7 @@ class JourneyPolicy < ApplicationPolicy
   end
 
   def create?
-    false
+    user.present?
   end
 
   def update?
@@ -25,7 +25,7 @@ class JourneyPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      scope.where(user_id: user&.id)
+      scope.accessible_by(user)
     end
   end
 end

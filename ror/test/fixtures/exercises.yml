@@ -1,13 +1,17 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  language: one
-  title: MyString
-  type: 
+blurb_lesson_greetings_id:
+  lesson: lesson_greetings_id
+  title: Blurb Title
+  type: Blurb
   position: 1
 
-two:
-  language: two
-  title: MyString
-  type: 
-  position: 1
+word_list_lesson_greetings_id:
+  lesson: lesson_greetings_id
+  title: Greetings
+  type: WordList
+  position: 2
+
+phrase_list_lesson_greetings_id:
+  lesson: lesson_greetings_id
+  title: Being Invited to a Home
+  type: PhraseList
+  position: 3

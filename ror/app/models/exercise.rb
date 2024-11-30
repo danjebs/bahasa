@@ -9,4 +9,6 @@ class Exercise < ApplicationRecord
   validates :type, presence: true
 
   scope :ordered, -> { order(lesson_id: :asc, position: :asc) }
+
+  delegate :language, to: :lesson
 end

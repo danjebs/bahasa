@@ -33,10 +33,14 @@
     @apply dark:bg-gray-500;
   }
 
-  textarea, input[type=text], select, trix-editor.trix-content {
+  textarea, input[type=text], input[type=email], input[type=password], select, trix-editor.trix-content {
     @apply block shadow rounded-md outline-none px-3 py-2 caret-primary-500 ring-primary-500;
     @apply border-gray-200;
     @apply dark:bg-gray-700 dark:border-gray-400 dark:text-gray-300;
+  }
+
+  input[type=checkbox] {
+    @apply rounded-sm bg-white dark:bg-gray-700 focus:ring-0 hover:bg-primary-700 checked:bg-primary-700 checked:focus:bg-primary-700;
   }
 }
 
