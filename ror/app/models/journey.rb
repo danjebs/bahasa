@@ -17,7 +17,7 @@ class Journey < ApplicationRecord
   scope :accessible_by, -> (user) {
     return none if user.nil?
 
-    joins(:roles).where(roles: { id: User.first.roles.select(:id) })
+    joins(:roles).where(roles: { id: user.roles.select(:id) })
   }
 
   def next_lesson
